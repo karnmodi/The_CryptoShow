@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/AboutUs.Css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>The CryptoShow</title>
+</head>
+<body>
+    <nav>
+        <div class="The-CryptoShow-LOGO">
+            <a href="Homepage.html">
+                <img src="/Website Images/Logo.png" alt="The-CryptoShow-LOGO">
+            </a>
+        </div>
+
+        <div class="Buttons">
+            <button class="Login" onclick="openPopup('login')">Login</button>
+            <button class="SignUp" role="button" onclick="openPopup('SignUp')">Sign Up</button>
+
+        </div>
+    </nav>
+
+    <!-- LOGIN/SignUp POPUP -->
+    <div id="popupContainer" class="popup">
+        <div class="popup-content">
+
+            <div id="LoginForm">
+
+                <div class="Tab_Header">
+                    <button class="tab" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
+                    <button class="tab active" id="LoginTab" onclick="openPopup('login')">Login</button>
+                </div>
+
+                <div class="input-container">
+                    <i class="fa-solid fa-user"></i>
+                    <input id="Username_Input" type="text" placeholder="Your Username or Email">
+                </div>
+                <div class="input-container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="Password_Input" placeholder="Your Password">
+                </div>
+
+                <div class="Re_Pass">
+                    <div class="RememberMe">
+                        <input type="checkbox" id="RememberMe" name="RememberMe">
+                        <label for="RememberMe">Remember Me</label>
+                    </div>
+                    <a href="" id="ForgotPassword">Forgot your Password?</a>
+                </div>
+
+                <button class="btn_Login">Log In</button>
+                <br>
+                <span id="Or">
+                    <hr style="width: 150px; display: inline-block;"> OR
+                    <hr style="width: 150px; display: inline-block;">
+                </span>
+
+                <div class="direct_Login">
+                    <a href="https://accounts.google.com/v3/signin/identifier?dsh=S839380943%3A1683496886456016&amp;authuser=0&amp;continue=https%3A%2F%2Fwww.google.com%2Fwebhp%3Fhl%3Den%26sa%3DX%26ved%3D0ahUKEwij_9zq1sj-AhXwVaQEHVe2CJ4QPAgI&amp;ec=GAlAmgQ&amp;hl=en&amp;flowName=GlifWebSignIn&amp;flowEntry=AddSession"
+                        target="_blank">
+                        <img src="/Website Images/Google logo PNG.png" alt="Google Authentication" id="Google-Logo">
+                    </a>
+
+                    <a href="https://github.com/login" target="_blank">
+                        <img src="/Website Images/Github Logo PNG.png" alt="Github Authentication" id="Github-Logo">
+                    </a>
+
+                    <a href="https://www.facebook.com/" target="_blank">
+                        <img src="/Website Images/Facebook Logo PNG.png" alt="Facebook Authentication"
+                            id="Facebook-Logo"></a>
+                </div>
+
+            </div>
+            <div id="SignUpForm">
+                <div class="Tab_Header">
+                    <button class="tab active" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
+                    <button class="tab" id="LoginTab" onclick="openPopup('login')">Login</button>
+                </div>
+
+                <div class="input-container">
+                    <i class="fa-solid fa-user"></i>
+                    <input id="Name_Input" type="text" placeholder="First & Last Name" required>
+                </div>
+                <div class="input-container">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input id="Email_Input" type="text" placeholder="Email" required>
+                    <span class="error-message" id="Email_Error" style="display:none; color: red;">Please enter a valid email address.</span>
+                </div>
+                <div class="input-container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="Password_Input" placeholder="Your Password" required>
+                    <span class="error-message" id="Password_Error" style="display:none; color: red;">Password must be at least 6 characters long.</span>
+                </div>
+
+                <div class="TCApply">
+                    <input type="checkbox" id="TCApply" name="TCApply">
+                    <label for="TCApply">
+                        I agree to CryptoShow's Terms of Service and Privacy Policy.</label>
+                </div>
+
+                <button class="btn_SignUp">Sign Up</button>
+
+            </div>
+        </div>
+    </div>
+   <div class="container">
+    <h2 > Wellcome to to the jungle</h2>
+   </div>
+   <div class="text">
+    <h1>Our Story</h1>
+    <p>Together we will make history</p>
+   </div>
+   <div class="text2">
+    <div class="Paragraph">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.<br> Repellat placeat fugit recusandae, obcaecati beatae vel<br> voluptate voluptates mollitia a impedit eos odit quo, <br>voluptatem ipsa! Magni adipisci esse possimus. Molestiae?</p>
+    </div>
+    
+   <div class="One">
+    <h2> Lorem, ipsum dolor sit amet </h2>
+    <p> Lorem ipsum </p>
+   </div>
+   <div class="Two">
+    <h2> Lorem, ipsum dolor sit amet </h2>
+    <p> Lorem ipsum </p>
+   </div>
+   <div class="Three">
+    <h2> Lorem, ipsum dolor sit amet </h2>
+    <p> Lorem ipsum </p>
+   </div>
+   </div>
+   <div class="text3">
+    <h1> Our Mission</h1>
+    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br> Corporis odio dolore vel cupiditate. Mollitia eveniet nisi<br> distinctio possimus sed eligendi, i</p>
+   </div>
+   <div class="Picture">
+   </div>
+   <div class="text4">
+    <h1>Our Vision</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus deserunt provident facere at voluptatum unde veritatis consequuntur iste molestiae deleniti, voluptate quidem nostrum aspernatur rerum facilis, libero voluptas molestias? Nam earum aperiam voluptate, magnam fuga nesciunt! Veritatis, aperiam sequi hic et perspiciatis minus ullam? Ex ad labore corrupti. Odit, magnam?<br> Qui commodi numquam assumenda illum ipsa fugiat vitae<br> natus voluptatem excepturi, ipsum deserunt facilis facere ex<br> aperiam atque ullam sed nesciunt.</p>
+   </div>
+   <div class="Picture2">
+</div>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-text">
+            <h2>© 2024 CryptoGraphi Show</h2>
+        </div>
+        <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-skype"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-flickr"></i></a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/JS/Homepage.js"></script>
+</body>
+
+</html>

@@ -209,7 +209,6 @@ nav a.Register {
 #Or {
     display: flex;
     justify-content: center;
-    /* This will center the OR text and lines */
     align-items: center;
     gap: 0;
 }

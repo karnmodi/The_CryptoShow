@@ -1,4 +1,4 @@
-body{
+body {
     background-color: #f3f7f5;
     margin: 0;
 }
@@ -34,7 +34,7 @@ nav button {
     cursor: pointer;
 }
 
-nav button a{
+nav button a {
     text-decoration: none;
     color: black;
 }
@@ -209,7 +209,6 @@ nav a.Register {
 #Or {
     display: flex;
     justify-content: center;
-    /* This will center the OR text and lines */
     align-items: center;
     gap: 0;
 }
@@ -268,132 +267,142 @@ nav a.Register {
     background-color: black;
     color: white;
 }
+
 .container {
-    background: url("https://images.hdqwalls.com/wallpapers/bthumb/black-ford-mustang-2019-5k-xu.jpg") no-repeat;
+    background-color: lightblue;
     background-size: cover;
     background-position: center;
     display: flex;
     justify-content: center;
-    height: 100vh;
+    height: 80vh;
     width: 180vh;
     margin: 60px auto;
     padding-top: 10px;
     border-radius: 40px;
-    animation: floatAnimation 5s ease-in-out infinite alternate; /* Add animation */
+    animation: floatAnimation 5s ease-in-out infinite alternate;
+    /* Add animation */
 }
 
- @keyframes floatAnimation {
+@keyframes floatAnimation {
     0% {
-        transform: translateY(0); 
+        transform: translateY(0);
     }
+
     100% {
-        transform: translateY(-10px); 
+        transform: translateY(-10px);
     }
 }
-.container h2{
+
+.container span {
     text-align: center;
 }
 
-.text h1{
-    
-    text-align: left;
-    margin-top: 50px;
-    margin-left: 12vw;
-}
-.text p{
-  
-    text-align: left;
-    margin-left: 12vw;
-    font-weight: bold;
-    font-size: larger;
-}
-
-       
-.text2 p {
-    text-align: right;
-    padding-right: 30%;
-    
-}
-.text2 .Paragraph p{
-    
-  text-align: left;
-  word-spacing: 5px;
-  margin-left: 12vw;
-  padding-top: 20px;
-  
-}
-.text2 .One{
-    text-align: center;
-    
-}
-.text2 .One h2{
-    display: flex;
-    justify-content: center;
-    color: rgb(0, 0, 0);
-    margin-top: -200px;
-    margin-left: 40%;
-    font-size: 3cap;
-}
-
-.text2 .One p{
-    font-size: 20px;
-
-}
-
-.text2 .Two{
-    text-align: center;
-}
-
-.text2 .Two h2{
-    margin-left: 40%;
-    font-size: 3cap;
-}
-
-.text2 .Two p{
-    font-size: 20px;
-}
-
-.text2 .Three{
-    text-align: center;
-}
-.text2 .Three h2{
-    margin-left: 40%;
-    font-size: 3cap;
-}
-.text2 .Three p{
-    font-size: 20px;
-}
-
-.text3 h1{
-    margin-left: 12vw;
-}
-
-.text3 p{
-    margin-left: 12vw;
-    text-align: left;
-}
-
-
-.picture{
-    background-color: lightgray;
-    height: 600px;
-    width: 500px;
-    margin-left: 60%;
-    margin-top: 0%;
-    border-radius: 15%;
-   
-}
-
-#Section4{
+#Section2 {
     display: flex;
     justify-content: space-between;
     align-content: flex-start;
     flex-direction: row;
-    padding: auto;
 }
 
-.text4{
-    margin : 7% 4%;
+.text2 {
+    margin: 0% 6% 2% 6%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-start;
+    width: calc(100% - 8%);
+}
+
+.text2 .LhsContent {
+    flex: 1 60%;
+    margin-right: 80px;
+}
+
+.text2 .RhsContent{
+    flex: 2 40%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    justify-items: left;
+}
+
+.text2 span .text2 p {
+    text-align: left;
+}
+
+.text2 .Title span{
+    font-size: 40px;
+    color: darkgreen;
+}
+
+.text2 .Paragraph p {
+
+    text-align: left;
+    word-spacing: 5px;
+    font-size: 24px;
+
+}
+
+.text2 .One .Two .Three {
+    text-align: left;
+
+}
+
+.text2 .One span, .Two span, .Three span{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.text2 .One p {
+    font-size: 18px;
+
+}
+
+.text2 .Two p {
+    font-size: 20px;
+}
+
+.text2 .Three p {
+    font-size: 20px;
+}
+
+.text3 {
+    margin: 2% 7% 2% 7%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    width: calc(100% - 8%);
+}
+
+.text3 p {
+    text-align: left;
+    font-size: 24px;
+}
+
+
+.picture {
+    background-color: lightgray;
+    height: 500px;
+    width: 100%;
+    margin: 7%;
+    align-items: center;
+    border-radius: 15px;
+    flex: 1 90%;
+
+}
+
+#Section3,
+#Section4 {
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+    flex-direction: row;
+
+}
+
+.text4 {
+    margin:2% 7% 4% 7%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -401,19 +410,22 @@ nav a.Register {
     width: calc(100% - 8%);
 
 }
-.text4 span{
+
+.text3 span,
+.text4 span {
     font-size: 5rem;
-    
+
 }
 
-.text4 p{
+.text4 p {
     text-align: left;
     font-size: 20px;
     margin-top: 20px;
+    font-size: 1.5rem;
 }
 
 
-.Picture2{
+.Picture2 {
     background-color: lightgray;
     height: 500px;
     width: 100%;
@@ -438,12 +450,14 @@ nav a.Register {
 .social-icons {
     display: flex;
     justify-content: flex-end;
-    margin-right: 2%; /* Use percentage for margin */
+    margin-right: 2%;
+    /* Use percentage for margin */
 }
 
 .social-icon {
     color: #fffefe;
-    font-size: 1.5rem; /* Adjust font size */
+    font-size: 1.5rem;
+    /* Adjust font size */
     margin-left: 20px;
     transition: transform 0.15s ease;
 }

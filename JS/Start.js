@@ -19,13 +19,18 @@ function openPopup(tab) {
     var popup = document.getElementById('popupContainer');
     var loginForm = document.getElementById('LoginForm');
     var registerForm = document.getElementById('SignUpForm');
+    var changeDetails = document.getElementById('ChangeDetails');
 
     if (tab === 'login') {
         loginForm.style.display = 'block';
         registerForm.style.display = 'none';
-    } else if (tab === 'SignUp') {
+    } 
+    else if (tab === 'SignUp') {
         loginForm.style.display = 'none';
         registerForm.style.display = 'block';
+    }
+    else if(tab === 'ChangeDetails'){
+        changeDetails.style.display='block';
     }
 
     popup.style.display = 'block';

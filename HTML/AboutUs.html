@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/CSS/AboutUs.Css" />
+    <link rel="stylesheet" href="/CSS/AboutUs.Css">
+    <link rel="stylesheet" href="/CSS/NavBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>The CryptoShow</title>
 </head>
@@ -12,7 +13,7 @@
 <body>
     <nav>
         <div class="The-CryptoShow-LOGO">
-            <a href="Homepage.html">
+            <a href="Start.html">
                 <img src="/Website Images/Logo.png" alt="The-CryptoShow-LOGO">
             </a>
         </div>
@@ -51,29 +52,10 @@
                     </div>
                     <a href="" id="ForgotPassword">Forgot your Password?</a>
                 </div>
-
                 <button class="btn_Login">Log In</button>
-                <br>
-                <span id="Or">
-                    <hr style="width: 150px; display: inline-block;"> OR
-                    <hr style="width: 150px; display: inline-block;">
-                </span>
+                <span>Don't have account?<button onclick="openPopup('SignUp')" style=" border:none; background-color: white; cursor: pointer;"> SignUp Now</button></span>
 
-                <div class="direct_Login">
-                    <a href="https://accounts.google.com/v3/signin/identifier?dsh=S839380943%3A1683496886456016&amp;authuser=0&amp;continue=https%3A%2F%2Fwww.google.com%2Fwebhp%3Fhl%3Den%26sa%3DX%26ved%3D0ahUKEwij_9zq1sj-AhXwVaQEHVe2CJ4QPAgI&amp;ec=GAlAmgQ&amp;hl=en&amp;flowName=GlifWebSignIn&amp;flowEntry=AddSession"
-                        target="_blank">
-                        <img src="/Website Images/Google logo PNG.png" alt="Google Authentication" id="Google-Logo">
-                    </a>
-
-                    <a href="https://github.com/login" target="_blank">
-                        <img src="/Website Images/Github Logo PNG.png" alt="Github Authentication" id="Github-Logo">
-                    </a>
-
-                    <a href="https://www.facebook.com/" target="_blank">
-                        <img src="/Website Images/Facebook Logo PNG.png" alt="Facebook Authentication"
-                            id="Facebook-Logo"></a>
-                </div>
-
+                
             </div>
             <div id="SignUpForm">
                 <div class="Tab_Header">
@@ -199,7 +181,7 @@
         </div>
     </footer>
 
-    <script src="/JS/Homepage.js"></script>
+    <script src="/JS/Start.js"></script>
 </body>
 
 </html>

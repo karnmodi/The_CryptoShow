@@ -1,0 +1,133 @@
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+.main-box{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+.main-box .top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.bottom{
+    width: 100%;
+    margin-top: 20px;
+}
+@media only screen and (max-width:840px){
+    .main-box .top{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .top .box{
+        margin: 10px 10px;
+    }
+    .bottom{
+        margin-top: 0;
+    }
+}
+
+.box{
+    background: #fdfdfd;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
+                0 32px 64px -48px rgba(0,0,0,0.5);
+}
+
+.message{
+    text-align: center;
+    background: #f9eded;
+    padding: 15px 0px;
+    border:1px solid #699053;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: red;
+}
+
+.popup {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#popupContainer {
+    display: none;
+}
+
+.popup-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(89, 88, 88, 1.2);
+}
+
+.Tab_Header{
+    margin: 10px 0 30px 0;
+    font-size: 200%;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-container i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+}
+
+.input-container input {
+    width: calc(100% - 40px);
+    height: 50px;
+    padding-left: 40px;
+    font-size: 21px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-container input:hover {
+    border-color: black;
+}
+
+.Update_Btn {
+    display: block;
+    border: none;
+    background-color:  rgb(37, 142, 248);
+    border-radius: 5px;
+    font-size: 25px;
+    padding: 18px 30px;
+    margin-top: 55px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-top: 30px;
+    width: 100%;
+    color: white;
+}
+
+.Update_Btn:hover {
+    background-color: black;
+    color: white;
+}

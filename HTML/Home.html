@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | The CryptoShow</title>
+    <link rel="stylesheet" href="/CSS/NavBar.css">
+    <link rel="stylesheet" href="/CSS/Home.css">
+</head>
+
+<body>
+    <nav>
+        <div class="The-CryptoShow-LOGO">
+            <a href="Start.html">
+                <img src="/Website Images/Logo.png" alt="The-CryptoShow-LOGO">
+            </a>
+        </div>
+
+        <div class="Buttons">
+            <button class="AboutUs"><a href="AboutUs.html">About Us</a></button>
+            <button class="Login" onclick="openPopup('ChangeDetails')">Change Details</button>
+            <button class="SignUp" role="button">Logout</button>
+
+        </div>
+    </nav>
+    <main>
+
+        <div class="main-box top">
+            <div class="top">
+                <div class="box">
+                    <p>Hello <b>
+                            <?php echo $res_Uname ?>
+                        </b>, Welcome</p>
+                </div>
+                <div class="box">
+                    <p>Your email is <b>
+                            <?php echo $res_Email ?>
+                        </b>.</p>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="box">
+                    <p>And you are <b>
+                            <?php echo $res_Age ?> years old
+                        </b>.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="popupContainer" class="popup">
+        <div class="popup-content">
+
+            <div id="ChangeDetails">
+                <div class="Tab_Header">
+                    <span>Change Personal Details</span>
+                </div>
+
+                <div class="input-container">
+                    <i class="fa-solid fa-user"></i>
+                    <input id="Name_Input" type="text" placeholder="First & Last Name" required>
+                </div>
+                <div class="input-container">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input id="Email_Input" type="text" placeholder="Email">
+                    <span class="error-message" id="Email_Error" style="display:none; color: red;" >Please enter a valid
+                        email address.</span>
+                </div>
+                <div class="input-container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="Password_Input" placeholder="Your Password" required>
+                    <span class="error-message" id="Password_Error" style="display:none; color: red;">Password must be
+                        at least 6 characters long.</span>
+                </div>
+                <div class="input-container">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="Re_password" id="Password_Input" placeholder="Re Enter your Password" required>
+                    <span class="error-message" id="Password_Error" style="display:none; color: red;">Password must be
+                        at least 6 characters long.</span>
+                </div>
+
+                <button class="Update_Btn">Update</button>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="/JS/Start.js"></script>
+
+</body>
+
+</html>

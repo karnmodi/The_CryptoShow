@@ -253,7 +253,7 @@ nav a.Register {
     padding: 20px;
 }
 
-.btn_SignUp {
+#btn_SignUp {
     display: block;
     border: none;
     background-color:  rgb(37, 142, 248);

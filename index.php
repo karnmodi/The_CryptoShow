@@ -5,24 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | The CryptoShow</title>
-    <link rel="stylesheet" href="/CSS/Start.css">
+    <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="Logo-Fevicon" type="image/png" href="/Website Images/Logo.png Images/Logo.png" />
+    <link rel="Logo-Fevicon" type="image/png" href="Website Images/Logo.png" />
 </head>
 
 <body>
     <nav>
         <div class="The-CryptoShow-LOGO">
-            <a href="Start.html">
-                <img src="/Website Images/Logo.png" alt="The-CryptoShow-LOGO">
+            <a href="index.php">
+                <img src="Website Images/Logo.png" alt="The-CryptoShow-LOGO">
             </a>
         </div>
 
         <div class="Buttons">
-            <button class="Home"><a href="Home.html">About Us</a></button>
-            <button class="AboutUs"><a href="AboutUs.html">About Us</a></button>
+            <button class="Home"><a href="Home.php">Home</a></button>
+            <button class="AboutUs"><a href="AboutUs.php">About Us</a></button>
             <button class="Login" onclick="openPopup('login')">Login</button>
             <button class="SignUp" role="button" onclick="openPopup('SignUp')">Sign Up</button>
 
@@ -63,26 +63,27 @@
 
             </div>
             <div id="SignUpForm">
+                <form action="PHP/config.php" method="post">
                 <div class="Tab_Header">
                     <button class="tab active" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
                     <button class="tab" id="LoginTab" onclick="openPopup('login')">Login</button>
                 </div>
 
-                <div class="input-container">
+                 <div class="input-container">
                     <i class="fa-solid fa-user"></i>
-                    <input id="Name_Input" type="text" placeholder="First & Last Name" required>
+                    <input id="Name" type="text" name="Name" placeholder="First & Last Name" required>
                 </div>
                 <div class="input-container">
                     <i class="fa-regular fa-envelope"></i>
-                    <input id="Email_Input" type="text" placeholder="Email" required>
+                    <input id="Email" type="text" name="Email" placeholder="Email" required>
                     <span class="error-message" id="Email_Error" style="display:none; color: red;">Please enter a valid
                         email address.</span>
                 </div>
                 <div class="input-container">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="Password_Input" placeholder="Your Password" required>
-                    <span class="error-message" id="Password_Error" style="display:none; color: red;">Password must be
-                        at least 6 characters long.</span>
+                    <input type="password"  id="Password_Input" name="Password" placeholder="Your Password" required>
+                    
+                        
                 </div>
 
                 <div class="TCApply">
@@ -91,14 +92,16 @@
                         I agree to CryptoShow's Terms of Service and Privacy Policy.</label>
                 </div>
 
-                <button class="btn_SignUp">Sign Up</button>
+                <input type="submit" class="btn" id="btn_SignUp" />
 
+
+                </form>
             </div>
         </div>
     </div>
 
 
-    <script src="/JS/Start.js"></script>
+    <script src="JS/index.js"></script>
 </body>
 
 </html>

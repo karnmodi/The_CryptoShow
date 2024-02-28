@@ -43,28 +43,24 @@ window.onclick = function(event) {
     }
 }
 
-// Function to validate the email address
 function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple regex for email validation
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
     return re.test(String(email).toLowerCase());
 }
 
-// Function to validate the password length
 function validatePassword(password) {
     const minLength = 6;
     return password.length >= minLength;
 }
 
-// Function to show error messages
 function showError(inputId, errorId, message) {
     const input = document.getElementById(inputId);
     const error = document.getElementById(errorId);
-    input.classList.add('error-input'); // Apply error styling to the input
-    error.textContent = message; // Set the error message
-    error.style.display = "block"; // Show the error message
+    input.classList.add('error-input');
+    error.textContent = message; 
+    error.style.display = "block"; 
 }
 
-// Function to clear error messages
 function clearError(inputId, errorId) {
     const input = document.getElementById(inputId);
     const error = document.getElementById(errorId);
@@ -72,14 +68,13 @@ function clearError(inputId, errorId) {
     error.style.display = "none"; 
 }
 
-document.querySelector('.btn_SignUp').addEventListener('click', function(event) {
+document.getElementById('#btn_SignUp').addEventListener('click', function(event) {
     event.preventDefault(); 
 
-    const email = document.getElementById('Email_Input').value;
+    const email = document.getElementById('Email').value;
     const password = document.getElementById('Password_Input').value;
     let isValid = true;
 
-    // Validate the email and password
     if (!validateEmail(email)) {
         showError('Email_Input', 'Email_Error', 'Please enter a valid email address.');
         isValid = false;
@@ -94,9 +89,7 @@ document.querySelector('.btn_SignUp').addEventListener('click', function(event) 
         clearError('Password_Input', 'Password_Error');
     }
 
-    // If both email and password are valid, submit the form or perform your logic
     if (isValid) {
-        // TODO: Submit the form or perform AJAX request here
         console.log('Form is valid, submit form or perform AJAX.');
     }
 });

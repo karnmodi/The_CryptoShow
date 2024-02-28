@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | The CryptoShow</title>
-    <link rel="stylesheet" href="/CSS/NavBar.css">
-    <link rel="stylesheet" href="/CSS/Home.css">
+    <link rel="stylesheet" href="CSS/NavBar.css">
+    <link rel="stylesheet" href="CSS/Home.css">
 </head>
 
 <body>
     <nav>
         <div class="The-CryptoShow-LOGO">
-            <a href="Start.html">
-                <img src="/Website Images/Logo.png" alt="The-CryptoShow-LOGO">
+            <a href="Start.php">
+                <img src="Website Images/Logo.png" alt="The-CryptoShow-LOGO">
             </a>
         </div>
 
         <div class="Buttons">
-            <button class="AboutUs"><a href="AboutUs.html">About Us</a></button>
+            <button class="AboutUs"><a href="AboutUs.php">About Us</a></button>
             <button class="Login" onclick="openPopup('ChangeDetails')">Change Details</button>
             <button class="SignUp" role="button">Logout</button>
 

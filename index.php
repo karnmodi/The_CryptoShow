@@ -34,65 +34,73 @@
         <div class="popup-content">
 
             <div id="LoginForm">
-
-                <div class="Tab_Header">
-                    <button class="tab" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
-                    <button class="tab active" id="LoginTab" onclick="openPopup('login')">Login</button>
-                </div>
-
-                <div class="input-container">
-                    <i class="fa-solid fa-user"></i>
-                    <input id="Username_Input" type="text" placeholder="Your Username or Email">
-                </div>
-                <div class="input-container">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="Password_Input" placeholder="Your Password">
-                </div>
-
-                <div class="Re_Pass">
-                    <div class="RememberMe">
-                        <input type="checkbox" id="RememberMe" name="RememberMe">
-                        <label for="RememberMe">Remember Me</label>
+                <form action="Configurations/Login.php" method="post">
+                    <div class="Tab_Header">
+                        <button class="tab" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
+                        <button class="tab active" id="LoginTab" onclick="openPopup('login')">Login</button>
                     </div>
-                    <a href="" id="ForgotPassword">Forgot your Password?</a>
-                </div>
 
-                <button class="btn_Login">Log In</button>
-                <span>Don't have account?<button onclick="openPopup('SignUp')"
-                        style=" border:none; background-color: white; cursor: pointer;"> SignUp Now</button></span>
-
-            </div>
-            <div id="SignUpForm">
-                <form action="PHP/config.php" method="post">
-                <div class="Tab_Header">
-                    <button class="tab active" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
-                    <button class="tab" id="LoginTab" onclick="openPopup('login')">Login</button>
-                </div>
-
-                 <div class="input-container">
-                    <i class="fa-solid fa-user"></i>
-                    <input id="Name" type="text" name="Name" placeholder="First & Last Name" required>
-                </div>
-                <div class="input-container">
-                    <i class="fa-regular fa-envelope"></i>
-                    <input id="Email" type="text" name="Email" placeholder="Email" required>
-                    <span class="error-message" id="Email_Error" style="display:none; color: red;">Please enter a valid
-                        email address.</span>
-                </div>
-                <div class="input-container">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password"  id="Password_Input" name="Password" placeholder="Your Password" required>
+                    <div class="input-container">
+                        <i class="fa-solid fa-user"></i>
+                        <input id="Username_Input" type="text" name="Email" placeholder="Your Username or Email" required>
+                    </div>
                     
-                        
-                </div>
+                    <div class="input-container">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="Login_Password_Input" name="Password"
+                            placeholder="Your Password" required>
+                    </div>
 
-                <div class="TCApply">
-                    <input type="checkbox" id="TCApply" name="TCApply">
-                    <label for="TCApply">
-                        I agree to CryptoShow's Terms of Service and Privacy Policy.</label>
-                </div>
+                    <div class="Re_Pass">
+                        <div class="RememberMe">
+                            <input type="checkbox" id="RememberMe" name="RememberMe">
+                            <label for="RememberMe">Remember Me</label>
+                        </div>
+                        <a href="" id="ForgotPassword">Forgot your Password?</a>
+                    </div>
 
-                <input type="submit" class="btn" id="btn_SignUp" />
+                    <input type="submit" class="btn" id="btn_Login" value="Login" />
+
+                    <span>Don't have account?<button onclick="openPopup('SignUp')"
+                            style=" border:none; background-color: white; cursor: pointer;"> SignUp Now</button></span>
+
+                </form>
+            </div>
+
+            <div id="SignUpForm">
+                <form action="Configurations/Register.php" method="post">
+                    <div class="Tab_Header">
+                        <button class="tab active" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
+                        <button class="tab" id="LoginTab" onclick="openPopup('login')">Login</button>
+                    </div>
+
+                    <div class="input-container">
+                        <i class="fa-solid fa-user"></i>
+                        <input id="Name" type="text" name="Name" placeholder="First & Last Name" required>
+                    </div>
+                    <div class="input-container">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input id="Email_Input" type="text" name="Email" placeholder="Email" required>
+                        <span class="error-message" id="Email_Error" style="display:none; color: red;">Please enter a
+                            valid
+                            email address.</span>
+                    </div>
+                    <div class="input-container">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="SignUp_Password_Input" name="Password" placeholder="Your Password"
+                            required>
+                        <span class="error-message" id="Password_Error" style="display:none; color: red;">Please enter a
+                            valid password.</span>
+
+                    </div>
+
+                    <div class="TCApply">
+                        <input type="checkbox" id="TCApply" name="TCApply" required>
+                        <label for="TCApply">
+                            I agree to CryptoShow's Terms of Service and Privacy Policy.</label>
+                    </div>
+
+                    <input type="submit" class="btn" id="btn_SignUp" value="Register" />
 
 
                 </form>
@@ -102,6 +110,7 @@
 
 
     <script src="JS/index.js"></script>
+    <script src="JS/Login_SignUp.js"></script>
 </body>
 
 </html>

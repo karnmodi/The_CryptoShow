@@ -189,7 +189,7 @@ nav a.Register {
     text-decoration: none;
 }
 
-.btn_Login {
+#btn_Login {
     display: block;
     border: none;
     background-color: rgb(37, 142, 248);
@@ -275,4 +275,27 @@ nav a.Register {
 .btn_SignUp:hover {
     background-color: black;
     color: white;
+}
+
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+#error-message {
+    display: none;
+    color: red;
+    font-size: 0.8em;
+}
+
+.error-input {
+    border: 1px solid red;
 }

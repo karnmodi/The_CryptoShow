@@ -1,15 +1,16 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 
-    var loginButton = document.querySelector('.Login');
-    if (loginButton) {
-        loginButton.addEventListener('click', function() {
+    var LoginTab = document.querySelector('.Login');
+    if (LoginTab) {
+        LoginTab.addEventListener('click', function() {
             openPopup('login');
         });
     }
 
-    var registerButton = document.querySelector('.SignUp');
-    if (registerButton) {
-        registerButton.addEventListener('click', function() {
+    var SignUpTab = document.querySelector('.SignUp');
+    if (SignUpTab) {
+        SignUpTab.addEventListener('click', function() {
+            clearFormInputs();
             openPopup('SignUp');
         });
     }
@@ -22,10 +23,12 @@ function openPopup(tab) {
     var changeDetails = document.getElementById('ChangeDetails');
 
     if (tab === 'login') {
+        clearFormInputs();
         loginForm.style.display = 'block';
         registerForm.style.display = 'none';
     } 
     else if (tab === 'SignUp') {
+        clearFormInputs();
         loginForm.style.display = 'none';
         registerForm.style.display = 'block';
     }
@@ -36,60 +39,17 @@ function openPopup(tab) {
     popup.style.display = 'block';
 }
 
+function clearFormInputs() {
+    document.getElementById('Username_Input').value = '';
+    document.getElementById('Login_Password_Input').value = '';
+    document.getElementById('Name').value = '';
+    document.getElementById('Email_Input').value = '';
+    document.getElementById('SignUp_Password_Input').value = '';
+}
+
 window.onclick = function(event) {
     var popup = document.getElementById('popupContainer');
     if (event.target == popup) {
         popup.style.display = "none";
     }
 }
-
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-    return re.test(String(email).toLowerCase());
-}
-
-function validatePassword(password) {
-    const minLength = 6;
-    return password.length >= minLength;
-}
-
-function showError(inputId, errorId, message) {
-    const input = document.getElementById(inputId);
-    const error = document.getElementById(errorId);
-    input.classList.add('error-input');
-    error.textContent = message; 
-    error.style.display = "block"; 
-}
-
-function clearError(inputId, errorId) {
-    const input = document.getElementById(inputId);
-    const error = document.getElementById(errorId);
-    input.classList.remove('error-input'); 
-    error.style.display = "none"; 
-}
-
-document.getElementById('#btn_SignUp').addEventListener('click', function(event) {
-    event.preventDefault(); 
-
-    const email = document.getElementById('Email').value;
-    const password = document.getElementById('Password_Input').value;
-    let isValid = true;
-
-    if (!validateEmail(email)) {
-        showError('Email_Input', 'Email_Error', 'Please enter a valid email address.');
-        isValid = false;
-    } else {
-        clearError('Email_Input', 'Email_Error');
-    }
-
-    if (!validatePassword(password)) {
-        showError('Password_Input', 'Password_Error', 'Password must be at least 6 characters long.');
-        isValid = false;
-    } else {
-        clearError('Password_Input', 'Password_Error');
-    }
-
-    if (isValid) {
-        console.log('Form is valid, submit form or perform AJAX.');
-    }
-});

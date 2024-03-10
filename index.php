@@ -29,7 +29,6 @@
         </div>
     </nav>
 
-    <!-- LOGIN/SignUp POPUP -->
     <div id="popupContainer" class="popup">
         <div class="popup-content">
 
@@ -59,7 +58,7 @@
                         <a href="" id="ForgotPassword">Forgot your Password?</a>
                     </div>
 
-                    <input type="submit" class="btn" id="btn_Login" value="Login" />
+                    <input type="submit" class="btn" id="btn_Login" value="Login"  class="BTN_Login"/>
 
                     <span>Don't have account?<button onclick="openPopup('SignUp')"
                             style=" border:none; background-color: white; cursor: pointer;"> SignUp Now</button></span>

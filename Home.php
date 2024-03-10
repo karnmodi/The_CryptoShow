@@ -1,93 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | The CryptoShow</title>
-    <link rel="stylesheet" href="CSS/NavBar.css">
+    <title>Admin | The CryptoShow</title>
     <link rel="stylesheet" href="CSS/Home.css">
-</head>
-
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
 <body>
-    <nav>
-        <div class="The-CryptoShow-LOGO">
-            <a href="Start.php">
-                <img src="Website Images/Logo.png" alt="The-CryptoShow-LOGO">
-            </a>
-        </div>
-
-        <div class="Buttons">
-            <button class="AboutUs"><a href="AboutUs.php">About Us</a></button>
-            <button class="Login" onclick="openPopup('ChangeDetails')">Change Details</button>
-            <button class="SignUp" role="button">Logout</button>
-
-        </div>
-    </nav>
-    <main>
-
-        <div class="main-box top">
-            <div class="top">
-                <div class="box">
-                    <p>Hello <b>
-                            <?php echo $res_Uname ?>
-                        </b>, Welcome</p>
-                </div>
-                <div class="box">
-                    <p>Your email is <b>
-                            <?php echo $res_Email ?>
-                        </b>.</p>
-                </div>
-            </div>
-            <div class="bottom">
-                <div class="box">
-                    <p>And you are <b>
-                            <?php echo $res_Age ?> years old
-                        </b>.</p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <div id="popupContainer" class="popup">
-        <div class="popup-content">
-
-            <div id="ChangeDetails">
-                <div class="Tab_Header">
-                    <span>Change Personal Details</span>
-                </div>
-
-                <div class="input-container">
-                    <i class="fa-solid fa-user"></i>
-                    <input id="Name_Input" type="text" placeholder="First & Last Name" required>
-                </div>
-                <div class="input-container">
-                    <i class="fa-regular fa-envelope"></i>
-                    <input id="Email_Input" type="text" placeholder="Email">
-                    <span class="error-message" id="Email_Error" style="display:none; color: red;" >Please enter a valid
-                        email address.</span>
-                </div>
-                <div class="input-container">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="Password_Input" placeholder="Your Password" required>
-                    <span class="error-message" id="Password_Error" style="display:none; color: red;">Password must be
-                        at least 6 characters long.</span>
-                </div>
-                <div class="input-container">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="Re_password" id="Password_Input" placeholder="Re Enter your Password" required>
-                    <span class="error-message" id="Password_Error" style="display:none; color: red;">Password must be
-                        at least 6 characters long.</span>
-                </div>
-
-                <button class="Update_Btn">Update</button>
-
-            </div>
-        </div>
+  <div class="sidebar">
+    <div class="logo-details">
+      <img src="Website Images/logo.png" alt="" srcset="" class="icon">
+        <div class="logo_name">CryptoShow</div>
+        <i class='bx bx-menu' id="btn" ></i>
     </div>
+    <ul class="nav-list">
+      <li>
+        <i class='bx bx-search' ></i>
+         <input type="text" placeholder="Search...">
+         <span class="SB_Btns">Search</span>
+      </li>
 
-    <script src="/JS/Start.js"></script>
+      <li>
+        <a href="#Dashboard" onclick="showSection('Dashboard-section', this); toggleActive(this); " >
+          <i class='bx bx-grid-alt'></i>
+          <span class="Btns_Name">Dashboard</span>
+        </a>
+         <span class="SB_Btns">Dashboard</span>
+      </li>
 
+     <li>
+       <a href="#Schedules" onclick="showSection('Schedules-section', this); toggleActive(this);">
+         <i class='bx bx-chat' ></i>
+         <span class="Btns_Name">Schedules</span>
+       </a>
+       <span class="SB_Btns">Schedules</span>
+     </li>
+
+     <li>
+       <a href="#Events" onclick="showSection('Events-section', this); toggleActive(this);">
+         <i class='bx bx-pie-chart-alt-2' ></i>
+         <span class="Btns_Name">Events</span>
+       </a>
+       <span class="SB_Btns">Events</span>
+     </li>
+
+     <li>
+       <a href="#Reviews"onclick="showSection('Review-section' , this); toggleActive(this);">
+         <i class='bx bx-folder'></i>
+         <span class="Btns_Name">Review</span>
+       </a>
+       <span class="SB_Btns">Review</span>
+     </li>
+
+     <li>
+       <a href="#Members" onclick="showSection('Members-section' , this); toggleActive(this);">
+         <i class='bx bx-user' ></i>
+         <span class="Btns_Name">Members</span>
+       </a>
+       <span class="SB_Btns">Members</span>
+     </li>
+
+     <!-- <li>
+       <a href="#">
+         <i class='bx bx-cart-alt' ></i>
+         <span class="Btns_Name">Order</span>
+       </a>
+       <span class="SB_Btns">Order</span>
+     </li>
+     <li>
+       <a href="#">
+         <i class='bx bx-heart' ></i>
+         <span class="Btns_Name">Saved</span>
+       </a>
+       <span class="SB_Btns">Saved</span>
+     </li> -->
+
+     <li>
+       <a href="#" onclick="showSection('Settings-section' , this); toggleActive(this);">
+         <i class='bx bx-cog' ></i>
+         <span class="Btns_Name">Setting</span>
+       </a>
+       <span class="SB_Btns">Setting</span>
+     </li>
+     <li class="profile">
+         <div class="profile-details">
+           <img src="Website Images/Github Logo PNG.png" alt="profileImg">
+           <div class="name_job">
+             <div class="name">Karan Falgun Modi</div>
+             <div class="position">Student</div>
+           </div>
+         </div>
+         <i class='bx bx-log-out' id="log_out"></i>
+     </li>  
+    </ul>
+    <div id="activeIndicator" class="active-indicator"></div>
+  </div>
+  <section class="Dashboard-section sections">
+      <div class="text">Dashboard</div>
+  </section>
+
+  <section class="Schedules-section sections">
+      <div class="text">Scehdules</div>
+  </section>
+  
+  <section class="Events-section sections">
+      <div class="text">Events</div>
+  </section>
+  
+  <section class="Review-section sections">
+      <div class="text">Review</div>
+  </section>
+  
+  <section class="Members-section sections">
+      <div class="text">Members</div>
+  </section>
+  
+  <section class="Settings-section sections">
+      <div class="text">Settings</div>
+  </section>
+
+  <script src="JS/Slidebar.js"></script>
+  <script src="JS/Home.js"></script>
+    
 </body>
-
 </html>

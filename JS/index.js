@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
             openPopup('SignUp');
         });
     }
+
+    var LoginBtn = document.querySelector('.BTN_Login')
+    if (LoginBtn) {
+        LoginBtn.addEventListener('click', function () { 
+            clearFormInputs();
+        })
+    };
+
 });
 
 function openPopup(tab) {

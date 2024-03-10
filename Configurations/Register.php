@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $con = new mysqli('localhost', 'root', '', 'the_Cryptoshow');
         if ($con) {
-            //echo "Connection successful";
+
             $sql = "INSERT INTO users (Name, Email, Password) VALUES ('$Name', '$Email', '$Password')";
 
             $result = mysqli_query($con, $sql);

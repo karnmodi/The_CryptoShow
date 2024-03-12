@@ -13,7 +13,7 @@ document.getElementById('btn_Login').addEventListener('click', function(event) {
             const response = JSON.parse(xhr.responseText);
             if (response.success) {
                 alert(response.message);
-                window.open("View/Home.php", "_self");
+                window.open("View/Home.php#Dashboard", "_self");
             } else {
                 alert(response.message);
             }

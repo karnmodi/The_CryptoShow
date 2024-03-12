@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/AboutUs.Css">
+    <link rel="stylesheet" href="CSS/AboutUs.css">
     <link rel="stylesheet" href="CSS/NavBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>The CryptoShow</title>
@@ -99,7 +99,7 @@
         </div>
     </div>
 
-    <Section id="Section2">
+    <Section id="Section2" class="section" >
 
         <div class="text2">
             <div class="LhsContent">
@@ -136,7 +136,7 @@
             </div>
     </Section>
 
-    <Section id="Section3">
+    <Section id="Section3" class="section" >
         <div class="text3">
             <span>Our Mission</span>
             <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima enim officia dolorum consectetur eveniet
@@ -150,12 +150,12 @@
         </div>
     </Section>
 
-    <Section id="Section4">
+    <Section id="Section4" class="section" >
 
         <div class="Picture2">
         </div>
 
-        <div class="text4">
+        <div class="text4" >
             <span>Our Vision</span>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus deserunt provident facere at
                 voluptatum unde veritatis consequuntur iste molestiae deleniti, voluptate quidem nostrum aspernatur

@@ -99,7 +99,7 @@
         </div>
     </div>
 
-    <Section id="Section2">
+    <Section id="Section2" class="section" >
 
         <div class="text2">
             <div class="LhsContent">
@@ -136,7 +136,7 @@
             </div>
     </Section>
 
-    <Section id="Section3">
+    <Section id="Section3" class="section" >
         <div class="text3">
             <span>Our Mission</span>
             <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima enim officia dolorum consectetur eveniet
@@ -150,12 +150,12 @@
         </div>
     </Section>
 
-    <Section id="Section4">
+    <Section id="Section4" class="section" >
 
         <div class="Picture2">
         </div>
 
-        <div class="text4">
+        <div class="text4" >
             <span>Our Vision</span>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus deserunt provident facere at
                 voluptatum unde veritatis consequuntur iste molestiae deleniti, voluptate quidem nostrum aspernatur

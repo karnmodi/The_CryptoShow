@@ -464,3 +464,17 @@ body {
     background-size: cover;
     opacity: 0.5;
   }
+
+.fadeIn {
+    opacity: 0;
+    animation: fadeInAnimation 1s forwards;
+}
+
+@keyframes fadeInAnimation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

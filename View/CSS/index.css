@@ -204,48 +204,11 @@ nav a.Register {
     color: white;
 }
 
-.btn_Login:hover {
+#btn_Login:hover {
     background-color: black;
     color: white;
 }
 
-#Or {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-}
-
-.direct_Login {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-}
-
-.direct_Login img#Google-Logo {
-    border: 1px solid red;
-    border-radius: 6px;
-}
-
-.direct_Login img#Github-Logo {
-    border: 1px solid black;
-    border-radius: 6px;
-    width: 53px;
-}
-
-.direct_Login img#Facebook-Logo {
-    border: 1px solid blue;
-    padding: 3px;
-    width: 46px;
-    border-radius: 6px;
-}
-
-.direct_Login img {
-    width: 50px;
-    margin: 0 20px;
-    cursor: pointer;
-}
 
 #SignUpForm {
     display: flex;
@@ -253,7 +216,7 @@ nav a.Register {
     padding: 20px;
 }
 
-#btn_SignUp {
+#btn_Register {
     display: block;
     border: none;
     background-color:  rgb(37, 142, 248);
@@ -272,7 +235,7 @@ nav a.Register {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.btn_SignUp:hover {
+#btn_Register:hover {
     background-color: black;
     color: white;
 }

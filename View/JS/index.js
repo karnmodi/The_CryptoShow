@@ -21,6 +21,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             clearFormInputs();
         })
     };
+    
+    var SignUpBtn = document.querySelector('.BTN_SignUp')
+    if (SignUpBtn) {
+        SignUpBtn.addEventListener('click', function () { 
+            clearFormInputs();
+        })
+    };
 
 });
 

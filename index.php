@@ -5,24 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | The CryptoShow</title>
-    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="View/CSS/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="Logo-Fevicon" type="image/png" href="Website Images/Logo.png" />
+    <link rel="Logo-Fevicon" type="image/png" href="Assets/Website Images/Logo.png"/>
 </head>
 
 <body>
+
     <nav>
         <div class="The-CryptoShow-LOGO">
             <a href="index.php">
-                <img src="Website Images/Logo.png" alt="The-CryptoShow-LOGO">
+                <img src="Assets/Website Images/Logo.png" alt="The-CryptoShow-LOGO">
             </a>
         </div>
 
         <div class="Buttons">
-            <button class="Home"><a href="Home.php">Home</a></button>
-            <button class="AboutUs"><a href="AboutUs.php">About Us</a></button>
+            <button class="Home"><a href="View/Home.php">Home</a></button>
+            <button class="AboutUs"><a href="View/AboutUs.php">About Us</a></button>
             <button class="Login" onclick="openPopup('login')">Login</button>
             <button class="SignUp" role="button" onclick="openPopup('SignUp')">Sign Up</button>
 
@@ -33,7 +34,7 @@
         <div class="popup-content">
 
             <div id="LoginForm">
-                <form action="Configurations/Login.php" method="post">
+                <form action="Model/Configurations/Login.php" method="post">
                     <div class="Tab_Header">
                         <button class="tab" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
                         <button class="tab active" id="LoginTab" onclick="openPopup('login')">Login</button>
@@ -67,7 +68,7 @@
             </div>
 
             <div id="SignUpForm">
-                <form action="Configurations/Register.php" method="post">
+                <form action="Model/Configurations/Register.php" method="post">
                     <div class="Tab_Header">
                         <button class="tab active" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
                         <button class="tab" id="LoginTab" onclick="openPopup('login')">Login</button>
@@ -94,12 +95,12 @@
                     </div>
 
                     <div class="TCApply">
-                        <input type="checkbox" id="TCApply" name="TCApply" required>
+                        <input type="checkbox" id="TCApply" name="TCApply" >
                         <label for="TCApply">
                             I agree to CryptoShow's Terms of Service and Privacy Policy.</label>
                     </div>
 
-                    <input type="submit" class="btn" id="btn_SignUp" value="Register" />
+                    <input type="submit" class="btn" id="btn_Register" value="Register" class="BTN_SignUp"/>
 
 
                 </form>
@@ -108,8 +109,10 @@
     </div>
 
 
-    <script src="JS/index.js"></script>
-    <script src="JS/Login_SignUp.js"></script>
+    <script src="View/JS/index.js"></script>
+    <script src="View/JS/SignUp.js"></script>
+    <script src="View/JS/Login.js"></script>
+     
 </body>
 
 </html>

@@ -13,8 +13,8 @@
 <body>
     <nav>
         <div class="The-CryptoShow-LOGO">
-            <a href="index.php">
-                <img src="Website Images/Logo.png" alt="The-CryptoShow-LOGO">
+            <a href="../index.php">
+                <img src="../Assets/Website Images/Logo.png" alt="The-CryptoShow-LOGO">
             </a>
         </div>
 
@@ -93,7 +93,7 @@
     </div>
 
     <div class="container">
-        <Span> We're changing the <br> whole game.</Span>
+        <span class="fade-in">We're changing the whole game.</span>
         <div class="links">
             <button class="Get_Started" role="button">Get Started</button>
         </div>
@@ -182,6 +182,7 @@
     </footer>
 
     <script src="/JS/Start.js"></script>
+    <script src="/JS/AboutUs.js"></script>
 </body>
 
 </html>

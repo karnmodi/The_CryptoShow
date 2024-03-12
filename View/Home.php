@@ -10,7 +10,7 @@
 <body>
   <div class="sidebar">
     <div class="logo-details">
-      <img src="Website Images/logo.png" alt="" srcset="" class="icon">
+      <img src="../Assets/Website Images/logo.png" alt="Logo" srcset="" class="icon">
         <div class="logo_name">CryptoShow</div>
         <i class='bx bx-menu' id="btn" ></i>
     </div>
@@ -44,37 +44,22 @@
        </a>
        <span class="SB_Btns">Events</span>
      </li>
-
-     <li>
-       <a href="#Reviews"onclick="showSection('Review-section' , this); toggleActive(this);">
-         <i class='bx bx-folder'></i>
-         <span class="Btns_Name">Review</span>
-       </a>
-       <span class="SB_Btns">Review</span>
-     </li>
-
+     
      <li>
        <a href="#Members" onclick="showSection('Members-section' , this); toggleActive(this);">
-         <i class='bx bx-user' ></i>
-         <span class="Btns_Name">Members</span>
-       </a>
-       <span class="SB_Btns">Members</span>
-     </li>
-
-     <!-- <li>
-       <a href="#">
-         <i class='bx bx-cart-alt' ></i>
-         <span class="Btns_Name">Order</span>
-       </a>
-       <span class="SB_Btns">Order</span>
-     </li>
-     <li>
-       <a href="#">
-         <i class='bx bx-heart' ></i>
-         <span class="Btns_Name">Saved</span>
-       </a>
-       <span class="SB_Btns">Saved</span>
-     </li> -->
+        <i class='bx bx-user' ></i>
+        <span class="Btns_Name">Members</span>
+      </a>
+      <span class="SB_Btns">Members</span>
+    </li>
+    
+    <li>
+      <a href="#Reviews"onclick="showSection('Review-section' , this); toggleActive(this);">
+        <i class='bx bx-folder'></i>
+        <span class="Btns_Name">Review</span>
+      </a>
+      <span class="SB_Btns">Review</span>
+    </li>
 
      <li>
        <a href="#" onclick="showSection('Settings-section' , this); toggleActive(this);">
@@ -83,21 +68,23 @@
        </a>
        <span class="SB_Btns">Setting</span>
      </li>
+
      <li class="profile">
          <div class="profile-details">
-           <img src="Website Images/Github Logo PNG.png" alt="profileImg">
+           <img src="../Assets/Website Images/Github Logo PNG.png" alt="profileImg">
            <div class="name_job">
              <div class="name">Karan Falgun Modi</div>
              <div class="position">Student</div>
            </div>
          </div>
-         <i class='bx bx-log-out' id="log_out"></i>
+         <a href="../index.php"><i class='bx bx-log-out' id="log_out"></i></a>
      </li>  
     </ul>
     <div id="activeIndicator" class="active-indicator"></div>
   </div>
   <section class="Dashboard-section sections">
       <div class="text">Dashboard</div>
+      
   </section>
 
   <section class="Schedules-section sections">
@@ -108,12 +95,12 @@
       <div class="text">Events</div>
   </section>
   
-  <section class="Review-section sections">
-      <div class="text">Review</div>
-  </section>
-  
   <section class="Members-section sections">
       <div class="text">Members</div>
+  </section>
+
+  <section class="Review-section sections">
+      <div class="text">Review</div>
   </section>
   
   <section class="Settings-section sections">

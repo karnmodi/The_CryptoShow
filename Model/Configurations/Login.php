@@ -6,10 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $Email = $_POST['Email'];
         $Password = $_POST['Password'];
 
-        $con = new mysqli("localhost", "root", "", "The_Cryptoshow");
+        require_once('db.php');
 
         if ($con) {
-            $sql = "SELECT * FROM users WHERE Email = '$Email' AND Password = '$Password'";
+            $sql = "SELECT * FROM member WHERE Email = '$Email' AND Password = '$Password'";
             $result = mysqli_query($con, $sql);
 
             if (mysqli_num_rows($result) > 0) {

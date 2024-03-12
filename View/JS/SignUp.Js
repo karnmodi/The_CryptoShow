@@ -66,29 +66,34 @@ document.getElementById('SignUp_Password_Input').addEventListener('keyup', funct
     toggleSubmitButton();
 });
 
-document.getElementById('btn_Login').addEventListener('click', function(event) {
-    event.preventDefault(); 
+document.getElementById('btn_Register').addEventListener('click', function(event) {
+    event.preventDefault();
 
-    const email = document.getElementById('Username_Input').value;
-    const password = document.getElementById('Login_Password_Input').value;
+    // Get form input values
+    const name = document.getElementById('Name').value;
+    const email = document.getElementById('Email_Input').value;
+    const password = document.getElementById('SignUp_Password_Input').value;
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'Configurations/Login.php', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    const formData = new FormData();
+    formData.append('Name', name);
+    formData.append('Email', email);
+    formData.append('Password', password);
 
-    xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            const response = JSON.parse(xhr.responseText);
-            if (response.success) {
-                alert(response.message);
-                window.open("Home.php", "_self");
-            } else {
-                alert(response.message);
-            }
+    fetch('Model/Configurations/Register.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        if (data.success) {
+            alert(data.message); 
+            window.open("View/Home.php", "_self");
         } else {
-            alert('Request failed. Please try again later.');
+            alert(data.message); 
         }
-    };
-
-    xhr.send('Email=' + email + '&Password=' + password);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again later.'); 
+    });
 });

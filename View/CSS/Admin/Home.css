@@ -229,17 +229,19 @@
   position: relative;
   background: #f3f7f5;
   min-height: 100vh;
+  min-width: 320px;
   top: 0;
   left: 78px;
   width: calc(100% - 78px);
   transition: all 0.5s ease;
   z-index: 2;
 }
+
 .sidebar.open ~ .sections{
   left: 250px;
   width: calc(100% - 250px);
 }
-.sections .text{
+.sections .Header_text{
   display: inline-block;
   color: #11101d;
   font-size: 25px;

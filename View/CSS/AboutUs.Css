@@ -455,7 +455,7 @@ body {
     z-index: 1;
   }
   
-  .background-design {
+.background-design {
     position: absolute;
     top: 0;
     left: 0;

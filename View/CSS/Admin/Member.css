@@ -1,0 +1,70 @@
+.Members-section .Body_content {
+
+    margin: 0px 40px 40px 40px;
+    border-radius: 50%;
+
+}
+
+.Members-section .Body_content .Members_Data {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+
+
+}
+
+.Members_Data thead tr {
+    background-color: #a5a5a8;
+    color: #ffffff;
+    text-align: left;
+
+}
+
+.Members_Data th,
+.Members_Data td {
+    padding: 12px 15px;
+}
+
+.Members_Data tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.Members_Data tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.Members_Data tbody tr:last-of-type {
+    border-bottom: 2px solid #11101d;
+}
+
+.Members_Data tbody tr.active-row {
+    font-weight: bold;
+    color: #11101d;
+}
+
+
+#searchstring{
+    width: 35%;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    font-size: 15px;
+    float: right;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}

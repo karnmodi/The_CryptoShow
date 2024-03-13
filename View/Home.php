@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_name'])) {
-  // Redirect to the login page if the user is not logged in
+
   header('Location: ../index.php');
   exit;
 }
@@ -94,7 +94,9 @@ $result = mysqli_query($con, $query);
         <div class="profile-details">
           <img src="../Assets/Website Images/Github Logo PNG.png" alt="profileImg">
           <div class="name_job">
-            <div class="name"><?php echo $userName; ?></div>
+            <div class="name">
+              <?php echo $userName; ?>
+            </div>
             <div class="position">Student</div>
           </div>
         </div>
@@ -135,13 +137,11 @@ $result = mysqli_query($con, $query);
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <?php
-
-            while ($row = mysqli_fetch_assoc($result)) {
-
-              ?>
-
+          <?php
+          // Assuming $result contains the query result
+          while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+            <tr class="member-row" data-memberid="<?php echo $row['MemberID']; ?>">
               <td>
                 <?php echo $row['MemberID'] ?>
               </td>
@@ -157,20 +157,27 @@ $result = mysqli_query($con, $query);
               <td>
                 <?php echo $row['UserType'] ?>
               </td>
-
             </tr>
-
             <?php
-            }
-            ?>
-          <tr class="active-row">
-            <td>Melissa</td>
-            <td>5150</td>
-          </tr>
+          }
+          ?>
+        </tbody>
+
+        <tr class="active-row">
+          <td>Melissa</td>
+          <td>5150</td>
+        </tr>
         </tbody>
       </table>
 
     </div>
+
+    <div id="popup" class="popup">
+      <h2>Selected Member Details</h2>
+      <p id="selected-member-details"></p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+
   </section>
 
   <section class="Review-section sections">
@@ -183,6 +190,8 @@ $result = mysqli_query($con, $query);
 
   <script src="JS/Slidebar.js"></script>
   <script src="JS/Home.js"></script>
+  <script src="../Controller/Admin/Member/SearchMember.js"></script>
+  <script src="../Controller/Admin/Member/SelectRow.js"></script>
 
 </body>
 

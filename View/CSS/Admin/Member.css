@@ -18,7 +18,7 @@
 }
 
 .Members_Data thead tr {
-    background-color: #a5a5a8;
+    background-color: #000000;
     color: #ffffff;
     text-align: left;
 
@@ -41,17 +41,139 @@
     border-bottom: 2px solid #11101d;
 }
 
-.Members_Data tbody tr.active-row {
-    font-weight: bold;
-    color: #11101d;
+.Members_Data tbody tr:hover{
+    background-color: #d5d5d5;
 }
 
 
-#searchstring{
+#searchstring {
     width: 35%;
     padding: 15px;
     margin-bottom: 25px;
     border-radius: 10px;
     font-size: 15px;
     float: right;
+}
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3rem 3rem 3rem 3rem;
+    background: white;
+    width: 30%;
+    padding-top: 2rem;
+    border-radius: 20px;
+    border: 0;
+    box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease both;
+
+}
+
+dialog::backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    z-index: 1;
+}
+
+.x {
+    filter: grayscale(1);
+    border: none;
+    background: none;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    transition: ease filter, transform 0.3s;
+    cursor: pointer;
+    transform-origin: center;
+}
+
+.x:hover {
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-row{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1 1 45%;
+    /* Adjust this value for different column widths */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    padding: 5px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: left;
+}
+.form-group select {
+    padding: 5px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: left;
+    width: 100%;
+}
+
+.form-group #selected-member-Id {
+    max-width: 100px;
+    cursor: not-allowed;
+    text-align: left;
+}
+.form-group #selected-member-Email {
+    width: 300px;
+    cursor: not-allowed;
+    text-align: left;
+}
+.form-group #selected-member-Password {
+    max-width: 100px;
+    cursor: not-allowed;
+    text-align: left;
+}
+
+.submit {
+    height: 100%;
+    text-align: center;
+}
+
+.submit input{
+    font-size: 20px;
+    background-color: rgb(0, 128, 255);
+    border: none;
+    padding: 25% 100%;
+    cursor: pointer;
+    color: white;
+    width:max-content;
+    margin-top: 5%;
+    margin-left: 10%;
+
 }

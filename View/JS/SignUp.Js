@@ -26,7 +26,7 @@ function clearError(inputId, errorId) {
 function toggleSubmitButton() {
     const emailError = document.getElementById('Email_Error').style.display;
     const passwordError = document.getElementById('Password_Error').style.display;
-    const submitButton = document.getElementById('btn_SignUp');
+    const submitButton = document.getElementById('btn_Register');
     
     if (emailError === 'block' || passwordError === 'block') {
         submitButton.disabled = true;
@@ -68,11 +68,25 @@ document.getElementById('SignUp_Password_Input').addEventListener('keyup', funct
 
 document.getElementById('btn_Register').addEventListener('click', function(event) {
     event.preventDefault();
-
+    
     // Get form input values
     const name = document.getElementById('Name').value;
     const email = document.getElementById('Email_Input').value;
     const password = document.getElementById('SignUp_Password_Input').value;
+
+    if (name.trim() === '') {
+        alert('Please enter First & Last Name.');
+        return;
+    } 
+    else if (email.trim() === '') {
+        alert('Please enter Email.');
+        return;  
+    }
+    else if (password.trim() === '') {
+        alert('Please enter Password.');
+        return;  
+    }
+
 
     const formData = new FormData();
     formData.append('Name', name);
@@ -86,8 +100,8 @@ document.getElementById('btn_Register').addEventListener('click', function(event
     .then(response => response.json()) 
     .then(data => {
         if (data.success) {
+            window.open("View/Home.php#Dashboard", "_self");
             alert(data.message); 
-            window.open("View/Home.php", "_self");
         } else {
             alert(data.message); 
         }

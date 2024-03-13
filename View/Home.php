@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_name'])) {
-  // Redirect to the login page if the user is not logged in
+
   header('Location: ../index.php');
   exit;
 }
@@ -94,7 +94,9 @@ $result = mysqli_query($con, $query);
         <div class="profile-details">
           <img src="../Assets/Website Images/Github Logo PNG.png" alt="profileImg">
           <div class="name_job">
-            <div class="name"><?php echo $userName; ?></div>
+            <div class="name">
+              <?php echo $userName; ?>
+            </div>
             <div class="position">Student</div>
           </div>
         </div>
@@ -135,13 +137,11 @@ $result = mysqli_query($con, $query);
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <?php
-
-            while ($row = mysqli_fetch_assoc($result)) {
-
-              ?>
-
+          <?php
+          while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+            <tr class="Member-Rows" data-member-id="<?php echo $row['MemberID']; ?>"
+              onclick="openMemberPopup(<?php echo $row['MemberID']; ?>)">
               <td>
                 <?php echo $row['MemberID'] ?>
               </td>
@@ -157,20 +157,61 @@ $result = mysqli_query($con, $query);
               <td>
                 <?php echo $row['UserType'] ?>
               </td>
-
             </tr>
-
             <?php
-            }
-            ?>
-          <tr class="active-row">
-            <td>Melissa</td>
-            <td>5150</td>
-          </tr>
+          }
+          ?>
         </tbody>
+
       </table>
 
     </div>
+
+    <dialog id="Member-Popup">
+      <h2>Selected Member Details</h2>
+      <form class="form-container" >
+      <!-- action="../Model/Admin/UpdateMember.php" method="post" -->
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="selected-member-Id">Member ID:</label>
+            <input type="text" id="selected-member-Id" name="memberid" readonly>
+          </div>
+          <div class="form-group">
+            <label for="selected-member-Name">Name:</label>
+            <input type="text" id="selected-member-Name" name="name">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="selected-member-Email" name="email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="text" id="selected-member-Password" name="password">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="usertype">User Type:</label>
+            <select id="selected-member-UserType" name="usertype">
+              <option value="member">Member</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="submit">
+            <input type="submit" value="Submit" id="btnsubmit">
+          </div>
+
+        </div>
+      </form>
+      <!-- Close button -->
+      <button onclick="closeMemberPopup();" aria-label="close" class="x">❌</button>
+    </dialog>
+
+
   </section>
 
   <section class="Review-section sections">
@@ -183,6 +224,19 @@ $result = mysqli_query($con, $query);
 
   <script src="JS/Slidebar.js"></script>
   <script src="JS/Home.js"></script>
+  <script src="../Controller/Admin/Member/SearchMember.js"></script>
+  <script src="../Controller/Admin/Member/SelectRow.js"></script>
+
+  <script>
+    function openMemberPopup(memberID) {
+      var dialog = document.getElementById('Member-Popup');
+      dialog.showModal();
+    }
+    function closeMemberPopup() {
+      var dialog = document.getElementById('Member-Popup');
+      dialog.close();
+    }
+  </script>
 
 </body>
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Admin | The CryptoShow</title>
     <link rel="stylesheet" href="CSS/Home.css">
+    <link rel="stylesheet" href="CSS/Event.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
@@ -89,10 +90,53 @@
 
   <section class="Schedules-section sections">
       <div class="text">Scehdules</div>
+     
   </section>
   
   <section class="Events-section sections">
       <div class="text">Events</div>
+  
+  <div class="container">
+    <div class="card">
+      <div class="content">
+        <div class="EventDetails">
+        <h2>The Crypto Show</h2>
+        <p> Date: 11/04/2024 <br> Venue: Leicester</p>
+        </div>
+      </div>
+      <div class="Heading">
+        <h2>Event </h2>
+        <h3> 1 <h3>
+      </div>
+    </div>
+​
+    <div class="card">
+      <div class="content">
+        <div class="EventDetails2">
+        <h2>The Crypto Show</h2>
+        <p>Date: 12/04/2024 <br> Venue: Leicester</p>
+         </div>
+      </div>
+      <div class="Heading">
+        <h2>Event </h2>
+        <h3> 2 <h3>
+      </div>
+    </div>
+​
+    <div class="card">
+      <div class="content">
+        <div class="EventDetails3">
+        <h2>The Crypto Show</h2>
+        <p>Date: 13/04/2024 <br> Venue: Leicester</p>
+         </div>
+      </div>
+      <div class="Heading">
+        <h2>Event</h2>
+        <h3> 3 <h3>
+      </div>
+    </div>
+  </div>
+​
   </section>
   
   <section class="Members-section sections">

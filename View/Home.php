@@ -24,7 +24,8 @@ $result = mysqli_query($con, $query);
   <title>Admin | The CryptoShow</title>
   <link rel="stylesheet" href="CSS/Admin/Home.css">
   <link rel="stylesheet" href="CSS/Admin/Member.css">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="CSS/Admin/Event.css">
+   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -115,7 +116,46 @@ $result = mysqli_query($con, $query);
   </section>
 
   <section class="Events-section sections">
-    <div class="Header_text">Events</div>
+      <div class="text">Events</div>
+  
+  <div class="container">
+    <div class="card">
+      <div class="content">
+        <div class="EventDetails">
+        <h2>The Crypto Show</h2>
+        <p> Date: 11/04/2024 <br> Venue: Leicester</p>
+        </div>
+      </div>
+      <div class="Heading">
+        <h2>Event </h2>
+        <h3> 1 <h3>
+      </div>
+    </div>
+    <div class="card">
+      <div class="content">
+        <div class="EventDetails2">
+        <h2>The Crypto Show</h2>
+        <p>Date: 12/04/2024 <br> Venue: Leicester</p>
+         </div>
+      </div>
+      <div class="Heading">
+        <h2>Event </h2>
+        <h3> 2 <h3>
+      </div>
+    </div>
+    <div class="card">
+      <div class="content">
+        <div class="EventDetails3">
+        <h2>The Crypto Show</h2>
+        <p>Date: 13/04/2024 <br> Venue: Leicester</p>
+         </div>
+      </div>
+      <div class="Heading">
+        <h2>Event</h2>
+        <h3> 3 <h3>
+      </div>
+    </div>
+  </div>
   </section>
 
   <section class="Members-section sections">

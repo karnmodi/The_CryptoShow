@@ -13,10 +13,11 @@ const memberRows = document.querySelectorAll('.Member-Rows');
       document.getElementById('selected-member-Email').value = `${memberEmail}`;
       document.getElementById('selected-member-Password').value = `${memberPassword}`;
       const userTypeSelect = document.getElementById('selected-member-UserType');
-    if (memberUserType.startsWith('M') || memberUserType.startsWith('m')) {
-      userTypeSelect.value = 'member';
-    } else if(memberUserType.startsWith('A') || memberUserType.startsWith('a')){
-      userTypeSelect.value = 'admin';
+    if (memberUserType.startsWith('M')) {
+      userTypeSelect.value = 'Member';
+    } 
+    else if(memberUserType.startsWith('A')){
+      userTypeSelect.value = 'Admin';
     }
     });
   });

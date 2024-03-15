@@ -209,8 +209,8 @@ $result = mysqli_query($con, $query);
 
     <dialog id="Member-Popup">
       <h2>Selected Member Details</h2>
-      <form class="form-container" >
-      <!-- action="../Model/Admin/UpdateMember.php" method="post" -->
+      <form class="form-container" action="../Model/Admin/UpdateMember.php" method="post" >
+      
 
         <div class="form-row">
           <div class="form-group">
@@ -226,7 +226,7 @@ $result = mysqli_query($con, $query);
         <div class="form-row">
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="selected-member-Email" name="email">
+            <input type="email" id="selected-member-Email" name="email" readonly>
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
@@ -242,7 +242,7 @@ $result = mysqli_query($con, $query);
             </select>
           </div>
           <div class="submit">
-            <input type="submit" value="Submit" id="btnsubmit">
+            <input type="submit" value="Update" id="btnUpdate">
           </div>
 
         </div>

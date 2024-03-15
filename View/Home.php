@@ -12,7 +12,7 @@ require_once ("../Model/Configurations/db.php");
 $FetchAllMembers = "SELECT * from member";
 $resultofFM = mysqli_query($con, $FetchAllMembers);
 
-$FetchAllEvents = "SELECT e.EventID, e.EventDate, e.EventTime, e.EventLocation, m.Name, d.DeviceName, d.Description
+$FetchAllEvents = "SELECT e.EventID, e.EventName, e.EventDate, e.EventTime, e.EventLocation, m.Name, d.DeviceName, d.Description
 FROM Events e
 JOIN Member m ON e.OrganizerID = m.MemberID
 JOIN Devices d ON e.DeviceID = d.DeviceID;";
@@ -118,7 +118,37 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   </section>
 
   <section class="Events-section sections">
-    <div class="Header_text">Events</div>
+  <div class="searchbar">
+  <input type="text" id="CardSearch" name="search" placeholder="Search" oninput="filterEvents()">
+</div>
+ <button onclick="AddEventPopup()"; class="add-event-btn">Add Event</button>
+ <dialog id="EventPopup">
+  <h2>Add New Event</h2>
+  <form class="form-container" action="../Controller/Admin/Events/AddEvent.php" method="post">
+    <div class="event-name">
+      <label for="event-name">Event Name:</label>
+      <input type="text" id="event-name" name="event_name" required>
+    </div>
+    <div class="event-location">
+      <label for="event-location"> Location:</label>
+      <input type="text" id="event-location" name="event_location" required>
+    </div>
+    <div class="event-date">
+      <label for="event-date">Date:</label>
+      <input type="date" id="event-date" name="event_date" required>
+    </div>
+    <div class="event-organizer">
+      <label for="event-organizer">Organizer:</label>
+      <input type="text" id="event-organizer" name="event_organizer" required>
+    </div>
+    <div class="submit">
+      <input type="submit" value="Add Event" id="btnAddEvent">
+    </div>
+</form>  
+<button onclick="closeEventPopup();" aria-label="close" class="x">❌</button> 
+</dialog>
+       <div class="Header_text">Events</div>
+       
 
     <?php
         $count = 0;
@@ -129,6 +159,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
         ?>
             <div class="Event-Cards" data-event-id="<?php echo $row['EventID']; ?>">
                 <div class="content">
+                
                     <div class="EventDetails">
                         <h2><?php echo $row['EventID'] ?></h2>
                         <span><b>Date:</b> <?php echo $row['EventDate'] ?> <br></span>
@@ -290,6 +321,8 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   <script src="../Controller/Admin/Member/SearchMember.js"></script>
   <script src="../Controller/Admin/Member/SelectRow.js"></script>
   <script src="../Controller/Admin/Events/RandomClrs.js"></script>
+  <script src="../Controller/Admin/Events/Searchbar.js"></script>
+  <script src="../Controller/Admin/Events/AddEvent.js"></script>
 
   <script>
     function openMemberPopup(memberID) {

@@ -2,6 +2,7 @@
 
 .Events-section {
   background-color: #FBEAEB;
+
 }
 
 .Events-section .Body_content {
@@ -9,6 +10,33 @@
   margin: 0px 40px 40px 40px;
   border-radius: 50%;
 
+}
+
+
+#CardSearch{
+  margin-top: 20px;
+    float: right;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+ .add-event-btn{
+  float: right;
+  margin-right: 40px;
+  margin-top: 25px;
+  color: #000000;
+  border-radius: 20px;
+  background-color: white;
+}
+
+#btnAddEvent{
+  color: #f6f0f0;
+ align-items: center;
+  padding: 10px;
+}
+.add-event-btn:hover{
+  color: rgb(250, 255, 255);
+  background-color: black;
 }
 
 .container {

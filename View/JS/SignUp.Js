@@ -30,6 +30,7 @@ function toggleSubmitButton() {
     
     if (emailError === 'block' || passwordError === 'block') {
         submitButton.disabled = true;
+        submitButton.style.cursor = 'notallowed';
     } else {
         submitButton.disabled = false;
     }

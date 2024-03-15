@@ -63,6 +63,7 @@ dialog {
     padding: 3rem 3rem 3rem 3rem;
     background: white;
     width: 30%;
+    /* min-width: fit-content; */
     padding-top: 2rem;
     border-radius: 20px;
     border: 0;

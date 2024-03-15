@@ -181,8 +181,7 @@ $result = mysqli_query($con, $query);
           while ($row = mysqli_fetch_assoc($result)) {
             ?>
             <tr class="Member-Rows" data-member-id="<?php echo $row['MemberID']; ?>"
-              onclick="openMemberPopup(<?php echo $row['MemberID']; ?>)"
-              data-password="<?php echo htmlspecialchars($row['Password']); ?>">
+              onclick="openMemberPopup(<?php echo $row['MemberID']; ?>)">
               <td>
                 <?php echo $row['MemberID'] ?>
               </td>
@@ -193,7 +192,7 @@ $result = mysqli_query($con, $query);
                 <?php echo $row['Email'] ?>
               </td>
               <td>
-                <?php echo htmlspecialchars($row['Password']); ?>
+                <?php echo $row['Password'] ?>
               </td>
               <td>
                 <?php echo $row['UserType'] ?>
@@ -210,7 +209,8 @@ $result = mysqli_query($con, $query);
 
     <dialog id="Member-Popup">
       <h2>Selected Member Details</h2>
-      <form class="form-container" action="../Controller/Admin/Member/UpdateMember.php" method="post">
+      <form class="form-container" action="../Model/Admin/UpdateMember.php" method="post" >
+      
 
         <div class="form-row">
           <div class="form-group">
@@ -242,13 +242,13 @@ $result = mysqli_query($con, $query);
             </select>
           </div>
           <div class="submit">
-            <input type="submit" value="SAVE" id="btnUpdate">
+            <input type="submit" value="Update" id="btnUpdate">
           </div>
 
         </div>
       </form>
       <!-- Close button -->
-      <button onclick="closeMemberPopup();" aria-label="close" class="x">❌ </button>
+      <button onclick="closeMemberPopup();" aria-label="close" class="x">❌</button>
     </dialog>
 
 

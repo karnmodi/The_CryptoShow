@@ -49,6 +49,7 @@ INSERT INTO `devices` (`DeviceID`, `DeviceName`, `Description`, `Status`) VALUES
 
 CREATE TABLE `events` (
   `EventID` int(11) NOT NULL,
+  'EventName' varchar(20) DEFAULT NULL,
   `OrganizerID` int(11) DEFAULT NULL,
   `DeviceID` int(11) DEFAULT NULL,
   `EventDate` date DEFAULT NULL,
@@ -61,7 +62,7 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`EventID`, `OrganizerID`, `DeviceID`, `EventDate`, `EventTime`, `EventDescription`, `EventLocation`) VALUES
+INSERT INTO `events` (`EventID`, `EventName`, `OrganizerID`, `DeviceID`, `EventDate`, `EventTime`, `EventDescription`, `EventLocation`) VALUES
 (2, 1, 1, '2024-03-17', '20:00:00', 'Evening Gala', 'Hotel Ballroom'),
 (3, 1, 1, '2024-03-15', '18:00:00', 'Annual General Meeting', 'Conference Room A'),
 (4, 2, 1, '2024-03-16', '09:00:00', 'Tech Product Launch', 'Main Auditorium'),

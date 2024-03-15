@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+
+.Events-section {
+  background-color: #FBEAEB;
+}
+
+.Events-section .Body_content {
+
+  margin: 0px 40px 40px 40px;
+  border-radius: 50%;
+
+}
+
+.container {
+  max-width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 4fr));
+  grid-gap: 35px;
+  padding-top: 5%;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.Event-Cards{
+  position: relative;
+  width: 300px;
+  height: 400px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+}
+
+.content {
+  box-sizing: border-box;
+  padding: 40px;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+}
+
+
+.content .EventDetails {
+  background-color: #000000;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.content .EventDetails span {
+  margin-top: 20px;
+}
+
+.Heading {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+  align-items: center;
+  transition: 0.5s;
+}
+
+.Heading h2 {
+  padding: 0;
+  font-size: 6em;
+  color: #fff;
+  transition: 0.5s;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.Heading h3 {
+  font-size: 4em;
+  color: #fff;
+  transition: 0.5s;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+
+}
+
+
+.Event-Cards:hover .Heading {
+  height: 60px;
+}
+
+.Event-Cards:hover .Heading h2 {
+  font-size: 2em;
+}

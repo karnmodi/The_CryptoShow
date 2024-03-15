@@ -1,6 +1,6 @@
 <?php
 
-require_once("../Configurations/db.php");
+require_once("../../../Model/Configurations/db.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if all form fields are set

@@ -1,0 +1,63 @@
+.Settings-section {
+    background-color: #eafbed;   
+}
+
+.Settings-section .Body_content {
+
+    margin: 0px 40px 40px 40px;
+    border-radius: 50%;
+  
+  }
+
+.Header_text {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
+.setting-option {
+    margin-bottom: 10px;
+    
+}
+
+label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+}
+
+.setting-option #logout {
+    padding: 8px 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 1.5%;
+    width: fit-content;
+    height: 15mm;
+    font-size: 18px;
+}
+
+.setting-option #logout:hover{
+    background-color: #0056b3;
+    /* color: black; */
+    
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

@@ -253,8 +253,3 @@
     display: none;
   }
 }
-.active-indicator {
-    background-color: white;
-    border-radius: 50%;
-    position: absolute;
-    transition: left 0.3s ease;}

@@ -33,6 +33,9 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   <link rel="stylesheet" href="CSS/Admin/Events.css">
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -57,7 +60,15 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
         </a>
         <span class="SB_Btns">Dashboard</span>
       </li>
-
+      
+      <li>
+        <a href="#Events" onclick="showSection('Events-section', this);">
+          <i class='bx bx-pie-chart-alt-2'></i>
+          <span class="Btns_Name">Events</span>
+        </a>
+        <span class="SB_Btns">Events</span>
+      </li>
+      
       <li>
         <a href="#Devices" onclick="showSection('Devices-section', this);">
           <i class='bx bx-chat'></i>
@@ -66,13 +77,6 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
         <span class="SB_Btns">Devices</span>
       </li>
 
-      <li>
-        <a href="#Events" onclick="showSection('Events-section', this);">
-          <i class='bx bx-pie-chart-alt-2'></i>
-          <span class="Btns_Name">Events</span>
-        </a>
-        <span class="SB_Btns">Events</span>
-      </li>
 
       <li>
         <a href="#Members" onclick="showSection('Members-section' , this);">
@@ -120,40 +124,56 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   <section class="Events-section sections">
     <div class="Header_text">Events</div>
 
-    <?php
-        $count = 0;
-        while ($row = mysqli_fetch_assoc($resultofFE)) {
-            if ($count % 4 == 0) {
-                echo '<div class="container">';
-            }
-        ?>
-            <div class="Event-Cards" data-event-id="<?php echo $row['EventID']; ?>">
-                <div class="content">
-                    <div class="EventDetails">
-                        <h2><?php echo $row['EventID'] ?></h2>
-                        <span><b>Date:</b> <?php echo $row['EventDate'] ?> <br></span>
-                        <span><b>Time:</b> <?php echo $row['EventTime'] ?> <br></span>
-                        <span><b>Location:</b> <?php echo $row['EventLocation'] ?> <br></span>
-                        <span><b>Organizer: </b><?php echo $row['Name']; ?></span>
-                    </div>
-                </div>
-                <div class="Heading">
-                    <h2>Event </h2>
-                    <h3><?php echo $row['EventID'] ?></h3>
-                </div>
-            </div>
-        <?php
-            $count++;
-          
-            if ($count % 4 == 0) {
-                echo '</div>';
-            }
-        }
-        if ($count % 4 != 0) {
-            echo '</div>';
-        }
-        ?>
+    <div class="Body-Content">
 
+      <div class="LHS-content">
+
+        <div class="search">
+          <input type="text" id="searchstringForEvents" name="search" placeholder="Search.." oninput="filterEvents()">
+        </div>  
+
+        <div class="tile-container">
+          <?php
+          while ($row = mysqli_fetch_assoc($resultofFE)) {
+            ?>
+            <div class="tile" data-event-id="<?php echo $row['EventID']; ?>">
+              <div class="tile-header">
+                <img src="../Assets/Website Images/Github Logo PNG.png" alt="Event Name" class="tile-image">
+              </div>
+
+              <div class="tile-body">
+                <strong>Event :
+                  <?php echo $row['EventID'] ?>
+                </strong>
+                <span class="Event-Desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam,
+                  praesentium.</span>
+                <div class="tile-footer">
+                  <span class="Location"><i class="fa-solid fa-location-dot"></i> &nbsp <?php echo $row['EventLocation']; ?> </span>
+                  <span class="Organizer"><b><i class="fa-regular fa-id-card"></i> &nbsp </b>
+                    <?php echo $row['Name']; ?>
+                  </span>
+                </div>
+                <div class="tile-footer">
+                  <span><b>Time:</b>
+                    <?php echo $row['EventTime'] ?> <br>
+                  </span>
+                  <span><b>Date:</b>
+                    <?php echo $row['EventDate'] ?> <br>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          <?php } ?>
+
+        </div>
+
+      </div>
+
+      <div class="RHS-Content">Form of New Event</div>
+
+    </div>
 
   </section>
 
@@ -289,17 +309,10 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   <script src="JS/Home.js"></script>
   <script src="../Controller/Admin/Member/SearchMember.js"></script>
   <script src="../Controller/Admin/Member/SelectRow.js"></script>
-  <script src="../Controller/Admin/Events/RandomClrs.js"></script>
+  <script src="../Controller/Admin/Member/Member_PopUp.js"></script>
+  <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
 
   <script>
-    function openMemberPopup(memberID) {
-      var dialog = document.getElementById('Member-Popup');
-      dialog.showModal();
-    }
-    function closeMemberPopup() {
-      var dialog = document.getElementById('Member-Popup');
-      dialog.close();
-    }
   </script>
 
 </body>

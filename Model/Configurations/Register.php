@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $response['message'] = "Email already exists. Please enter another one or try to login.";
             } else {
                 $sql = "INSERT INTO member (Name, Email, Password, UserType) VALUES ('$Name', '$Email', '$Password', CASE
-                WHEN LOWER(RIGHT(Email, LENGTH(Email) - INSTR(Email, '@'))) = 'cryptoshow.com' THEN 'Admin'
-                ELSE 'Member'
+                WHEN LOWER(RIGHT(Email, LENGTH(Email) - INSTR(Email, '@'))) = 'cryptoshow.com' THEN 'admin'
+                ELSE 'member'
                 END)";
                 $result = mysqli_query($con, $sql);
                 if ($result) {

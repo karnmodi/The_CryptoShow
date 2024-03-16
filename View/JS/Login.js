@@ -12,9 +12,18 @@ document.getElementById('btn_Login').addEventListener('click', function(event) {
         if (xhr.status >= 200 && xhr.status < 300) {
             const response = JSON.parse(xhr.responseText);
             if (response.success) {
-                alert(response.message);
-                window.open("View/Home.php#Dashboard", "_self");
-            } else {
+                if (response.user_type === "admin") {
+                    alert('Login Successful' + response.user_type + "!!")
+                    window.open("View/Home.php", "_self");
+                } 
+                else if (response.user_type === "member"){
+                    alert('Login Successful ' + response.user_type + "!!")
+                    window.open("View/User.php", "_self");
+                }
+                else{
+                    alert('User type Failed')
+                }
+            }else {
                 alert(response.message);
             }
         } else {

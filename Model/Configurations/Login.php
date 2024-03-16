@@ -3,29 +3,35 @@ session_start();
 $response = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if(isset($_POST['Email']) && isset($_POST['Password'])) {
+    if (isset($_POST['Email']) && isset($_POST['Password'])) {
         $Email = $_POST['Email'];
         $Password = $_POST['Password'];
 
         require_once('db.php');
 
-        function loginUser($con, $Email, $Password) {
+        function loginUser($con, $Email, $Password)
+        {
             $sql = "SELECT * FROM member WHERE Email = '$Email' AND Password = '$Password'";
             $result = mysqli_query($con, $sql);
 
             if (mysqli_num_rows($result) > 0) {
-                // Fetch Member ID from the database
                 $row = mysqli_fetch_assoc($result);
                 $MemberID = $row['MemberID'];
                 $Name = $row['Name'];
+                $UserType = $row['UserType'];
+
                 $_SESSION['user_name'] = $Name;
-                return $MemberID;
+                $_SESSION['user_type'] = $UserType;
+                $_SESSION['member_id'] = $MemberID; 
+
+                return $UserType;
             } else {
                 return false;
             }
         }
 
-        function insertLoginHistory($con, $MemberID) {
+        function insertLoginHistory($con, $MemberID)
+        {
             // Insert login history
             $currentDateTime = date('Y-m-d H:i:s');
             $insertQuery = "INSERT INTO loginhistory (MemberID, LoginDT) VALUES ('$MemberID', '$currentDateTime')";
@@ -39,11 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if ($con) {
-            $MemberID = loginUser($con, $Email, $Password);
-            if ($MemberID) {
-                if (insertLoginHistory($con, $MemberID)) {
+            $UserType = loginUser($con, $Email, $Password);
+            if ($UserType) {
+                if (insertLoginHistory($con, $_SESSION['member_id'])) {
                     $response['success'] = true;
-                    $response['message'] = "Login Successful";
+                    $response['message'] = "Login Successful $UserType!!" ;
+                    $response['user_type'] = $UserType; // Include UserType in response
                 } else {
                     $response['success'] = false;
                     $response['message'] = "Failed to insert login history";
@@ -67,3 +74,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 echo json_encode($response);
 ?>
+

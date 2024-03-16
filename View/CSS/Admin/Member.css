@@ -110,6 +110,10 @@ h2 {
     padding-bottom: 1rem;
 }
 
+#Member-Popup{
+    width: 37%;
+}
+
 .form-container {
     display: flex;
     flex-wrap: wrap;
@@ -124,7 +128,6 @@ h2 {
 
 .form-group {
     flex: 1 1 45%;
-    /* Adjust this value for different column widths */
     display: flex;
     flex-direction: column;
 }

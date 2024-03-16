@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2024 at 04:17 PM
+-- Generation Time: Mar 16, 2024 at 07:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -102,7 +102,39 @@ INSERT INTO `loginhistory` (`LoginHistoryID`, `MemberID`, `LoginDT`) VALUES
 (17, 2, '2024-03-15 12:31:29'),
 (18, 2, '2024-03-15 13:50:45'),
 (19, 2, '2024-03-15 13:51:31'),
-(20, 2, '2024-03-15 16:03:34');
+(20, 2, '2024-03-15 16:03:34'),
+(21, 13, '2024-03-15 18:15:44'),
+(22, 13, '2024-03-15 18:20:16'),
+(23, 13, '2024-03-15 18:21:25'),
+(24, 2, '2024-03-15 18:21:44'),
+(25, 2, '2024-03-15 18:25:44'),
+(26, 2, '2024-03-15 18:26:05'),
+(27, 2, '2024-03-15 18:29:56'),
+(28, 2, '2024-03-15 18:30:34'),
+(29, 2, '2024-03-15 18:31:25'),
+(30, 2, '2024-03-15 18:32:57'),
+(31, 2, '2024-03-15 18:34:36'),
+(32, 2, '2024-03-15 18:35:13'),
+(33, 2, '2024-03-15 18:35:14'),
+(34, 2, '2024-03-15 18:35:14'),
+(35, 2, '2024-03-15 18:35:14'),
+(36, 2, '2024-03-15 18:35:33'),
+(37, 1, '2024-03-15 18:35:57'),
+(38, 2, '2024-03-15 18:39:21'),
+(39, 1, '2024-03-15 18:41:49'),
+(40, 2, '2024-03-15 18:42:24'),
+(41, 2, '2024-03-15 18:42:25'),
+(42, 2, '2024-03-15 18:42:25'),
+(43, 2, '2024-03-15 18:42:25'),
+(44, 2, '2024-03-15 18:42:42'),
+(45, 2, '2024-03-15 18:42:54'),
+(46, 14, '2024-03-15 18:50:37'),
+(47, 1, '2024-03-15 18:51:08'),
+(48, 14, '2024-03-15 18:55:25'),
+(49, 1, '2024-03-15 18:56:32'),
+(50, 14, '2024-03-15 18:58:48'),
+(51, 2, '2024-03-16 12:09:56'),
+(52, 1, '2024-03-16 12:11:00');
 
 -- --------------------------------------------------------
 
@@ -123,10 +155,11 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`MemberID`, `Name`, `Email`, `Password`, `UserType`) VALUES
-(1, 'Karan F. Modi', 'karan@cryptoshow.com', '123456', 'member'),
+(1, 'Karan F. Modi', 'karan@cryptoshow.com', '123456', 'admin'),
 (2, 'Karan Modi', 'karanmodi3282@gmail.com', '123456', 'member'),
-(3, 'Bhoomi Modi', 'b@gmail.com', '123456', 'admin'),
-(13, 'KM', 'k1@gmail.com', '123456', 'member');
+(3, 'Bhoomi Modi', 'b@gmail.com', '123456', 'member'),
+(13, 'Karan Modi', 'k1@gmail.com', '123456', 'member'),
+(14, 'Krish Patel', 'Krihu@gmail.com', '123456', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -179,13 +212,13 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `loginhistory`
 --
 ALTER TABLE `loginhistory`
-  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `MemberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `MemberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

@@ -1,94 +1,140 @@
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 
 .Events-section {
-  background-color: #FBEAEB;
+  background-color: #f3f7f5;
 }
 
-.Events-section .Body_content {
+.Events-section .Body-Content {
 
-  margin: 0px 40px 40px 40px;
+  margin: 0px 40px 0px 40px;
   border-radius: 50%;
-
-}
-
-.container {
-  max-width: 100vw;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 4fr));
-  grid-gap: 35px;
-  padding-top: 5%;
-  margin-left: 50px;
-  margin-right: 50px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+
 }
 
-.Event-Cards{
-  position: relative;
-  width: 300px;
-  height: 400px;
-  margin: 0 auto;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
-}
-
-.content {
-  box-sizing: border-box;
-  padding: 40px;
-}
-
-h2 {
-  margin: 0;
-  padding: 0;
-}
-
-
-.content .EventDetails {
-  background-color: #000000;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.content .EventDetails span {
-  margin-top: 20px;
-}
-
-.Heading {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.LHS-content{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 5px;
+}
+
+#searchstringForEvents {
+  width: 88%;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  float: left;
+}
+
+.tile-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+  padding: 16px;
+  margin: 10px 70px 10px -10px ;
+}
+
+.tile {
+  display: flex;
+  justify-content: flex-start;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  width: fit-content;
+  height: 13rem;
+  border-left: 5px solid #22a196;
+  position: relative;
+  transition: border 0.3s ease;
+}
+
+.tile:hover{
+  border:2px solid #22a196;
+  border-left: 8px solid #22a196;
+}
+
+.tile::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -10px; 
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #22a196;
+  transform: translateY(-50%);
+  transition: right 0.1s ease;
+}
+
+.tile:hover::after {
+  right: 10px;
+  transition: right 0.3s ease, opacity 0.3s ease;
+  color: white;
+}
+
+.tile-header {
+  background-color: #f2f2f2;
+  padding: 8px;
   align-items: center;
-  transition: 0.5s;
+  position: relative;
+  width: 30%;
+ }
+
+.tile-header img {
+  width: 100%; 
+  height: auto; 
+  max-width: 100%; 
 }
 
-.Heading h2 {
-  padding: 0;
-  font-size: 6em;
-  color: #fff;
-  transition: 0.5s;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 10;
+.tile-body {
+  padding: 16px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.Heading h3 {
-  font-size: 4em;
-  color: #fff;
-  transition: 0.5s;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-
+.tile-footer {
+  padding: 8px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
 }
 
-
-.Event-Cards:hover .Heading {
-  height: 60px;
+.Location {
+  background-color: #e0e0e0;
+  color: #333;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 0.8em;
 }
 
-.Event-Cards:hover .Heading h2 {
-  font-size: 2em;
+.Organizer {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 0.8em;
+}
+
+.tile-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 15px; 
+}
+
+.tile-container::-webkit-scrollbar {
+  display: none; 
+}
+
+.tile-container {
+  -ms-overflow-style: none;  
+  scrollbar-width: none; 
 }

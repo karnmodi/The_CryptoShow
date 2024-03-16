@@ -12,12 +12,6 @@ const memberRows = document.querySelectorAll('.Member-Rows');
       document.getElementById('selected-member-Name').value = `${memberName}`;
       document.getElementById('selected-member-Email').value = `${memberEmail}`;
       document.getElementById('selected-member-Password').value = `${memberPassword}`;
-      const userTypeSelect = document.getElementById('selected-member-UserType');
-    if (memberUserType.startsWith('M')) {
-      userTypeSelect.value = 'Member';
-    } 
-    else if(memberUserType.startsWith('A')){
-      userTypeSelect.value = 'Admin';
-    }
+      document.getElementById('selected-member-UserType').value = `${memberUserType}`;
     });
   });

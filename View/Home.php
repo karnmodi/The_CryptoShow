@@ -178,27 +178,27 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
       <div class="RHS-Content">
 
         <form class="form-container" action="../Controller/Admin/Events/AddEvent.php" method="post">
-            <h2>Add New Event</h2>
-            <div class="event-name">
-              <label for="event-name">Event Name:</label>
-              <input type="text" id="event-name" name="event_name" required>
-            </div>
-            <div class="event-location">
-              <label for="event-location"> Location:</label>
-              <input type="text" id="event-location" name="event_location" required>
-            </div>
-            <div class="event-date">
-              <label for="event-date">Date:</label>
-              <input type="date" id="event-date" name="event_date" required>
-            </div>
-            <div class="event-organizer">
-              <label for="event-organizer">Organizer:</label>
-              <input type="text" id="event-organizer" name="event_organizer" required>
-            </div>
-            <div class="submit">
-              <input type="submit" value="Add Event" id="btnAddEvent">
-            </div>
-          </form>
+          <h2>Add New Event</h2>
+          <div class="event-name">
+            <label for="event-name">Event Name:</label>
+            <input type="text" id="event-Id" name="event_name" required>
+          </div>
+          <div class="event-location">
+            <label for="event-location"> Location:</label>
+            <input type="text" id="event-location" name="event_location" required>
+          </div>
+          <div class="event-date">
+            <label for="event-date">Date:</label>
+            <input type="date" id="event-date" name="event_date" required>
+          </div>
+          <div class="event-organizer">
+            <label for="event-organizer">Organizer:</label>
+            <input type="text" id="event-organizer" name="event_organizer" required>
+          </div>
+          <div class="submit">
+            <input type="submit" value="Add Event" id="btnAddEvent">
+          </div>
+        </form>
         </dialog>
 
 
@@ -245,7 +245,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
               <td>
                 <?php echo $row['Email'] ?>
               </td>
-              <td>
+              <td class="Password_data">
                 <?php echo $row['Password'] ?>
               </td>
               <td>

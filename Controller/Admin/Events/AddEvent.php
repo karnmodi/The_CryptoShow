@@ -6,7 +6,7 @@ require_once("../../../Model/Configurations/db.php");
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
-    $eventName = $_POST['event_name'];
+    $eventName = $_POST['event-Id'];
     $eventLocation = $_POST['event_location'];
     $eventDate = $_POST['event_date'];
     $eventOrganizer = $_POST['event_organizer'];

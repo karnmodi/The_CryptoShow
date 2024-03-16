@@ -1,20 +1,31 @@
-function filterEvents() {
-    var input, filter, container, cards, card, eventDetails, eventName, eventLocation, eventId, i;
-    input = document.getElementById("eventSearchString");
-    filter = input.value.trim().toLowerCase();
-    container = document.querySelector(".Events-section");
-    cards = container.querySelectorAll(".Event-Cards");
-    
-    cards.forEach(function(card) {
-      eventDetails = card.querySelector(".EventDetails");
-      eventName = eventDetails.querySelector("h2").textContent.toLowerCase();
-      eventLocation = eventDetails.querySelector("span:nth-child(4)").textContent.toLowerCase();
-      eventId = eventDetails.querySelector("h2").textContent.toLowerCase();
-      
-      if (eventName.includes(filter) || eventLocation.includes(filter) || eventId.includes(filter)) {
-        card.style.display = "";
-      } else {
-        card.style.display = "none";
+function filterSearch() {
+  var input, filter, table, tbody, tr, td, i, txtValue;
+  input = document.getElementById("searchstring");
+  filter = input.value.trim();
+  table = document.getElementsByClassName("Members_Data")[0];
+  tbody = table.getElementsByTagName("tbody")[0];
+  tr = tbody.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td");
+      var found = false;
+      for (var j = 0; j < td.length; j++) {
+          if (td[j]) {
+              txtValue = td[j].textContent || td[j].innerText;
+              if (filter.startsWith('#') && td[0].textContent.trim() === filter.substring(1)) {
+                  tr[i].style.display = "";
+                  found = true;
+                  break;
+              } else if (txtValue.toLowerCase().includes(filter.toLowerCase())) {
+                  tr[i].style.display = "";
+                  found = true;
+                  break;
+              } else {
+                  tr[i].style.display = "none";
+              }
+          }
       }
-    });
+      if (!found) {
+          tr[i].style.display = "none";
+      }
   }
+}

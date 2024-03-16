@@ -14,9 +14,18 @@
 
 }
 
-.LHS-content{
+.LHS-content {
   display: flex;
   flex-direction: column;
+}
+
+.RHS-Content form{
+  display: flex;
+  flex-direction: column; 
+}
+
+.RHS-Content form .submit{
+  width: fit-content;
 }
 
 #searchstringForEvents {

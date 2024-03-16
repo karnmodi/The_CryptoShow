@@ -12,7 +12,7 @@ require_once ("../Model/Configurations/db.php");
 $FetchAllMembers = "SELECT * from member";
 $resultofFM = mysqli_query($con, $FetchAllMembers);
 
-$FetchAllEvents = "SELECT e.EventID, e.EventName, e.EventDate, e.EventTime, e.EventLocation, m.Name, d.DeviceName, d.Description
+$FetchAllEvents = "SELECT e.EventID, e.EventDate, e.EventTime, e.EventLocation, m.Name, d.DeviceName, d.Description
 FROM Events e
 JOIN Member m ON e.OrganizerID = m.MemberID
 JOIN Devices d ON e.DeviceID = d.DeviceID;";
@@ -34,8 +34,8 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -60,7 +60,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
         </a>
         <span class="SB_Btns">Dashboard</span>
       </li>
-      
+
       <li>
         <a href="#Events" onclick="showSection('Events-section', this);">
           <i class='bx bx-pie-chart-alt-2'></i>
@@ -68,7 +68,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
         </a>
         <span class="SB_Btns">Events</span>
       </li>
-      
+
       <li>
         <a href="#Devices" onclick="showSection('Devices-section', this);">
           <i class='bx bx-chat'></i>
@@ -122,37 +122,9 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   </section>
 
   <section class="Events-section sections">
-  <div class="searchbar">
-  <input type="text" id="CardSearch" name="search" placeholder="Search" oninput="filterEvents()">
-</div>
- <button onclick="AddEventPopup()"; class="add-event-btn">Add Event</button>
- <dialog id="EventPopup">
-  <h2>Add New Event</h2>
-  <form class="form-container" action="../Controller/Admin/Events/AddEvent.php" method="post">
-    <div class="event-name">
-      <label for="event-name">Event Name:</label>
-      <input type="text" id="event-name" name="event_name" required>
-    </div>
-    <div class="event-location">
-      <label for="event-location"> Location:</label>
-      <input type="text" id="event-location" name="event_location" required>
-    </div>
-    <div class="event-date">
-      <label for="event-date">Date:</label>
-      <input type="date" id="event-date" name="event_date" required>
-    </div>
-    <div class="event-organizer">
-      <label for="event-organizer">Organizer:</label>
-      <input type="text" id="event-organizer" name="event_organizer" required>
-    </div>
-    <div class="submit">
-      <input type="submit" value="Add Event" id="btnAddEvent">
-    </div>
-</form>  
-<button onclick="closeEventPopup();" aria-label="close" class="x">❌</button> 
-</dialog>
-       <div class="Header_text">Events</div>
-       
+
+    <div class="Header_text">Events</div>
+
 
     <div class="Body-Content">
 
@@ -160,7 +132,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
 
         <div class="search">
           <input type="text" id="searchstringForEvents" name="search" placeholder="Search.." oninput="filterEvents()">
-        </div>  
+        </div>
 
         <div class="tile-container">
           <?php
@@ -178,7 +150,9 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
                 <span class="Event-Desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam,
                   praesentium.</span>
                 <div class="tile-footer">
-                  <span class="Location"><i class="fa-solid fa-location-dot"></i> &nbsp <?php echo $row['EventLocation']; ?> </span>
+                  <span class="Location"><i class="fa-solid fa-location-dot"></i> &nbsp
+                    <?php echo $row['EventLocation']; ?>
+                  </span>
                   <span class="Organizer"><b><i class="fa-regular fa-id-card"></i> &nbsp </b>
                     <?php echo $row['Name']; ?>
                   </span>
@@ -201,7 +175,35 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
 
       </div>
 
-      <div class="RHS-Content">Form of New Event</div>
+      <div class="RHS-Content">
+
+          <h2>Add New Event</h2>
+          <form class="form-container" action="../Controller/Admin/Events/AddEvent.php" method="post">
+            <div class="event-name">
+              <label for="event-name">Event Name:</label>
+              <input type="text" id="event-name" name="event_name" required>
+            </div>
+            <div class="event-location">
+              <label for="event-location"> Location:</label>
+              <input type="text" id="event-location" name="event_location" required>
+            </div>
+            <div class="event-date">
+              <label for="event-date">Date:</label>
+              <input type="date" id="event-date" name="event_date" required>
+            </div>
+            <div class="event-organizer">
+              <label for="event-organizer">Organizer:</label>
+              <input type="text" id="event-organizer" name="event_organizer" required>
+            </div>
+            <div class="submit">
+              <input type="submit" value="Add Event" id="btnAddEvent">
+            </div>
+          </form>
+          <button onclick="closeEventPopup();" aria-label="close" class="x">❌</button>
+        </dialog>
+
+
+      </div>
 
     </div>
 

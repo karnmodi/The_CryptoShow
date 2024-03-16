@@ -1,6 +1,6 @@
 <?php
 
-$con = mysqli_connect("localhost","root","","The_CryptoShow");
+$con = mysqli_connect("localhost","root","","cryptoshow");
 
 if(!$con){
     die("Connection Error");

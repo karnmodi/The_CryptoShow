@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "The_Cyptoshow";
+$dbname = "cryptoshow";
 
 $conn = new mysqli($servername, $username, $password);
 

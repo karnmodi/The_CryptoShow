@@ -177,8 +177,8 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
 
       <div class="RHS-Content">
 
-          <h2>Add New Event</h2>
-          <form class="form-container" action="../Controller/Admin/Events/AddEvent.php" method="post">
+        <form class="form-container" action="../Controller/Admin/Events/AddEvent.php" method="post">
+            <h2>Add New Event</h2>
             <div class="event-name">
               <label for="event-name">Event Name:</label>
               <input type="text" id="event-name" name="event_name" required>
@@ -199,7 +199,6 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
               <input type="submit" value="Add Event" id="btnAddEvent">
             </div>
           </form>
-          <button onclick="closeEventPopup();" aria-label="close" class="x">❌</button>
         </dialog>
 
 

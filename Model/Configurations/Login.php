@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (insertLoginHistory($con, $_SESSION['member_id'])) {
                     $response['success'] = true;
                     $response['message'] = "Login Successful $UserType!!" ;
-                    $response['user_type'] = $UserType; // Include UserType in response
+                    $response['user_type'] = $UserType; 
                 } else {
                     $response['success'] = false;
                     $response['message'] = "Failed to insert login history";

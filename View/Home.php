@@ -29,6 +29,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   <meta charset="UTF-8">
   <title>Admin | The CryptoShow</title>
   <link rel="stylesheet" href="CSS/Admin/Home.css">
+  <link rel="stylesheet" href="CSS/Admin/Dashboard.css">
   <link rel="stylesheet" href="CSS/Admin/Member.css">
   <link rel="stylesheet" href="CSS/Admin/Events.css">
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
@@ -118,6 +119,9 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   </div>
   <section class="Dashboard-section sections">
     <div class="Header_text">Dashboard</div>
+
+    <div class="Body-Content">
+    </div>
 
   </section>
 

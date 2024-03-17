@@ -139,12 +139,15 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
         </div>
 
         <div class="tile-container">
-          <?php
-          while ($row = mysqli_fetch_assoc($resultofFE)) {
-            ?>
+    <?php
+    while ($row = mysqli_fetch_assoc($resultofFE)) {
+
+        $randomImageURL = "https://source.unsplash.com/random";
+
+        ?>
             <div class="tile" data-event-id="<?php echo $row['EventID']; ?>">
               <div class="tile-header">
-                <img src="../Assets/Website Images/Github Logo PNG.png" alt="Event Name" class="tile-image">
+              <img src="<?php echo $randomImageURL; ?>" alt="<?php echo isset($row['EventName']) ? $row['EventName'] : ''; ?>" class="tile-image">
               </div>
 
               <div class="tile-body">

@@ -10,24 +10,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $eventOrganizer = $_POST['event_organizer'];
     $deviceID = 1; 
     $organizerID = 1; 
-    $eventTime = date(""); 
+    $eventTime = date("H:i:s"); 
     $eventDescription = ""; 
 
-    $insertQuery = "INSERT INTO Events (EventName, EventLocation, EventDate, OrganizerID, EventTime, EventDescription, DeviceID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    // Fetch a random image URL from Unsplash
+    $randomImageURL = "https://source.unsplash.com/random";
+
+    $insertQuery = "INSERT INTO Events (EventName, EventLocation, EventDate, OrganizerID, EventTime, EventDescription, DeviceID, EventImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $statement = mysqli_prepare($con, $insertQuery);
 
     if ($statement) {
-        mysqli_stmt_bind_param($statement, "sssssss", $eventName, $eventLocation, $eventDate, $organizerID, $eventTime, $eventDescription, $deviceID);
+        mysqli_stmt_bind_param($statement, "ssssssss", $eventName, $eventLocation, $eventDate, $organizerID, $eventTime, $eventDescription, $deviceID, $randomImageURL);
         
         if (mysqli_stmt_execute($statement)) {
             echo "Event Added Successfully";
         } else {
-            echo "Error" . mysqli_stmt_error($statement);
+            echo "Error: " . mysqli_stmt_error($statement);
         }
 
         mysqli_stmt_close($statement);
     } else {
-        echo "Error" . mysqli_error($con);
+        echo "Error: " . mysqli_error($con);
     }
 
     mysqli_close($con);

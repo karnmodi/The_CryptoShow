@@ -327,3 +327,45 @@ nav a.Register {
     flex: 0;
 
 }
+
+.footer {
+    background-color: white;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow:  0 -5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2%;
+    
+}
+
+.social-icon {
+    color: black;
+    font-size: 1.5rem;
+    margin-left: 20px;
+    transition: transform 0.15s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.5);
+}
+
+.footer-text h2 {
+    color: black;
+    font-size: 20px;
+    transition: color cubic-bezier(0.075, 0.82, 0.165, 1) ease;
+    margin-left: 20px;
+}
+
+.footer-text h2:hover {
+    color: rgb(0, 0, 0);
+}

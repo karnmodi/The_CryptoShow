@@ -139,6 +139,21 @@
         </div>
     </Section>
 
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-text">
+                <h2 style="font-family:verdana;">© 2024 The CryptoShow</h2>
+            </div>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-skype"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-flickr"></i></a>
+            </div>
+        </div>
+    </footer>
+
     <script src="View/JS/index.js"></script>
     <script src="View/JS/SignUp.js"></script>
     <script src="View/JS/Login.js"></script>

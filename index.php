@@ -108,6 +108,30 @@
         </div>
     </div>
 
+    <div class="container">
+        <span class="fade-in">WELCOME TO CRYPTO SHOW</span>
+        <Section id="Section2" class="section" >
+
+        <div class="text2">
+            <div class="LhsContent">
+
+                <div class="Title">
+                    <Span>The definition of a Cryptographic Device</Span>
+                </div>
+                <div class="Paragraph">
+                    <p>Imagine a mystical artifact, humming with unseen energies, capable of weaving intricate 
+                        webs of security in the digital realm. This enigmatic contraption, known as a cryptographic device, 
+                        dances between worlds, generating cryptic codes, authenticating messages, and forging digital signatures with an otherworldly grace. 
+                        Within its labyrinthine depths reside cryptographic modules, the arcane engines powering its feats, 
+                        seamlessly integrated with other arcane components. Whether a solitary guardian of secrets or a vital cog in a grand cryptographic machine, 
+                        this device stands as a sentinel of security in the ever-shifting landscape of cyberspace.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </Section>
+    </div>
 
     <script src="View/JS/index.js"></script>
     <script src="View/JS/SignUp.js"></script>

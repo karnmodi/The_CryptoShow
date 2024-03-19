@@ -262,3 +262,59 @@ nav a.Register {
 .error-input {
     border: 1px solid red;
 }
+
+.container {
+    background-color: rgb(173, 230, 181);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 80vh;
+    width: 92%;
+    margin: 60px auto;
+    padding-top: 10px;
+    border-radius: 40px;
+}
+
+.container span {
+    font-size: 600%;
+}
+
+.container span {
+    text-align: center;
+}
+
+#Section2 {
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+    flex-direction: row;
+}
+
+.text2 {
+    margin: 0% 6% 2% 6%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-start;
+    width: calc(100% - 8%);
+}
+
+.text2 span .text2 p {
+    text-align: left;
+}
+
+.text2 .Title span {
+    font-size: 40px;
+    color: darkgreen;
+}
+
+.text2 .Paragraph p {
+
+    text-align: left;
+    word-spacing: 5px;
+    font-size: 24px;
+
+}

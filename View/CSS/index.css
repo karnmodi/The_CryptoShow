@@ -318,3 +318,12 @@ nav a.Register {
     font-size: 24px;
 
 }
+
+.video{
+    background-color: lightgray;
+    margin: 2%;
+    align-items: center;
+    border-radius: 15px;
+    flex: 0;
+
+}

@@ -110,7 +110,14 @@
 
     <div class="container">
         <span class="fade-in">WELCOME TO CRYPTO SHOW</span>
-        <Section id="Section2" class="section" >
+        <div class="video">
+            <iframe width="1000" height="500"
+            src="https://www.youtube.com/embed/8Z4JjA4f4Fw">
+            </iframe>
+        </div>
+    </div>
+
+    <Section id="Section2" class="section" >
 
         <div class="text2">
             <div class="LhsContent">
@@ -131,7 +138,6 @@
             </div>
         </div>
     </Section>
-    </div>
 
     <script src="View/JS/index.js"></script>
     <script src="View/JS/SignUp.js"></script>

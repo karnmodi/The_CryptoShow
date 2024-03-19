@@ -328,6 +328,39 @@ nav a.Register {
 
 }
 
+.container3 {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.event {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+.event img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+}
+.event-content {
+    padding: 20px;
+}
+.event h2 {
+    margin-top: 0;
+    color: #333;
+}
+.event p {
+    color: #666;
+}
+.event-details {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
 .footer {
     background-color: white;
     padding: 10px 0;

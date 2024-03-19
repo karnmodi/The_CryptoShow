@@ -139,6 +139,31 @@
         </div>
     </Section>
 
+    <div class="container3">
+        <div class="event">
+            <img src="event1.jpg" alt="Event 1">
+            <div class="event-content">
+                <h2>Event 1</h2>
+                <p><strong>Date:</strong> March 25, 2024</p>
+                <p><strong>Time:</strong> 7:00 PM</p>
+                <div class="event-details">
+                    <p><strong>Details:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam velit in metus hendrerit, nec lobortis elit fringilla. Nullam commodo ipsum vel arcu sodales gravida. Sed vitae fermentum turpis.</p>
+                </div>
+            </div>
+        </div>
+
+    <div class="event">
+        <img src="event2.jpg" alt="Event 2">
+        <div class="event-content">
+            <h2>Event 2</h2>
+            <p><strong>Date:</strong> April 10, 2024</p>
+            <p><strong>Time:</strong> 6:30 PM</p>
+            <div class="event-details">
+                <p><strong>Details:</strong> Ut ac lorem id elit blandit rutrum. Nam vitae nisl sed risus vestibulum finibus sed at velit. Suspendisse tincidunt lorem non lacus fringilla, in suscipit mi consequat. In lobortis tincidunt justo.</p>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-text">

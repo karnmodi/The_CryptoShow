@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_close($con);
 } else {
-    header('Location: ../Admin/Events.php');
+    header('Location: ../Admin,php#Dashboard');
     exit();
 }
 ?>

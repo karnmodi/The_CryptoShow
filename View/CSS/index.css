@@ -262,3 +262,143 @@ nav a.Register {
 .error-input {
     border: 1px solid red;
 }
+
+.container {
+    background-color: rgb(173, 230, 181);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 80vh;
+    width: 92%;
+    margin: 60px auto;
+    padding-top: 10px;
+    border-radius: 40px;
+}
+
+.container span {
+    font-size: 600%;
+}
+
+.container span {
+    text-align: center;
+}
+
+#Section2 {
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+    flex-direction: row;
+}
+
+.text2 {
+    margin: 0% 6% 2% 6%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-start;
+    width: calc(100% - 8%);
+}
+
+.text2 span .text2 p {
+    text-align: left;
+}
+
+.text2 .Title span {
+    font-size: 40px;
+    color: darkgreen;
+}
+
+.text2 .Paragraph p {
+
+    text-align: left;
+    word-spacing: 5px;
+    font-size: 24px;
+
+}
+
+.video{
+    background-color: lightgray;
+    margin: 2%;
+    align-items: center;
+    border-radius: 15px;
+    flex: 0;
+
+}
+
+.container3 {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.event {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+.event img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+}
+.event-content {
+    padding: 20px;
+}
+.event h2 {
+    margin-top: 0;
+    color: #333;
+}
+.event p {
+    color: #666;
+}
+.event-details {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.footer {
+    background-color: white;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow:  0 -5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2%;
+    
+}
+
+.social-icon {
+    color: black;
+    font-size: 1.5rem;
+    margin-left: 20px;
+    transition: transform 0.15s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.5);
+}
+
+.footer-text h2 {
+    color: black;
+    font-size: 20px;
+    transition: color cubic-bezier(0.075, 0.82, 0.165, 1) ease;
+    margin-left: 20px;
+}
+
+.footer-text h2:hover {
+    color: rgb(0, 0, 0);
+}

@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if (!isset ($_SESSION['user_name'])) {
+if (!isset($_SESSION['user_name'])) {
 
-  header('Location: ../index.php');
-  exit;
+    header('Location: ../index.php');
+    exit;
 }
 
 $userName = $_SESSION['user_name'];
-require_once ("../Model/Configurations/db.php");
+require_once "../Model/Configurations/db.php";
 $FetchAllMembers = "SELECT * from member";
 $resultofFM = mysqli_query($con, $FetchAllMembers);
 
@@ -121,9 +121,45 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
     <div class="Header_text">Dashboard</div>
 
     <div class="Body-Content">
-    </div>
+      <!-- Total Member Data -->
+      <div class = "dashboard-widgets">
+         <div class="widget">
+          <h2> Total Members </h2>
+          <p><?php echo mysqli_num_rows($resultofFM); ?></p>
+         </div>
 
-  </section>
+
+      <div class="event-widget">
+        <h2> Total Events </h2>
+      <p> <?php echo mysqli_num_rows($resultofFM); ?> </p>
+      </div>
+      </div>
+
+      <div class="Revenue-Member-Container">
+
+        <div class="Revenue-widget">
+          <h2> Revenue </h3>
+          <p>$<?php echo rand(1000, 50000); ?></p>
+        </div>
+
+        <div class="Latest-Member-Widget">
+          <h2>Latest Member</h2>
+          <ul>
+            <?php
+              $latestMembersQuery = "SELECT * FROM member ORDER BY MemberID";
+              $latestMembersResult = mysqli_query($con, $latestMembersQuery);
+              while ($row = mysqli_fetch_assoc($latestMembersResult)) {
+              echo "<li> {$row['Name']}</li>";
+                   }
+            ?>
+            </ul>
+            </div>
+          </div>
+          <div class="Chart">
+          <canvas id="myChart" width="400" height="200"></canvas> 
+          </div>
+    </div>
+</section>
 
   <section class="Events-section sections">
 
@@ -140,11 +176,11 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
 
         <div class="tile-container">
     <?php
-    while ($row = mysqli_fetch_assoc($resultofFE)) {
+while ($row = mysqli_fetch_assoc($resultofFE)) {
 
-        $randomImageURL = "https://source.unsplash.com/random";
+    $randomImageURL = "https://source.unsplash.com/random";
 
-        ?>
+    ?>
             <div class="tile" data-event-id="<?php echo $row['EventID']; ?>">
               <div class="tile-header">
               <img src="<?php echo $randomImageURL; ?>" alt="<?php echo isset($row['EventName']) ? $row['EventName'] : ''; ?>" class="tile-image">
@@ -176,7 +212,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
 
             </div>
 
-          <?php } ?>
+          <?php }?>
 
         </div>
 
@@ -239,8 +275,8 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
         </thead>
         <tbody>
           <?php
-          while ($row = mysqli_fetch_assoc($resultofFM)) {
-            ?>
+while ($row = mysqli_fetch_assoc($resultofFM)) {
+    ?>
             <tr class="Member-Rows" data-member-id="<?php echo $row['MemberID']; ?>"
               onclick="openMemberPopup(<?php echo $row['MemberID']; ?>)">
               <td>
@@ -260,8 +296,8 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
               </td>
             </tr>
             <?php
-          }
-          ?>
+}
+?>
         </tbody>
 
       </table>
@@ -349,6 +385,8 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   <script src="../Controller/Admin/Member/SelectRow.js"></script>
   <script src="../Controller/Admin/Member/Member_PopUp.js"></script>
   <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
 
   <script>
   </script>

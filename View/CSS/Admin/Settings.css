@@ -18,6 +18,7 @@
 
 .setting-option {
     margin-bottom: 10px;
+    display: flex;
     
 }
 
@@ -61,3 +62,6 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+
+

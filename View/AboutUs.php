@@ -166,6 +166,52 @@
         </div>
     </Section>
 
+    <Section id="Section5" class="section" >
+        <div class="container2">
+            <h1>Get to know our team</h1>
+            <div class="member">
+                <img src="member1.jpg" alt="Member 1">
+                <div class="details">
+                    <h2>Member 1</h2>
+                    <p>Facebook: <a href="https://www.facebook.com/member1">Member 1's Facebook</a></p>
+                    <!-- Additional details for member 1 -->
+                </div>
+            </div>
+            <div class="member">
+                <img src="member2.jpg" alt="Member 2">
+                <div class="details">
+                    <h2>Member 2</h2>
+                    <p>Facebook: <a href="https://www.facebook.com/member2">Member 2's Facebook</a></p>
+                    <!-- Additional details for member 2 -->
+                </div>
+            </div>
+            <div class="member">
+                <img src="member2.jpg" alt="Member 2">
+                <div class="details">
+                    <h2>Member 3</h2>
+                    <p>Facebook: <a href="https://www.facebook.com/member2">Member 3's Facebook</a></p>
+                    <!-- Additional details for member 3 -->
+                </div>
+            </div>
+            <div class="member">
+                <img src="member2.jpg" alt="Member 2">
+                <div class="details">
+                    <h2>Member 4</h2>
+                    <p>Facebook: <a href="https://www.facebook.com/member2">Member 4's Facebook</a></p>
+                    <!-- Additional details for member 4 -->
+                </div>
+            </div>
+            <div class="member">
+                <img src="member2.jpg" alt="Member 2">
+                <div class="details">
+                    <h2>Member 5</h2>
+                    <p>Facebook: <a href="https://www.facebook.com/member2">Member 5's Facebook</a></p>
+                    <!-- Additional details for member 5 -->
+                </div>
+            </div>
+        </div>
+    </Section>
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-text">

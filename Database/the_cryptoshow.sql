@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2024 at 07:35 PM
+-- Generation Time: Mar 17, 2024 at 03:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,7 +49,6 @@ INSERT INTO `devices` (`DeviceID`, `DeviceName`, `Description`, `Status`) VALUES
 
 CREATE TABLE `events` (
   `EventID` int(11) NOT NULL,
-  'EventName' varchar(20) DEFAULT NULL,
   `OrganizerID` int(11) DEFAULT NULL,
   `DeviceID` int(11) DEFAULT NULL,
   `EventDate` date DEFAULT NULL,
@@ -62,7 +61,7 @@ CREATE TABLE `events` (
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`EventID`, `EventName`, `OrganizerID`, `DeviceID`, `EventDate`, `EventTime`, `EventDescription`, `EventLocation`) VALUES
+INSERT INTO `events` (`EventID`, `OrganizerID`, `DeviceID`, `EventDate`, `EventTime`, `EventDescription`, `EventLocation`) VALUES
 (2, 1, 1, '2024-03-17', '20:00:00', 'Evening Gala', 'Hotel Ballroom'),
 (3, 1, 1, '2024-03-15', '18:00:00', 'Annual General Meeting', 'Conference Room A'),
 (4, 2, 1, '2024-03-16', '09:00:00', 'Tech Product Launch', 'Main Auditorium'),
@@ -135,7 +134,11 @@ INSERT INTO `loginhistory` (`LoginHistoryID`, `MemberID`, `LoginDT`) VALUES
 (49, 1, '2024-03-15 18:56:32'),
 (50, 14, '2024-03-15 18:58:48'),
 (51, 2, '2024-03-16 12:09:56'),
-(52, 1, '2024-03-16 12:11:00');
+(52, 1, '2024-03-16 12:11:00'),
+(53, 2, '2024-03-17 08:26:30'),
+(54, 1, '2024-03-17 08:27:05'),
+(55, 2, '2024-03-17 15:01:41'),
+(56, 14, '2024-03-17 15:01:54');
 
 -- --------------------------------------------------------
 
@@ -158,8 +161,8 @@ CREATE TABLE `member` (
 INSERT INTO `member` (`MemberID`, `Name`, `Email`, `Password`, `UserType`) VALUES
 (1, 'Karan F. Modi', 'karan@cryptoshow.com', '123456', 'admin'),
 (2, 'Karan Modi', 'karanmodi3282@gmail.com', '123456', 'member'),
-(3, 'Bhoomi Modi', 'b@gmail.com', '123456', 'member'),
-(13, 'Karan Modi', 'k1@gmail.com', '123456', 'member'),
+(3, 'Bhoomi Modi', 'b@gmail.com', '123456', 'admin'),
+(13, 'Karan Modi', 'k1@gmail.com', '1234567', 'member'),
 (14, 'Krish Patel', 'Krihu@gmail.com', '123456', 'admin');
 
 --
@@ -213,7 +216,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `loginhistory`
 --
 ALTER TABLE `loginhistory`
-  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `member`

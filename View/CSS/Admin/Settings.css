@@ -46,7 +46,7 @@ label {
 
 .setting-option #logout:hover{
     background-color: #0056b3;
-    /* color: black; */
+
     
 }
 
@@ -60,7 +60,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #000000;
 }
 
 

@@ -163,7 +163,7 @@
         <div class="container2">
             <h1>Get to know our team</h1>
             <div class="member">
-                <img src="member1.jpg" alt="Member 1">
+                <img src="karnModi.png" alt="Member 1">
                 <div class="details">
                     <h2>Member 1</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member1">Member 1's Facebook</a></p>

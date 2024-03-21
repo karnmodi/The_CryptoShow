@@ -14,7 +14,7 @@
     <nav>
         <div class="The-CryptoShow-LOGO">
             <a href="../index.php">
-                <img src="../Assets/Website Images/Logo.png" alt="The-CryptoShow-LOGO">
+                <img src="../Assets/Website Images/Logo.png" alt="The-CryptoShow-LOGO"> 
             </a>
         </div>
 

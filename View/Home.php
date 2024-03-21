@@ -33,6 +33,8 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   <link rel="stylesheet" href="CSS/Admin/Member.css">
   <link rel="stylesheet" href="CSS/Admin/Events.css">
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
+  <link rel="stylesheet" href="CSS/Admin/Updateform.css">
+ 
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -131,7 +133,10 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
 
       <div class="event-widget">
         <h2> Total Events </h2>
-      <p> <?php echo mysqli_num_rows($resultofFM); ?> </p>
+        <?php
+                $totalEventsCount = mysqli_num_rows($resultofFE);
+                ?>
+        <p><?php echo $totalEventsCount; ?></p>
       </div>
       </div>
 
@@ -368,6 +373,22 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
         <label for="change-user-details">Change User Details:</label>
         <button id="change-user-details">Change</button>
       </div>
+      
+      <dialog id="Update-User-Details">
+        <h2> Update Details</h2>
+        <form method="post" action="../Controller/Admin/Settings/UpdateUserDetails.php">
+        <label for="member_id">Member ID:</label>
+        <input type="text" id="member_id" name="member_id" required><br><br>
+          <label for = "Name"> Update Name:</label>
+          <input type="text" id="Name" name="Name" required> <br><br>
+          <label for = "Password"> Update Password:</label>
+          <input type="text" id="Password" name="Password" required><br><br>
+          <div class="buttons">
+          <button id="cancel-update">Cancel</button>
+          <button id="Submit" type="submit">Save Changes</button>
+          </div>
+        </form>
+     </dialog>
 
       <div class="setting-option">
         <label for="turn-off-website">Turn off Website:</label>
@@ -387,9 +408,7 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
   <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
-
-  <script>
-  </script>
+  <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
 
 </body>
 

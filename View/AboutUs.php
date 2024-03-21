@@ -165,7 +165,7 @@
             <div class="member">
                 <img src="karnModi.png" alt="Member 1">
                 <div class="details">
-                    <h2>Member 1</h2>
+                    <h2>Karan Modi</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member1">Member 1's Facebook</a></p>
                     <!-- Additional details for member 1 -->
                 </div>
@@ -173,7 +173,7 @@
             <div class="member">
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
-                    <h2>Member 2</h2>
+                    <h2>Farhad Kishwar</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member2">Member 2's Facebook</a></p>
                     <!-- Additional details for member 2 -->
                 </div>
@@ -181,7 +181,7 @@
             <div class="member">
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
-                    <h2>Member 3</h2>
+                    <h2>Kittipat Weng</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member2">Member 3's Facebook</a></p>
                     <!-- Additional details for member 3 -->
                 </div>
@@ -189,7 +189,7 @@
             <div class="member">
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
-                    <h2>Member 4</h2>
+                    <h2>Bijay Hang Limbu</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member2">Member 4's Facebook</a></p>
                     <!-- Additional details for member 4 -->
                 </div>
@@ -197,7 +197,7 @@
             <div class="member">
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
-                    <h2>Member 5</h2>
+                    <h2>Muhammad Nouman Ijaz</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member2">Member 5's Facebook</a></p>
                     <!-- Additional details for member 5 -->
                 </div>

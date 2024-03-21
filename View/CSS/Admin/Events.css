@@ -20,16 +20,28 @@
 }
 
 .RHS-Content form{
-  display: flex;
-  flex-direction: column; 
-  position: fixed;
-
+  width: auto;
+ display: flex;
+ flex-direction: column;
+ 
 }
 
-.RHS-Content form .submit{
-  width: fit-content;
+#Add-Event-Details .dialog-close-btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }
 
+ #Add-Event-Details .button{
+  display: block;
+  margin: 0 auto; 
+  text-align: center; 
+}
+ 
 #searchstringForEvents {
   width: 93%;
   padding: 15px;

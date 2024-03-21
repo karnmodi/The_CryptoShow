@@ -180,15 +180,15 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
         </div>
 
         <div class="tile-container">
-    <?php
-while ($row = mysqli_fetch_assoc($resultofFE)) {
+          <?php
+           while ($row = mysqli_fetch_assoc($resultofFE)) {
 
-    $randomImageURL = "https://source.unsplash.com/random";
+
 
     ?>
-            <div class="tile" data-event-id="<?php echo $row['EventID']; ?>">
+            <div class="tile" data-event-id="<?php echo $row['EventID']; ?>" onclick="openUpdateEventDialog(<?php echo $row['EventID']; ?>)">
               <div class="tile-header">
-              <img src="<?php echo $randomImageURL; ?>" alt="<?php echo isset($row['EventName']) ? $row['EventName'] : ''; ?>" class="tile-image">
+              
               </div>
 
               <div class="tile-body">
@@ -224,32 +224,56 @@ while ($row = mysqli_fetch_assoc($resultofFE)) {
       </div>
 
       <div class="RHS-Content">
-
-        <form class="form-container" action="../Controller/Admin/Events/AddEvent.php" method="post">
-          <h2>Add New Event</h2>
-          <div class="event-name">
-            <label for="event-name">Event Name:</label>
-            <input type="text" id="event-Id" name="event_name" required>
-          </div>
-          <div class="event-location">
-            <label for="event-location"> Location:</label>
-            <input type="text" id="event-location" name="event_location" required>
-          </div>
-          <div class="event-date">
-            <label for="event-date">Date:</label>
-            <input type="date" id="event-date" name="event_date" required>
-          </div>
-          <div class="event-organizer">
-            <label for="event-organizer">Organizer:</label>
-            <input type="text" id="event-organizer" name="event_organizer" required>
-          </div>
-          <div class="submit">
-            <input type="submit" value="Add Event" id="btnAddEvent">
+      <button onclick="openAddEventDialog();" aria-label="Add-New-Event">Add New Event</button>
+      <dialog id="Add-Event-Details">
+      <button onclick="closeAddEventDialog();" aria-label="Close" class="dialog-close-btn">❌</button>
+        <h2>Add Event</h2>
+        <form method="post" action="../Controller/Admin/Events/AddEvent.php">
+        <label for="event_name">Event Name:</label>
+        <input type="text" id="event_name" name="event_name" required>
+          <label for = "event_Location">Location:</label>
+          <input type="text" id="event_location" name="event_location" required>
+          <label for = "event_date"> Date:</label>
+          <input type="date" id="event_date" name="event_date" required>
+          <label for = "event_organizer">Organizer:</label>
+          <input type="text" id="event_organizer" name="event_organizer" required>
+          <label for = "event_time"> Time:</label>
+          <input type="time" id="event_time" name="event_time" required>
+          <label for = "event_description"> Description:</label>
+          <input type="text" id="event_description" name="event_description" required>
+          <label for = "event_image"> Image URL:</label>
+          <input type="url" id="event_image" name="event_image" required><br><br>
+          <div class="button">
+          <button type="submit" id="submitEvent">Submit Event</button>
           </div>
         </form>
-        </dialog>
-
-
+     </dialog>
+      
+     <dialog id="Update-Event-Details">
+  <button onclick="closeUpdateEventDialog();" aria-label="Close" class="dialog-close-btn">❌</button>
+  <h2>Update Event</h2>
+  <form method="post" action="../Controller/Admin/Events/UpdateEvent.php" id="updateEventForm">
+    <input type="hidden" id="event_id" name="event_id">
+    <label for="event_name">Event Name:</label>
+    <input type="text" id="event_name" name="event_name" required>
+    <label for = "event_Location">Location:</label>
+          <input type="text" id="event_location" name="event_location" required>
+          <label for = "event_date"> Date:</label>
+          <input type="date" id="event_date" name="event_date" required>
+          <label for = "event_organizer">Organizer:</label>
+          <input type="text" id="event_organizer" name="event_organizer" required>
+          <label for = "event_time"> Time:</label>
+          <input type="time" id="event_time" name="event_time" required>
+          <label for = "event_description"> Description:</label>
+          <input type="text" id="event_description" name="event_description" required>
+          <label for = "event_image"> Image URL:</label>
+          <input type="url" id="event_image" name="event_image" required>
+    <div class="button">
+      <button type="submit" id="submitUpdateEvent">Update Event</button>
+    </div>
+  </form>
+</dialog>
+        
       </div>
 
     </div>
@@ -409,7 +433,8 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
   <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
-
+  <script src="../Controller/Admin/Events/AddEvent.js"></script>
+  <script src="../Controller/Admin/Events/UpdateEvent.js"></script>
 </body>
 
 </html>

@@ -6,6 +6,14 @@
   box-sizing: border-box;
   font-family: "Poppins" , sans-serif;
 }
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+.dark-mode .sections{
+  background-color: #11101D; 
+}
 .sidebar{
   position: fixed;
   left: 0;
@@ -227,7 +235,7 @@
 }
 .sections{
   position: relative;
-  background: #f3f7f5;
+  background: #deeae4;
   min-height: 100vh;
   min-width: 320px;
   top: 0;

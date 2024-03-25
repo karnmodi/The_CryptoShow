@@ -139,30 +139,23 @@
     <Section id="Section3" class="section" >
         <div class="text3">
             <span>Our Mission</span>
-            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima enim officia dolorum consectetur eveniet
-                pariatur veritatis unde sed nam non facere, rerum quia nulla, recusandae dicta dolore maiores aliquid
-                itaque vitae cupiditate quod at! Ullam deserunt dicta eos ratione quia, quasi doloribus aperiam
-                perferendis, repellendus alias fuga atque placeat incidunt! Tempore modi repellendus vero neque, illum
-                facilis rem cupiditate dolorem voluptate officia quisquam delectus nostrum non, eum itaque aut ducimus?
+            <p> The primary aim of the application is to meticulously design and systematically implement a comprehensive full-stack web application that is dedicated to the management and orchestration of an event. The particular scenario that this application is tailored for is a specialized exhibition showcasing Cryptographic Devices, where various stakeholders can interact, display, and engage with the latest advancements in cryptographic technology.
             </p>
         </div>
         <div class="picture">
+            <img src="Mission pic.png" alt="Mission picture">
         </div>
     </Section>
 
     <Section id="Section4" class="section" >
 
         <div class="Picture2">
+            <img src="VisionPic.png" alt="Vision picture">
         </div>
 
         <div class="text4" >
             <span>Our Vision</span>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus deserunt provident facere at
-                voluptatum unde veritatis consequuntur iste molestiae deleniti, voluptate quidem nostrum aspernatur
-                rerum facilis, libero voluptas molestias? Nam earum aperiam voluptate, magnam fuga nesciunt!
-                Veritatis, aperiam sequi hic et perspiciatis minus ullam? Ex ad labore corrupti. Odit, magnam?<br>
-                Qui commodi numquam assumenda illum ipsa fugiat vitae<br> natus voluptatem excepturi, ipsum deserunt
-                facilis facere ex<br> aperiam atque ullam sed nesciunt.</p>
+            <p>“Our vision is to be at the forefront of technological innovation, creating a full-stack web application that not only manages events with unparalleled efficiency but also serves as a beacon for the cryptographic device industry. We aim to foster a platform where cutting-edge cryptographic technology is showcased and celebrated, driving forward the industry’s standards and inspiring a future where security and technology seamlessly converge.”</p>
         </div>
     </Section>
 
@@ -170,9 +163,9 @@
         <div class="container2">
             <h1>Get to know our team</h1>
             <div class="member">
-                <img src="member1.jpg" alt="Member 1">
+                <img src="karnModi.png" alt="Member 1">
                 <div class="details">
-                    <h2>Member 1</h2>
+                    <h2>Karan Modi</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member1">Member 1's Facebook</a></p>
                     <!-- Additional details for member 1 -->
                 </div>
@@ -180,7 +173,7 @@
             <div class="member">
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
-                    <h2>Member 2</h2>
+                    <h2>Farhad Kishwar</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member2">Member 2's Facebook</a></p>
                     <!-- Additional details for member 2 -->
                 </div>
@@ -188,7 +181,7 @@
             <div class="member">
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
-                    <h2>Member 3</h2>
+                    <h2>Kittipat Weng</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member2">Member 3's Facebook</a></p>
                     <!-- Additional details for member 3 -->
                 </div>
@@ -196,7 +189,7 @@
             <div class="member">
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
-                    <h2>Member 4</h2>
+                    <h2>Bijay Hang Limbu</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member2">Member 4's Facebook</a></p>
                     <!-- Additional details for member 4 -->
                 </div>
@@ -204,7 +197,7 @@
             <div class="member">
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
-                    <h2>Member 5</h2>
+                    <h2>Muhammad Nouman Ijaz</h2>
                     <p>Facebook: <a href="https://www.facebook.com/member2">Member 5's Facebook</a></p>
                     <!-- Additional details for member 5 -->
                 </div>

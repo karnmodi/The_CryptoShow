@@ -25,6 +25,21 @@
  flex-direction: column;
  
 }
+#Update-Event-Details .close-btn{
+position: absolute;
+top: 10px;
+right: 10px;
+background: none;
+font-size: 20px;
+cursor: pointer;
+}
+
+#Update-Event-Details .button{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 20px;
+}
 
 #Add-Event-Details .dialog-close-btn{
     position: absolute;
@@ -42,6 +57,8 @@
   text-align: center; 
 }
  
+
+
 #searchstringForEvents {
   width: 93%;
   padding: 15px;

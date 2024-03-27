@@ -166,7 +166,8 @@
                 <img src="karnModi.png" alt="Member 1">
                 <div class="details">
                     <h2>Karan Modi</h2>
-                    <p>Facebook: <a href="https://www.facebook.com/member1">Member 1's Facebook</a></p>
+                    <p>Team leader,  Database Administrator (DBA)</p>
+                    <p>tel: 07867064191</p>
                     <!-- Additional details for member 1 -->
                 </div>
             </div>
@@ -174,23 +175,26 @@
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Farhad Kishwar</h2>
-                    <p>Facebook: <a href="https://www.facebook.com/member2">Member 2's Facebook</a></p>
+                    <p> Interface/Front End Designer, Software Architect</p>
+                    <p>tel: 07931464307</p>
                     <!-- Additional details for member 2 -->
                 </div>
             </div>
             <div class="member">
-                <img src="member2.jpg" alt="Member 2">
+                <img src="Kittipat.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Kittipat Weng</h2>
-                    <p>Facebook: <a href="https://www.facebook.com/member2">Member 3's Facebook</a></p>
+                    <p>Lead Developer</p>
+                    <p>tel: 07307726432</p>
                     <!-- Additional details for member 3 -->
                 </div>
             </div>
             <div class="member">
-                <img src="member2.jpg" alt="Member 2">
+                <img src="Biijay.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Bijay Hang Limbu</h2>
-                    <p>Facebook: <a href="https://www.facebook.com/member2">Member 4's Facebook</a></p>
+                    <p> Business analyst</p>
+                    <p>tel: 0747542844</p>
                     <!-- Additional details for member 4 -->
                 </div>
             </div>
@@ -198,7 +202,8 @@
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Muhammad Nouman Ijaz</h2>
-                    <p>Facebook: <a href="https://www.facebook.com/member2">Member 5's Facebook</a></p>
+                    <p>QA</p>
+                    <p>tel: 07928526270</p>
                     <!-- Additional details for member 5 -->
                 </div>
             </div>

@@ -119,7 +119,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
       </li>
     </ul>
   </div>
-  <section class="Dashboard-section sections">
+  <section class="Dashboard-section sections" id="dashboardCintent">
     <div class="Header_text">Dashboard</div>
 
     <div class="Body-Content">
@@ -166,7 +166,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
     </div>
 </section>
 
-  <section class="Events-section sections">
+  <section class="Events-section sections" id="eventsContent">
 
     <div class="Header_text">Events</div>
 
@@ -236,7 +236,22 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
           <label for = "event_date"> Date:</label>
           <input type="date" id="event_date" name="event_date" required>
           <label for = "event_organizer">Organizer:</label>
-          <input type="text" id="event_organizer" name="event_organizer" required>
+          <select id="event_organizer" name="eventorganizer" requires>
+    <?php
+    $organizerQuery = "SELECT EventOrganizer FROM events";
+    $organizerResult = mysqli_query($con, $organizerQuery);
+    if($organizerResult){
+        while ($row = mysqli_fetch_assoc($organizerResult)) {
+            $organizerName = $row['EventOrganizer'];
+            echo "<option value='$orgnaizerName'>$organizerName</option>";
+        }
+    }
+    $additionalNames = array("Farhad", "Karan", "Bijay Limbu", "Peter", "Noman");
+    foreach ($additionalNames as $name) {
+        echo "<option value='$name'>$name</option>";
+    }
+    ?>
+</select>
           <label for = "event_time"> Time:</label>
           <input type="time" id="event_time" name="event_time" required>
           <label for = "event_description"> Description:</label>
@@ -250,28 +265,44 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
      </dialog>
       
      <dialog id="Update-Event-Details">
-  <button onclick="closeUpdateEventDialog();" aria-label="Close" class="dialog-close-btn">❌</button>
-  <h2>Update Event</h2>
-  <form method="post" action="../Controller/Admin/Events/UpdateEvent.php" id="updateEventForm">
-    <input type="hidden" id="event_id" name="event_id">
-    <label for="event_name">Event Name:</label>
-    <input type="text" id="event_name" name="event_name" required>
-    <label for = "event_Location">Location:</label>
-          <input type="text" id="event_location" name="event_location" required>
-          <label for = "event_date"> Date:</label>
-          <input type="date" id="event_date" name="event_date" required>
-          <label for = "event_organizer">Organizer:</label>
-          <input type="text" id="event_organizer" name="event_organizer" required>
-          <label for = "event_time"> Time:</label>
-          <input type="time" id="event_time" name="event_time" required>
-          <label for = "event_description"> Description:</label>
-          <input type="text" id="event_description" name="event_description" required>
-          <label for = "event_image"> Image URL:</label>
-          <input type="url" id="event_image" name="event_image" required>
-    <div class="button">
-      <button type="submit" id="submitUpdateEvent">Update Event</button>
-    </div>
-  </form>
+    <button onclick="closeUpdateEventDialog();" aria-label="Close" class="close-btn">❌</button>
+    <h2>Update Event</h2>
+    <form method="post" action="../Controller/Admin/Events/UpdateEvent.php" id="updateEventForm">
+        <label for="event_id">Event ID:</label>
+        <input type="text" id="event_id" name="eventid" required>
+        <label for="event_name">Event Name:</label>
+        <input type="text" id="event_name" name="eventname" required>
+        <label for="event_location">Location:</label>
+        <input type="text" id="event_location" name="eventlocation" required>
+        <label for="event_date"> Date:</label>
+        <input type="date" id="event_date" name="eventdate" required>
+        <label for="event_time"> Time:</label>
+        <input type="time" id="event_time" name="eventtime" required>
+        <label for="event_description"> Description:</label>
+        <input type="text" id="event_description" name="eventdescription" required>
+        <label for="event_image"> Image URL:</label>
+        <input type="url" id="event_image" name="eventimage" required>
+        <label for="event_organizer"> Organizer:</label>
+        <select id="event_organizer" name="eventorganizer" required>
+    <?php
+    $organizerQuery = "SELECT EventOrganizer FROM events";
+    $organizerResult = mysqli_query($con, $organizerQuery);
+    if ($organizerResult) {
+        while ($row = mysqli_fetch_assoc($organizerResult)) {
+            $organizerName = $row['EventOrganizer'];
+            echo "<option value='$organizerName'>$organizerName</option>";
+        }
+    }
+    $additionalNames = array("Farhad", "Karan", "Bijay Limbu", "Peter", "Noman");
+    foreach ($additionalNames as $name) {
+        echo "<option value='$name'>$name</option>";
+    }
+    ?>
+</select>
+        <div class="button">
+            <button type="submit" id="submitUpdateEvent">Update Event</button>
+        </div>
+    </form>
 </dialog>
         
       </div>
@@ -280,11 +311,11 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
 
   </section>
 
-  <section class="Devices-section sections">
+  <section class="Devices-section sections" id="devicesContnet">
     <div class="Header_text">Devices</div>
   </section>
 
-  <section class="Members-section sections">
+  <section class="Members-section sections" id="membersContnet">
     <div class="Header_text">Members</div>
 
     <div class="Body_content">
@@ -379,7 +410,7 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
 
   </section>
 
-  <section class="Review-section sections">
+  <section class="Review-section sections" id="reviewContent">
     <div class="Header_text">Review</div>
   </section>
 
@@ -396,6 +427,7 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
       <div class="setting-option">
         <label for="change-user-details">Change User Details:</label>
         <button id="change-user-details">Change</button>
+
       </div>
       
       <dialog id="Update-User-Details">
@@ -417,6 +449,12 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
       <div class="setting-option">
         <label for="turn-off-website">Turn off Website:</label>
         <button id="turn-off-website">Turn Off</button>
+
+      </div>
+
+      <div class="setting-option">
+        <label for="DarkMode">Dark/Light Mode:</label>
+      <button id="Mode" onclick="myFunction()">Dark Mode</button>
       </div>
     </div>
 
@@ -432,7 +470,9 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
   <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
+  <script src="../Controller/Admin/Dashboard/Search.js"></script>
   <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
+  <script src="../Controller/Admin/Settings/DarkMode.js"></script>
   <script src="../Controller/Admin/Events/AddEvent.js"></script>
   <script src="../Controller/Admin/Events/UpdateEvent.js"></script>
 </body>

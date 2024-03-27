@@ -76,9 +76,9 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
       <li>
         <a href="#Settings" onclick="showSection('Settings-section' , this);">
           <i class='bx bx-cog'></i>
-          <span class="Btns_Name">Setting</span>
+          <span class="Btns_Name">Settings</span>
         </a>
-        <span class="SB_Btns">Setting</span>
+        <span class="SB_Btns">Settings</span>
       </li>
 
       <li class="profile">

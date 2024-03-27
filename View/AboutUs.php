@@ -120,17 +120,17 @@
 
             <div class="RhsContent">
                 <div class="One">
-                    <span>Lorem, ipsum dolor sit amet </span>
+                    <span>Our Story </span>
                     <p> Lorem ipsum </p>
                 </div>
 
                 <div class="Two">
-                    <span>Lorem, ipsum dolor sit amet </span>
+                    <span>Our Mission </span>
                     <p> Lorem ipsum </p>
                 </div>
 
                 <div class="Three">
-                    <span>Lorem, ipsum dolor sit amet </span>
+                    <span>Our Vision </span>
                     <p> Lorem ipsum </p>
                 </div>
             </div>

@@ -166,8 +166,11 @@
                 <img src="/The_CryptoShow/Assets/Website Images/karnModi.png" alt="Member 1">
                 <div class="details">
                     <h2>Karan Modi</h2>
-                    <p>Team leader,  Database Administrator (DBA)</p>
-                    <p>tel: 07867064191</p>
+                    <ul>
+                        <li>Team leader</li>
+                        <li>Database Administrator (DBA)</li>
+                        <p>tel: 07867064191</p>
+                    </ul>
                     <!-- Additional details for member 1 -->
                 </div>
             </div>
@@ -175,8 +178,11 @@
                 <img src="/The_CryptoShow/Assets/Website Images/Farhad.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Farhad Kishwar</h2>
-                    <p> Interface/Front End Designer, Software Architect</p>
-                    <p>tel: 07931464307</p>
+                    <ul>
+                        <li>Interface/Front End Designer</li>
+                        <li>Software Architect</li>
+                        <p>tel: 07931464307</p>
+                    </ul>
                     <!-- Additional details for member 2 -->
                 </div>
             </div>
@@ -184,8 +190,11 @@
                 <img src="/The_CryptoShow/Assets/Website Images/Kittipat.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Kittipat Weng</h2>
-                    <p>Lead Developer, Interface/Front End Designer(assistant)</p>
-                    <p>tel: 07307726432</p>
+                    <ul>
+                        <li>Lead Developer</li>
+                        <li>Interface/Front End Designer(assistant)</li>
+                        <p>tel: 07307726432</p>
+                    </ul>
                     <!-- Additional details for member 3 -->
                 </div>
             </div>
@@ -193,8 +202,10 @@
                 <img src="/The_CryptoShow/Assets/Website Images/Biijay.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Bijay Hang Limbu</h2>
-                    <p> Business analyst</p>
-                    <p>tel: 0747542844</p>
+                    <ul>
+                        <li>Business analyst</li>
+                        <p>tel: 0747542844</p>
+                    </ul>
                     <!-- Additional details for member 4 -->
                 </div>
             </div>
@@ -202,8 +213,10 @@
                 <img src="member2.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Muhammad Nouman Ijaz</h2>
-                    <p>QA</p>
-                    <p>tel: 07928526270</p>
+                    <ul>
+                        <li>QA</li>
+                        <p>tel: 07928526270</p>
+                    </ul>
                     <!-- Additional details for member 5 -->
                 </div>
             </div>

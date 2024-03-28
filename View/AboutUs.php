@@ -143,14 +143,14 @@
             </p>
         </div>
         <div class="picture">
-            <img src="Mission pic.png" alt="Mission picture">
+            <img src="/The_CryptoShow/Assets/Website Images/Mission pic.png" alt="Mission picture" width="500" height="500">
         </div>
     </Section>
 
     <Section id="Section4" class="section" >
 
         <div class="Picture2">
-            <img src="VisionPic.png" alt="Vision picture">
+            <img src="/The_CryptoShow/Assets/Website Images/VisionPic.png" alt="Vision picture">
         </div>
 
         <div class="text4" >
@@ -163,7 +163,7 @@
         <div class="container2">
             <h1>Get to know our team</h1>
             <div class="member">
-                <img src="karnModi.png" alt="Member 1">
+                <img src="/The_CryptoShow/Assets/Website Images/karnModi.png" alt="Member 1">
                 <div class="details">
                     <h2>Karan Modi</h2>
                     <p>Team leader,  Database Administrator (DBA)</p>
@@ -172,7 +172,7 @@
                 </div>
             </div>
             <div class="member">
-                <img src="member2.jpg" alt="Member 2">
+                <img src="/The_CryptoShow/Assets/Website Images/Farhad.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Farhad Kishwar</h2>
                     <p> Interface/Front End Designer, Software Architect</p>
@@ -181,16 +181,16 @@
                 </div>
             </div>
             <div class="member">
-                <img src="Kittipat.jpg" alt="Member 2">
+                <img src="/The_CryptoShow/Assets/Website Images/Kittipat.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Kittipat Weng</h2>
-                    <p>Lead Developer</p>
+                    <p>Lead Developer, Interface/Front End Designer(assistant)</p>
                     <p>tel: 07307726432</p>
                     <!-- Additional details for member 3 -->
                 </div>
             </div>
             <div class="member">
-                <img src="Biijay.jpg" alt="Member 2">
+                <img src="/The_CryptoShow/Assets/Website Images/Biijay.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Bijay Hang Limbu</h2>
                     <p> Business analyst</p>

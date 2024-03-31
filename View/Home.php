@@ -3,8 +3,8 @@ session_start();
 
 if (!isset($_SESSION['user_name'])) {
 
-    header('Location: ../index.php');
-    exit;
+  header('Location: ../index.php');
+  exit;
 }
 
 $userName = $_SESSION['user_name'];
@@ -17,6 +17,37 @@ FROM Events e
 JOIN Member m ON e.OrganizerID = m.MemberID
 JOIN Devices d ON e.DeviceID = d.DeviceID;";
 $resultofFE = mysqli_query($con, $FetchAllEvents);
+
+$eventsPerUserQuery = "SELECT m.Name, COUNT(e.EventID) as EventCount
+                       FROM Events e
+                       JOIN Member m ON e.OrganizerID = m.MemberID
+                       GROUP BY e.OrganizerID;";
+$eventsPerUserResult = mysqli_query($con, $eventsPerUserQuery);
+
+$eventsPerUserData = [];
+while ($row = mysqli_fetch_assoc($eventsPerUserResult)) {
+  $eventsPerUserData[] = $row;
+}
+
+$loginCountsQuery = "
+    SELECT m.Name, COUNT(l.LoginHistoryID) as LoginCount
+    FROM member m
+    LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
+    GROUP BY m.MemberID
+";
+$loginCountsResult = mysqli_query($con, $loginCountsQuery);
+
+$chartData = [
+  'userNames' => [],
+  'loginCounts' => []
+];
+
+while ($row = mysqli_fetch_assoc($loginCountsResult)) {
+  $chartData['userNames'][] = $row['Name'];
+  $chartData['loginCounts'][] = $row['LoginCount'];
+}
+?>
+
 
 ?>
 
@@ -34,7 +65,7 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
   <link rel="stylesheet" href="CSS/Admin/Events.css">
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
   <link rel="stylesheet" href="CSS/Admin/Updateform.css">
- 
+
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -119,52 +150,66 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
       </li>
     </ul>
   </div>
-  <section class="Dashboard-section sections" id="dashboardCintent">
+
+
+  <section class="Dashboard-section sections" id="dashboardContent">
     <div class="Header_text">Dashboard</div>
 
     <div class="Body-Content">
-      <!-- Total Member Data -->
-      <div class = "dashboard-widgets">
-         <div class="widget">
+      <div class="dashboard-widgets">
+        <div class="widget">
           <h2> Total Members </h2>
-          <p><?php echo mysqli_num_rows($resultofFM); ?></p>
-         </div>
+          <p>
+            <?php echo mysqli_num_rows($resultofFM); ?>
+            <i class="fa-solid fa-people-group"></i>
+          </p>
+        </div>
+        
+        
+        <div class="event-widget">
+          <h2> Total Events Schedules</h2>
+          <?php
+          $totalEventsCount = mysqli_num_rows($resultofFE);
+          ?>
+          <p>
+            <?php echo $totalEventsCount; ?>
+            <i class="fa-regular fa-calendar-days"></i>
+          </p>
 
-
-      <div class="event-widget">
-        <h2> Total Events </h2>
-        <?php
-                $totalEventsCount = mysqli_num_rows($resultofFE);
-                ?>
-        <p><?php echo $totalEventsCount; ?></p>
-      </div>
+        </div>
       </div>
 
       <div class="Revenue-Member-Container">
 
         <div class="Revenue-widget">
           <h2> Revenue </h3>
-          <p>$<?php echo rand(1000, 50000); ?></p>
+            <p>$
+              <?php echo rand(1000, 50000); ?>
+            </p>
         </div>
 
         <div class="Latest-Member-Widget">
           <h2>Latest Member</h2>
           <ul>
             <?php
-              $latestMembersQuery = "SELECT * FROM member ORDER BY MemberID";
-              $latestMembersResult = mysqli_query($con, $latestMembersQuery);
-              while ($row = mysqli_fetch_assoc($latestMembersResult)) {
+            $latestMembersQuery = "SELECT * FROM member ORDER BY MemberID";
+            $latestMembersResult = mysqli_query($con, $latestMembersQuery);
+            while ($row = mysqli_fetch_assoc($latestMembersResult)) {
               echo "<li> {$row['Name']}</li>";
-                   }
+            }
             ?>
-            </ul>
-            </div>
-          </div>
-          <div class="Chart">
-          <canvas id="myChart" width="400" height="200"></canvas> 
-          </div>
+          </ul>
+        </div>
+      </div>
+      <div class="Chart">
+        <div class="Canvas-Container">
+          <canvas id="eventsChart"></canvas>
+          <canvas id="UserLoginChart"></canvas>
+        </div>
+      </div>
+
     </div>
-</section>
+  </section>
 
   <section class="Events-section sections" id="eventsContent">
 
@@ -181,14 +226,15 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
 
         <div class="tile-container">
           <?php
-           while ($row = mysqli_fetch_assoc($resultofFE)) {
+          while ($row = mysqli_fetch_assoc($resultofFE)) {
 
 
 
-    ?>
-            <div class="tile" data-event-id="<?php echo $row['EventID']; ?>" onclick="openUpdateEventDialog(<?php echo $row['EventID']; ?>)">
+            ?>
+            <div class="tile" data-event-id="<?php echo $row['EventID']; ?>"
+              onclick="openUpdateEventDialog(<?php echo $row['EventID']; ?>)">
               <div class="tile-header">
-              
+
               </div>
 
               <div class="tile-body">
@@ -217,94 +263,15 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
 
             </div>
 
-          <?php }?>
+          <?php } ?>
 
         </div>
 
       </div>
 
       <div class="RHS-Content">
-      <button onclick="openAddEventDialog();" aria-label="Add-New-Event">Add New Event</button>
-      <dialog id="Add-Event-Details">
-      <button onclick="closeAddEventDialog();" aria-label="Close" class="dialog-close-btn">❌</button>
-        <h2>Add Event</h2>
-        <form method="post" action="../Controller/Admin/Events/AddEvent.php">
-        <label for="event_name">Event Name:</label>
-        <input type="text" id="event_name" name="event_name" required>
-          <label for = "event_Location">Location:</label>
-          <input type="text" id="event_location" name="event_location" required>
-          <label for = "event_date"> Date:</label>
-          <input type="date" id="event_date" name="event_date" required>
-          <label for = "event_organizer">Organizer:</label>
-          <select id="event_organizer" name="eventorganizer" requires>
-    <?php
-    $organizerQuery = "SELECT EventOrganizer FROM events";
-    $organizerResult = mysqli_query($con, $organizerQuery);
-    if($organizerResult){
-        while ($row = mysqli_fetch_assoc($organizerResult)) {
-            $organizerName = $row['EventOrganizer'];
-            echo "<option value='$orgnaizerName'>$organizerName</option>";
-        }
-    }
-    $additionalNames = array("Farhad", "Karan", "Bijay Limbu", "Peter", "Noman");
-    foreach ($additionalNames as $name) {
-        echo "<option value='$name'>$name</option>";
-    }
-    ?>
-</select>
-          <label for = "event_time"> Time:</label>
-          <input type="time" id="event_time" name="event_time" required>
-          <label for = "event_description"> Description:</label>
-          <input type="text" id="event_description" name="event_description" required>
-          <label for = "event_image"> Image URL:</label>
-          <input type="url" id="event_image" name="event_image" required><br><br>
-          <div class="button">
-          <button type="submit" id="submitEvent">Submit Event</button>
-          </div>
-        </form>
-     </dialog>
-      
-     <dialog id="Update-Event-Details">
-    <button onclick="closeUpdateEventDialog();" aria-label="Close" class="close-btn">❌</button>
-    <h2>Update Event</h2>
-    <form method="post" action="../Controller/Admin/Events/UpdateEvent.php" id="updateEventForm">
-        <label for="event_id">Event ID:</label>
-        <input type="text" id="event_id" name="eventid" required>
-        <label for="event_name">Event Name:</label>
-        <input type="text" id="event_name" name="eventname" required>
-        <label for="event_location">Location:</label>
-        <input type="text" id="event_location" name="eventlocation" required>
-        <label for="event_date"> Date:</label>
-        <input type="date" id="event_date" name="eventdate" required>
-        <label for="event_time"> Time:</label>
-        <input type="time" id="event_time" name="eventtime" required>
-        <label for="event_description"> Description:</label>
-        <input type="text" id="event_description" name="eventdescription" required>
-        <label for="event_image"> Image URL:</label>
-        <input type="url" id="event_image" name="eventimage" required>
-        <label for="event_organizer"> Organizer:</label>
-        <select id="event_organizer" name="eventorganizer" required>
-    <?php
-    $organizerQuery = "SELECT EventOrganizer FROM events";
-    $organizerResult = mysqli_query($con, $organizerQuery);
-    if ($organizerResult) {
-        while ($row = mysqli_fetch_assoc($organizerResult)) {
-            $organizerName = $row['EventOrganizer'];
-            echo "<option value='$organizerName'>$organizerName</option>";
-        }
-    }
-    $additionalNames = array("Farhad", "Karan", "Bijay Limbu", "Peter", "Noman");
-    foreach ($additionalNames as $name) {
-        echo "<option value='$name'>$name</option>";
-    }
-    ?>
-</select>
-        <div class="button">
-            <button type="submit" id="submitUpdateEvent">Update Event</button>
-        </div>
-    </form>
-</dialog>
-        
+
+
       </div>
 
     </div>
@@ -335,8 +302,8 @@ $resultofFE = mysqli_query($con, $FetchAllEvents);
         </thead>
         <tbody>
           <?php
-while ($row = mysqli_fetch_assoc($resultofFM)) {
-    ?>
+          while ($row = mysqli_fetch_assoc($resultofFM)) {
+            ?>
             <tr class="Member-Rows" data-member-id="<?php echo $row['MemberID']; ?>"
               onclick="openMemberPopup(<?php echo $row['MemberID']; ?>)">
               <td>
@@ -356,8 +323,8 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
               </td>
             </tr>
             <?php
-}
-?>
+          }
+          ?>
         </tbody>
 
       </table>
@@ -429,22 +396,22 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
         <button id="change-user-details">Change</button>
 
       </div>
-      
+
       <dialog id="Update-User-Details">
         <h2> Update Details</h2>
         <form method="post" action="../Controller/Admin/Settings/UpdateUserDetails.php">
-        <label for="member_id">Member ID:</label>
-        <input type="text" id="member_id" name="member_id" required><br><br>
-          <label for = "Name"> Update Name:</label>
+          <label for="member_id">Member ID:</label>
+          <input type="text" id="member_id" name="member_id" required><br><br>
+          <label for="Name"> Update Name:</label>
           <input type="text" id="Name" name="Name" required> <br><br>
-          <label for = "Password"> Update Password:</label>
+          <label for="Password"> Update Password:</label>
           <input type="text" id="Password" name="Password" required><br><br>
           <div class="buttons">
-          <button id="cancel-update">Cancel</button>
-          <button id="Submit" type="submit">Save Changes</button>
+            <button id="cancel-update">Cancel</button>
+            <button id="Submit" type="submit">Save Changes</button>
           </div>
         </form>
-     </dialog>
+      </dialog>
 
       <div class="setting-option">
         <label for="turn-off-website">Turn off Website:</label>
@@ -454,7 +421,7 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
 
       <div class="setting-option">
         <label for="DarkMode">Dark/Light Mode:</label>
-      <button id="Mode" onclick="myFunction()">Dark Mode</button>
+        <button id="Mode" onclick="myFunction()">Dark Mode</button>
       </div>
     </div>
 
@@ -462,19 +429,28 @@ while ($row = mysqli_fetch_assoc($resultofFM)) {
 
   </section>
 
+  <script>let eventsPerUserData = <?php echo json_encode($eventsPerUserData); ?>;
+  </script>
+  <script>
+    const chartData = <?php echo json_encode($chartData); ?>;
+  </script>
+
+
   <script src="JS/Slidebar.js"></script>
   <script src="JS/Home.js"></script>
+  <script src="JS/UEChart.js"></script>
+  <script src="JS/ULChart.js"></script>
   <script src="../Controller/Admin/Member/SearchMember.js"></script>
   <script src="../Controller/Admin/Member/SelectRow.js"></script>
   <script src="../Controller/Admin/Member/Member_PopUp.js"></script>
   <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
   <script src="../Controller/Admin/Dashboard/Search.js"></script>
   <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
   <script src="../Controller/Admin/Settings/DarkMode.js"></script>
   <script src="../Controller/Admin/Events/AddEvent.js"></script>
   <script src="../Controller/Admin/Events/UpdateEvent.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

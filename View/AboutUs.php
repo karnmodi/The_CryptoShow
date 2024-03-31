@@ -169,9 +169,9 @@
                     <ul>
                         <li>Team leader</li>
                         <li>Database Administrator (DBA)</li>
+                        <li>Backend Handler</li>
                         <p>tel: 07867064191</p>
                     </ul>
-                    <!-- Additional details for member 1 -->
                 </div>
             </div>
             <div class="member">

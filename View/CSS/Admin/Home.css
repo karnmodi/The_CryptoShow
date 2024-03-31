@@ -77,8 +77,9 @@
 }
 .sidebar .nav-list{
   margin-top: 20px;
-  height: 100%;
+  height: fit-content;
 }
+
 .sidebar li{
   position: relative;
   margin: 8px 0;

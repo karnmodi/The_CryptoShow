@@ -1,15 +1,26 @@
+document.addEventListener('DOMContentLoaded', function() {
+    var updateButton = document.getElementById('updateEventbtn');
+    var deleteButton = document.getElementById('deleteEventbtn');
+    var eventForm = document.getElementById('eventForm');
+    var actionInput = document.getElementById('formAction');
 
-  function openUpdateEventDialog(eventId) {
-    // Fetch event details based on eventId and populate the form fields
-    // For simplicity, let's assume you have JavaScript function to fetch event details and populate the form fields
+    if(updateButton) {
+        updateButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            actionInput.value = 'update'; 
+            eventForm.action = '../Controller/Admin/Events/UpdateEvent.php'; 
+            eventForm.submit(); 
+        });
+    }
 
-    // Show the dialog
-    var dialog = document.getElementById('Update-Event-Details');
-    dialog.showModal();
-  }
-
-  function closeUpdateEventDialog() {
-    var dialog = document.getElementById('Update-Event-Details');
-    dialog.close();
-  }
-
+    if(deleteButton) {
+        deleteButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            if(confirm('Are you sure you want to delete this event?')) { 
+                actionInput.value = 'delete'; 
+                eventForm.action = '../Controller/Admin/Events/UpdateEvent.php';
+                eventForm.submit();
+            }
+        });
+    }
+});

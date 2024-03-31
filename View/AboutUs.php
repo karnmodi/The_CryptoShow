@@ -163,19 +163,19 @@
         <div class="container2">
             <h1>Get to know our team</h1>
             <div class="member">
-                <img src="/The_CryptoShow/Assets/Website Images/karnModi.png" alt="Member 1">
+                <img src="/The_CryptoShow/Assets/Website Images/Developers/karnModi.png" alt="Member 1">
                 <div class="details">
                     <h2>Karan Modi</h2>
                     <ul>
                         <li>Team leader</li>
                         <li>Database Administrator (DBA)</li>
                         <li>Backend Handler</li>
-                        <p>tel: 07867064191</p>
+                        <p>tel: 07867064191 &nbsp;|&nbsp; Email: P2761604@my365.dmu.ac.uk</p>
                     </ul>
                 </div>
             </div>
             <div class="member">
-                <img src="/The_CryptoShow/Assets/Website Images/Farhad.jpg" alt="Member 2">
+                <img src="/The_CryptoShow/Assets/Website Images/Developers/Farhad.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Farhad Kishwar</h2>
                     <ul>
@@ -183,23 +183,22 @@
                         <li>Software Architect</li>
                         <p>tel: 07931464307</p>
                     </ul>
-                    <!-- Additional details for member 2 -->
                 </div>
             </div>
             <div class="member">
-                <img src="/The_CryptoShow/Assets/Website Images/Kittipat.jpg" alt="Member 2">
+                <img src="/The_CryptoShow/Assets/Website Images/Developers/Kittipat.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Kittipat Weng</h2>
                     <ul>
                         <li>Lead Developer</li>
                         <li>Interface/Front End Designer(assistant)</li>
-                        <p>tel: 07307726432</p>
+                        <p>tel: 07307726432  </p>
                     </ul>
                     <!-- Additional details for member 3 -->
                 </div>
             </div>
             <div class="member">
-                <img src="/The_CryptoShow/Assets/Website Images/Biijay.jpg" alt="Member 2">
+                <img src="/The_CryptoShow/Assets/Website Images/Developers/Biijay.jpg" alt="Member 2">
                 <div class="details">
                     <h2>Bijay Hang Limbu</h2>
                     <ul>

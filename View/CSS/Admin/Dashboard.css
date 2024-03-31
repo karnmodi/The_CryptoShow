@@ -14,7 +14,7 @@
 
 .widget:hover,
 .event-widget:hover,
-.Revenue-widget:hover,
+.Upcoming-Events-widget:hover,
 .Latest-Member-Widget:hover {
   background-color: #105D97; 
   color: white;
@@ -23,7 +23,7 @@
 
 .widget,
 .event-widget,
-.Revenue-widget,
+.Upcoming-Events-widget,
 .Latest-Member-Widget {
   background-color: #f4f4f4;
   padding: 20px;
@@ -32,7 +32,7 @@
   flex: 1;
 }
 
-.Revenue-Member-Container {
+.Latest-Container {
   display: flex;
   justify-content: space-around;
   margin-top: 80px;
@@ -43,7 +43,7 @@
 
 .widget h2,
 .event-widget h2,
-.Revenue-widget h2,
+.Upcoming-Events-widget h2,
 .Latest-Member-Widget h2 {
   margin-bottom: 10px;
   font-size: 18px;
@@ -51,7 +51,7 @@
 
 .widget p,
 .event-widget p,
-.Revenue-widget p {
+.Upcoming-Events-widget p {
   font-size: 24px;
   font-weight: bold;
 }
@@ -79,7 +79,7 @@
 }
 
 canvas {
-  max-width: 500px; 
+  max-width: 50%; 
   max-height: 500px;
 
 }
@@ -90,7 +90,7 @@ body.dark-mode .Dashboard-section {
 
 body.dark-mode .widget,
 body.dark-mode .event-widget,
-body.dark-mode .Revenue-widget,
+body.dark-mode .Upcoming-Events-widget,
 body.dark-mode .Latest-Member-Widget {
   background-color: #424242;
   color: #f1f1f1;
@@ -98,7 +98,7 @@ body.dark-mode .Latest-Member-Widget {
 
 body.dark-mode .widget:hover,
 body.dark-mode .event-widget:hover,
-body.dark-mode .Revenue-widget:hover,
+body.dark-mode .Upcoming-Events-widget:hover,
 body.dark-mode .Latest-Member-Widget:hover {
   background-color: #2a88d8;
 }

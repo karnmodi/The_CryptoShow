@@ -1,50 +1,49 @@
 <?php
 session_start();
+require_once "../../../Model/Configurations/db.php";
 
-if (!isset($_SESSION['user_name'])) {
-    header('Location: ../index.php');
-    exit;
-}
-
-require_once("../../../Model/Configurations/db.php");
-
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $event_id = $_POST['eventid'];
-    $event_name = $_POST['eventname'];
-    $event_location = $_POST['eventlocation'];
-    $event_date = $_POST['eventdate'];
-    $event_time = $_POST['eventtime'];
-    $event_description = $_POST['eventdescription'];
-    $event_organizer = $_POST['eventorganizer'];
-    $event_image = $_POST['eventimage'];
-    
-    // Update event details in the database using prepared statements
-    $updateQuery = "UPDATE events SET 
-                    EventName = ?, 
-                    EventLocation = ?, 
-                    EventDate = ?, 
-                    EventTime = ?,
-                    EventDescription = ?,
-                    EventOrganizer = ?,
-                    EventImage = ?
-                    WHERE EventID = ?";
-    
-    // Prepare the statement
-    $stmt = mysqli_prepare($con, $updateQuery);
-    
-    // Bind parameters
-    mysqli_stmt_bind_param($stmt, "ssssssii", $event_name, $event_location, $event_date, $event_time, $event_description, $event_organizer, $event_image, $event_id);
-    
-    // Execute the statement
-    if (mysqli_stmt_execute($stmt)) {
-        echo "Update Successfully";
+    $action = $_POST['action'] ?? '';
+
+    if ($action == 'update' || $action == 'add') {
+        $eventName = mysqli_real_escape_string($con, $_POST['eventName']);
+        $eventDescription = mysqli_real_escape_string($con, $_POST['eventDescription']);
+        $eventLocation = mysqli_real_escape_string($con, $_POST['eventLocation']);
+        $organizerID = mysqli_real_escape_string($con, $_POST['organizerName']);
+        $deviceID = mysqli_real_escape_string($con, $_POST['deviceName']);
+        $eventTime = mysqli_real_escape_string($con, $_POST['eventTime']);
+        $eventDate = mysqli_real_escape_string($con, $_POST['eventDate']);
+        $eventStatus = mysqli_real_escape_string($con, $_POST['eventStatus']);
+
+        if (empty($deviceID) || $deviceID == 'none') { 
+            $_SESSION['message'] = 'Please select a device.';
+            header('Location: ../../../View/Home.php?section=events');
+            exit;
+        }
+
+        if ($action == 'update') {
+            $eventId = mysqli_real_escape_string($con, $_POST['event_id']);
+            $updateQuery = "UPDATE Events SET EventName = '$eventName', EventDescription = '$eventDescription', EventLocation = '$eventLocation', OrganizerID = '$organizerID', DeviceID = '$deviceID', EventTime = '$eventTime', EventDate = '$eventDate', EventStatus = '$eventStatus' WHERE EventID = '$eventId'";
+            // Execute the update query
+            if (mysqli_query($con, $updateQuery)) {
+                $_SESSION['message'] = 'Event updated successfully!';
+            } else {
+                $_SESSION['message'] = 'Error updating event: ' . mysqli_error($con);
+            }
+        }
+    } elseif ($action == 'delete') {
+        $eventId = mysqli_real_escape_string($con, $_POST['event_id']);
+        $deleteQuery = "DELETE FROM Events WHERE EventID = '$eventId'";
+        if (mysqli_query($con, $deleteQuery)) {
+            $_SESSION['message'] = 'Event deleted successfully!';
+        } else {
+            $_SESSION['message'] = 'Error deleting event: ' . mysqli_error($con);
+        }
     } else {
-        echo "Error updating member details: " . mysqli_error($con);
+        $_SESSION['message'] = 'Invalid action requested.';
     }
-    
-    // Close the statement
-    mysqli_stmt_close($stmt);
+
+    header('Location: ../../../View/Home.php?section=events');
+    exit;
 }
 ?>

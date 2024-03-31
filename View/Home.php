@@ -12,7 +12,7 @@ require_once "../Model/Configurations/db.php";
 $FetchAllMembers = "SELECT * from member";
 $resultofFM = mysqli_query($con, $FetchAllMembers);
 
-$FetchAllEvents = "SELECT e.EventID, e.EventDate, e.EventTime, e.EventLocation, m.Name, d.DeviceName, d.Description
+$FetchAllEvents = "SELECT e.EventID,e.EventName,e.EventDescription, e.EventDate, e.EventTime, e.EventLocation,e.OrganizerID, e.DeviceID, e.EventStatus, m.Name, d.DeviceName, d.Description
 FROM Events e
 JOIN Member m ON e.OrganizerID = m.MemberID
 JOIN Devices d ON e.DeviceID = d.DeviceID;";
@@ -49,9 +49,6 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 ?>
 
 
-?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -71,6 +68,42 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script>
+    <?php if (isset($_SESSION['message']) && !empty($_SESSION['message'])): ?>
+      window.onload = function () {
+        alert("<?php echo $_SESSION['message']; ?>");
+        <?php unset($_SESSION['message']); ?>
+      };
+    <?php endif; ?>
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+      var lastActiveSection = localStorage.getItem('activeSection');
+
+      if (lastActiveSection) {
+        showSection(lastActiveSection);
+      }
+
+      var organizerSelect = document.getElementById('organizerName');
+      var deviceSelect = document.getElementById('deviceName');
+      var initialDevicesOptions = Array.from(deviceSelect.options);
+
+      organizerSelect.addEventListener('change', function () {
+        const selectedOrganizerId = this.value;
+        while (deviceSelect.options.length > 1) deviceSelect.remove(1);
+
+        initialDevicesOptions.forEach(function (option) {
+          if (option.dataset.memberId === selectedOrganizerId) {
+            deviceSelect.add(option.cloneNode(true));
+          }
+        });
+      });
+
+    });
+
+
+  </script>
 </head>
 
 <body>
@@ -88,7 +121,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </li>
 
       <li>
-        <a href="#Dashboard" onclick="showSection('Dashboard-section', this); ">
+        <a href="javascript:void(0);" onclick="showSection('dashboardContent');">
           <i class='bx bx-grid-alt'></i>
           <span class="Btns_Name">Dashboard</span>
         </a>
@@ -96,7 +129,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </li>
 
       <li>
-        <a href="#Events" onclick="showSection('Events-section', this);">
+        <a href="javascript:void(0);" onclick="showSection('eventsContent');">
           <i class='bx bx-pie-chart-alt-2'></i>
           <span class="Btns_Name">Events</span>
         </a>
@@ -104,7 +137,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </li>
 
       <li>
-        <a href="#Devices" onclick="showSection('Devices-section', this);">
+        <a href="javascript:void(0);" onclick="showSection('devicesContnet');">
           <i class='bx bx-chat'></i>
           <span class="Btns_Name">Devices</span>
         </a>
@@ -113,7 +146,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
 
       <li>
-        <a href="#Members" onclick="showSection('Members-section' , this);">
+        <a href="javascript:void(0);" onclick="showSection('membersContnet');">
           <i class='bx bx-user'></i>
           <span class="Btns_Name">Members</span>
         </a>
@@ -121,7 +154,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </li>
 
       <li>
-        <a href="#Reviews" onclick="showSection('Review-section' , this);">
+        <a href="javascript:void(0);" onclick="showSection('reviewContent');">
           <i class='bx bx-folder'></i>
           <span class="Btns_Name">Review</span>
         </a>
@@ -129,7 +162,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </li>
 
       <li>
-        <a href="#Settings" onclick="showSection('Settings-section' , this);">
+        <a href="javascript:void(0);" onclick="showSection('settingsContent');">
           <i class='bx bx-cog'></i>
           <span class="Btns_Name">Setting</span>
         </a>
@@ -164,8 +197,8 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
             <i class="fa-solid fa-people-group"></i>
           </p>
         </div>
-        
-        
+
+
         <div class="event-widget">
           <h2> Total Events Schedules</h2>
           <?php
@@ -179,14 +212,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
         </div>
       </div>
 
-      <div class="Revenue-Member-Container">
-
-        <div class="Revenue-widget">
-          <h2> Revenue </h3>
-            <p>$
-              <?php echo rand(1000, 50000); ?>
-            </p>
-        </div>
+      <div class="Latest-Container">
 
         <div class="Latest-Member-Widget">
           <h2>Latest Member</h2>
@@ -200,9 +226,27 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
             ?>
           </ul>
         </div>
+
+
+        <div class="Upcoming-Events-widget">
+          <h2> Upcoming Events Container : </h2>
+          <ul style="margin-left:20px;">
+            <?php
+            $currentDate = date('Y-m-d');
+
+            $latestEventsQuery = "SELECT * FROM events WHERE EventDate >= '$currentDate' ORDER BY EventDate ASC LIMIT 4";
+            $latestEventsResult = mysqli_query($con, $latestEventsQuery);
+            while ($row = mysqli_fetch_assoc($latestEventsResult)) {
+              echo "<li> {$row['EventName']}</li>";
+            }
+            ?>
+          </ul>
+        </div>
+
+
       </div>
       <div class="Chart">
-        <div class="Canvas-Container">
+        <div class="canvas-container">
           <canvas id="eventsChart"></canvas>
           <canvas id="UserLoginChart"></canvas>
         </div>
@@ -231,21 +275,31 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
 
             ?>
-            <div class="tile" data-event-id="<?php echo $row['EventID']; ?>"
-              onclick="openUpdateEventDialog(<?php echo $row['EventID']; ?>)">
+            <div class="tile" data-event-id="<?php echo $row['EventID'] ?>"
+              data-event-name="<?php echo $row['EventName'] ?>"
+              data-event-description="<?php echo $row['EventDescription'] ?>"
+              data-event-location="<?php echo $row['EventLocation'] ?>" data-event-date="<?php echo $row['EventDate'] ?>"
+              data-event-time="<?php echo $row['EventTime'] ?>" data-organizer-id="<?php echo $row['OrganizerID'] ?>"
+              data-device-id="<?php echo $row['DeviceID'] ?>" data-event-status="<?php echo $row['EventStatus'] ?>">
+
+
               <div class="tile-header">
 
               </div>
 
               <div class="tile-body">
-                <strong>Event :
-                  <?php echo $row['EventID'] ?>
+                <strong>
+                  <?php echo $row['EventName'] ?>
                 </strong>
-                <span class="Event-Desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam,
-                  praesentium.</span>
+                <span class="Event-Desc">
+                  <?php echo $row['EventDescription'] ?>
+                </span>
                 <div class="tile-footer">
                   <span class="Location"><i class="fa-solid fa-location-dot"></i> &nbsp
                     <?php echo $row['EventLocation']; ?>
+                  </span>
+                  <span class="Device"><i class="fa-solid fa-Device-dot"></i> &nbsp
+                    <?php echo $row['DeviceName']; ?>
                   </span>
                   <span class="Organizer"><b><i class="fa-regular fa-id-card"></i> &nbsp </b>
                     <?php echo $row['Name']; ?>
@@ -258,6 +312,9 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
                   <span><b>Date:</b>
                     <?php echo $row['EventDate'] ?> <br>
                   </span>
+                  <span class="Organizer"><b>Status:</b>
+                    <?php echo $row['EventStatus'] ?> <br>
+                  </span>
                 </div>
               </div>
 
@@ -269,9 +326,67 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
       </div>
 
+
       <div class="RHS-Content">
+        <form id="eventForm" action="../Controller/Admin/Events/AddEvent.php" method="post">
+          <input type="hidden" id="eventId" name="event_id">
+          <input type="hidden" id="formAction" name="action" value="add">
+
+          <label for="eventName">Event Name:</label>
+          <input type="text" id="eventName" name="eventName" placeholder="Event Name" required>
+
+          <label for="eventDescription">Event Description:</label>
+          <input type="text" id="eventDescription" name="eventDescription" placeholder="Event DEscription" required>
+
+          <label for="eventLocation">Location:</label>
+          <input type="text" id="eventLocation" name="eventLocation" placeholder="Location" required>
+
+          <label for="organizerName">Organizer Name:</label>
+          <select id="organizerName" name="organizerName" required>
+            <option value="">Select an Organizer</option>
+            <?php
+            $organizersQuery = "SELECT memberID, name FROM member";
+            $organizersResult = mysqli_query($con, $organizersQuery);
+            while ($organizer = mysqli_fetch_assoc($organizersResult)) {
+              echo "<option value='{$organizer['memberID']}'>{$organizer['name']}</option>";
+            }
+            ?>
+          </select>
+
+          <label for="deviceName">Device Name:</label>
+          <select id="deviceName" name="deviceName" required>
+            <option value="">Select a Device</option>
+            <?php
+            $devicesQuery = "SELECT DeviceID, DeviceName, MemberID FROM devices";
+            $devicesResult = mysqli_query($con, $devicesQuery);
+            while ($device = mysqli_fetch_assoc($devicesResult)) {
+              echo "<option value='{$device['DeviceID']}' data-member-id='{$device['MemberID']}'>{$device['DeviceName']}</option>";
+            }
+            ?>
+          </select>
+
+          <label for="eventTime">Time:</label>
+          <input type="time" id="eventTime" name="eventTime" required>
+
+          <label for="eventDate">Date:</label>
+          <input type="date" id="eventDate" name="eventDate" required>
+
+          <label for="eventStatus">Status:</label>
+          <select id="eventStatus" name="eventStatus">
+            <option value="Visible">Visible</option>
+            <option value="Hidden">Hidden</option>
+          </select>
+
+          <div id="formButtons">
+
+            <button type="button" id="updateEventbtn" style="display: none;">Update Event</button>
+            <button type="button" id="deleteEventbtn" style="display: none;">Delete Event</button>
+
+            <button type="submit" name="action" value="add" id="addEvent">Add Event</button>
+          </div>
 
 
+        </form>
       </div>
 
     </div>
@@ -381,7 +496,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
     <div class="Header_text">Review</div>
   </section>
 
-  <section class="Settings-section sections">
+  <section class="Settings-section sections" id="settingsContent">>
     <div class="Header_text">Settings</div>
 
     <div class="Body_content">
@@ -435,6 +550,26 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
     const chartData = <?php echo json_encode($chartData); ?>;
   </script>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var organizerSelect = document.getElementById('organizerName');
+      var deviceSelect = document.getElementById('deviceName');
+      var initialDevicesOptions = Array.from(deviceSelect.options);
+
+      organizerSelect.addEventListener('change', function () {
+        const selectedOrganizerId = this.value;
+        while (deviceSelect.options.length > 1) deviceSelect.remove(1);
+
+
+        initialDevicesOptions.forEach(function (option) {
+          if (option.dataset.memberId === selectedOrganizerId) {
+            deviceSelect.add(option.cloneNode(true));
+          }
+        });
+      });
+    });
+  </script>
+
 
   <script src="JS/Slidebar.js"></script>
   <script src="JS/Home.js"></script>
@@ -444,6 +579,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   <script src="../Controller/Admin/Member/SelectRow.js"></script>
   <script src="../Controller/Admin/Member/Member_PopUp.js"></script>
   <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
+  <script src="../Controller/Admin/Events/FetchEventtoUpdate.js"></script>
   <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
   <script src="../Controller/Admin/Dashboard/Search.js"></script>
   <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>

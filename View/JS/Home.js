@@ -1,10 +1,28 @@
 function showSection(sectionId) {
-      var sections = document.querySelectorAll('.sections');
-      sections.forEach(function (section) {
-        if (section.classList.contains(sectionId)) {
-          section.style.display = 'block';
-        } else {
-          section.style.display = 'none';
-        }
-      });
-    }
+  var sectionToShow = document.getElementById(sectionId);
+  if (sectionToShow) {
+    document.querySelectorAll('.sections').forEach(function(section) {
+      section.style.display = 'none';
+    });
+    sectionToShow.style.display = 'block';
+
+    localStorage.setItem('activeSection', sectionId);
+
+    history.pushState({section: sectionId}, '', '#' + sectionId);
+  }
+}
+
+window.addEventListener('popstate', function(event) {
+  if (event.state && event.state.section) {
+    showSection(event.state.section);
+  } else {
+    showSection('dashboardContent');
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var currentSection = window.location.hash.replace('#', '');
+  if (currentSection) {
+    showSection(currentSection);
+  }
+});

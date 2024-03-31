@@ -14,7 +14,7 @@ document.getElementById('btn_Login').addEventListener('click', function(event) {
             if (response.success) {
                 if (response.user_type === "admin") {
                     alert('Login Successful ' + response.user_type + "!!")
-                    window.open("View/Home.php", "_self");
+                    window.open("View/Home.php#dashboardContent", "_self");
                 } 
                 else if (response.user_type === "member"){
                     alert('Login Successful ' + response.user_type + "!!")

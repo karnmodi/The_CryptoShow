@@ -1,4 +1,4 @@
-/* Google Font Link */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 *{
   margin: 0;
@@ -244,6 +244,12 @@
   width: calc(100% - 78px);
   transition: all 0.5s ease;
   z-index: 2;
+  margin: 0;
+  display: none;
+}
+
+.Dashboard-section{
+  display: block;
 }
 
 .sidebar.open ~ .sections{
@@ -261,4 +267,9 @@
   .sidebar li .SB_Btns{
     display: none;
   }
+}
+
+.active-link {
+  background-color: #105D97; /* Or any color you prefer */
+  color: white; /* Optional: change text color */
 }

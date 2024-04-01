@@ -229,7 +229,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
 
         <div class="Upcoming-Events-widget">
-          <h2> Upcoming Events Container : </h2>
+          <h2> Upcoming Events : </h2>
           <ul style="margin-left:20px;">
             <?php
             $currentDate = date('Y-m-d');
@@ -270,11 +270,24 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
         <div class="tile-container">
           <?php
+          $icons = [
+            'fa-solid fa-bitcoin-sign',
+            'fa-solid fa-chart-line',
+            'fa-solid fa-wallet',
+            'fa-solid fa-computer-mouse',
+            'fa-solid fa-lock',
+            'fa-solid fa-gears',
+            'fa-solid fa-sack-dollar',
+            'fa-solid fa-hand-holding-dollar',
+            'fa-solid fa-network-wired',
+            'fa-solid fa-database',
+          ];
+
           while ($row = mysqli_fetch_assoc($resultofFE)) {
-
-
-
+            $randomIcon = $icons[array_rand($icons)];
             ?>
+
+
             <div class="tile" data-event-id="<?php echo $row['EventID'] ?>"
               data-event-name="<?php echo $row['EventName'] ?>"
               data-event-description="<?php echo $row['EventDescription'] ?>"
@@ -284,7 +297,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
 
               <div class="tile-header">
-
+                <i class="<?php echo $randomIcon; ?>"></i>
               </div>
 
               <div class="tile-body">
@@ -496,7 +509,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
     <div class="Header_text">Review</div>
   </section>
 
-  <section class="Settings-section sections" id="settingsContent">>
+  <!-- <section class="Settings-section sections" id="settingsContent">>
     <div class="Header_text">Settings</div>
 
     <div class="Body_content">
@@ -542,7 +555,40 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
 
 
+  </section> -->
+
+  <section class="Settings-section sections" id="settingsContent">
+    <div class="Header_text">Settings</div>
+    <div class="Body-Content settings-content">
+    <div class="setting-option">
+        <a href="../Model\Configurations\Logout.php"><button id="logout"> Logout <i class='bx bx-log-out'
+              id="log_out"></i> </button></a>
+
+      </div>
+      <div class="setting-item">
+        <h3>User Details</h3>
+        <p>Update your profile details</p>
+        <button onclick="location.href='updateDetails.php'">Update Details</button>
+      </div>
+
+      <div class="setting-item">
+        <h3>Password Change</h3>
+        <p>Change your login password</p>
+        <button onclick="location.href='changePassword.php'">Change Password</button>
+         </div>
+
+   
+
+
+      <div class="setting-item">
+        <h3>Theme Selection</h3>
+        <p>Switch between Light and Dark mode</p>
+        <button id="Mode" onclick="myFunction()">Toggle Theme</button>
+      </div>
+
+    </div>
   </section>
+
 
   <script>let eventsPerUserData = <?php echo json_encode($eventsPerUserData); ?>;
   </script>

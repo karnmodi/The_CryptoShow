@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['message'] = 'Invalid action requested.';
     }
 
-    header('Location: ../../../View/Home.php?section=events');
+    header('Location: ../../../View/Home.php');
     exit;
 }
 ?>

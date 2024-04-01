@@ -3,3 +3,9 @@ function myFunction(){
     element.classList.toggle("dark-mode");
     
 }
+
+function togglePreviewTheme() {
+    var previewContainer = document.getElementById('themePreview');
+    previewContainer.classList.toggle('dark-mode');
+  }
+  

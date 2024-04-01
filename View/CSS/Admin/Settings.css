@@ -63,5 +63,74 @@ button:hover {
     background-color: #000000;
 }
 
+.Settings-section .Body-Content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 20px;
+  }
+  
+  .setting-item {
+    background: #f1f1f1;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .setting-item h3 {
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  
+  .setting-item p {
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  
+  .setting-item button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .setting-item button:hover {
+    background-color: #0056b3;
+  }
+
+  .theme-preview .preview-container {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .preview-dashboard .preview-widget {
+    background: #eee;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100px;
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Dark theme preview styles */
+  body.dark-mode .theme-preview .preview-container {
+    background: #333;
+  }
+  
+  body.dark-mode .preview-dashboard .preview-widget {
+    background: #555;
+    color: #fff;
+  }
+  
+  
+
 
 

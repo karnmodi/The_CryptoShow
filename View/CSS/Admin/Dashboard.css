@@ -72,10 +72,10 @@
 .canvas-container {
   display: flex;
   justify-content: space-around;
-  gap: 4rem;
+  gap: 2 rem;
   align-items: flex-start;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 canvas {
@@ -83,6 +83,7 @@ canvas {
   max-height: 500px;
 
 }
+
 
 body.dark-mode .Dashboard-section {
   background-color: #333;

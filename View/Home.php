@@ -560,7 +560,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   <section class="Settings-section sections" id="settingsContent">
     <div class="Header_text">Settings</div>
     <div class="Body-Content settings-content">
-    <div class="setting-option">
+      <div class="setting-option">
         <a href="../Model\Configurations\Logout.php"><button id="logout"> Logout <i class='bx bx-log-out'
               id="log_out"></i> </button></a>
 
@@ -571,19 +571,25 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
         <button onclick="location.href='updateDetails.php'">Update Details</button>
       </div>
 
-      <div class="setting-item">
-        <h3>Password Change</h3>
-        <p>Change your login password</p>
-        <button onclick="location.href='changePassword.php'">Change Password</button>
-         </div>
-
-   
+      <div class="setting-item theme-preview">
+        <h3>Live Theme Preview</h3>
+        <p>Preview how themes will look:</p>
+        <div id="themePreview" class="preview-container">
+          <div class="Pcontainer">
+            <div class="preview-dashboard">
+              <div class="preview-widget" id="previewWidget1">Widget 1</div>
+              <div class="preview-widget" id="previewWidget2">Widget 2</div>
+            </div>
+          </div>
+        </div>
+        <button id="themePreviewToggle">Toggle Preview Theme</button>
+      </div>
 
 
       <div class="setting-item">
         <h3>Theme Selection</h3>
         <p>Switch between Light and Dark mode</p>
-        <button id="Mode" onclick="myFunction()">Toggle Theme</button>
+        <button id="Mode">Toggle Theme</button>
       </div>
 
     </div>
@@ -614,6 +620,19 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
         });
       });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('Mode').addEventListener('click', function myFunction() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+      });
+
+      document.getElementById('themePreviewToggle').addEventListener('click', function togglePreviewTheme() {
+        var previewContainer = document.getElementById('themePreview');
+        previewContainer.classList.toggle("preview-dark-mode");
+      });
+    });
+
   </script>
 
 

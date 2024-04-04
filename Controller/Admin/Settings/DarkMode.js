@@ -6,6 +6,7 @@ function myFunction(){
 
 function togglePreviewTheme() {
     var previewContainer = document.getElementById('themePreview');
-    previewContainer.classList.toggle('dark-mode');
-  }
+    previewContainer.classList.toggle("preview-dark-mode");
+}
+
   

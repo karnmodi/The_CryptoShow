@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const ctx = document.getElementById('UserLoginChart').getContext('2d');
 
-    // Chart.js initialization
     const chart = new Chart(ctx, {
-        type: 'bar', // Changed from 'pie' to 'bar' for comparison purposes
+        type: 'bar', 
         data: {
             labels: chartData.userNames,
             datasets: [{
@@ -11,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 data: chartData.loginCounts,
                 backgroundColor: chartData.userNames.map(() => getRandomColor()), // Random color for each user
                 borderColor: chartData.userNames.map(() => 'rgba(255, 255, 255, 1)'),
-                borderWidth: 1
+                borderWidth: 1,
+                barThickness: 60 
             }]
         },
         options: {

@@ -35,7 +35,25 @@ $loginCountsQuery = "
     LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
     GROUP BY m.MemberID
 ";
+
 $loginCountsResult = mysqli_query($con, $loginCountsQuery);
+
+$lastLoginQuery = "SELECT LoginDT FROM loginhistory ORDER BY LoginDT DESC LIMIT 1";
+$lastLoginResult = mysqli_query($con, $lastLoginQuery);
+if ($lastLoginRow = mysqli_fetch_assoc($lastLoginResult)) {
+  $lastLoginTime = $lastLoginRow['LoginDT'];
+} else {
+  $lastLoginTime = "No login history available";
+}
+
+$lastThreeLoginsQuery = "
+    SELECT m.Email, l.LoginDT
+    FROM member m
+    INNER JOIN loginhistory l ON m.MemberID = l.MemberID
+    ORDER BY l.LoginDT DESC
+    LIMIT 3
+";
+$lastThreeLoginsResult = mysqli_query($con, $lastThreeLoginsQuery);
 
 $chartData = [
   'userNames' => [],
@@ -46,6 +64,17 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   $chartData['userNames'][] = $row['Name'];
   $chartData['loginCounts'][] = $row['LoginCount'];
 }
+
+$loginHistoryByMemberQuery = "
+    SELECT m.Name AS MemberName, l.LoginDT AS LoginDateTime
+    FROM member m
+    LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
+    ORDER BY m.Name, l.LoginDT DESC
+";
+$loginHistoryByMemberResult = mysqli_query($con, $loginHistoryByMemberQuery);
+
+$fetchAllMembersQuery = "SELECT * FROM member";
+$fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 ?>
 
 
@@ -60,6 +89,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   <link rel="stylesheet" href="CSS/Admin/Dashboard.css">
   <link rel="stylesheet" href="CSS/Admin/Member.css">
   <link rel="stylesheet" href="CSS/Admin/Events.css">
+  <link rel="stylesheet" href="CSS/Admin/Login_History.css">
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
   <link rel="stylesheet" href="CSS/Admin/Updateform.css">
 
@@ -137,11 +167,11 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </li>
 
       <li>
-        <a href="javascript:void(0);" onclick="showSection('devicesContnet');">
+        <a href="javascript:void(0);" onclick="showSection('PublishedEventsContent');">
           <i class='bx bx-chat'></i>
-          <span class="Btns_Name">Devices</span>
+          <span class="Btns_Name">Published Events</span>
         </a>
-        <span class="SB_Btns">Devices</span>
+        <span class="SB_Btns">Published Events</span>
       </li>
 
 
@@ -154,11 +184,11 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </li>
 
       <li>
-        <a href="javascript:void(0);" onclick="showSection('reviewContent');">
+        <a href="javascript:void(0);" onclick="showSection('LoginHistoryContent');">
           <i class='bx bx-folder'></i>
-          <span class="Btns_Name">Review</span>
+          <span class="Btns_Name">Login History</span>
         </a>
-        <span class="SB_Btns">Review</span>
+        <span class="SB_Btns">Login History</span>
       </li>
 
       <li>
@@ -406,8 +436,9 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
   </section>
 
-  <section class="Devices-section sections" id="devicesContnet">
-    <div class="Header_text">Devices</div>
+  <section class="Published_Event-section sections" id="PublishedEventsContent">
+    <div class="Header_text">Published Events</div>
+    <div class="Header_text">Un-Published Events</div>
   </section>
 
   <section class="Members-section sections" id="membersContnet">
@@ -505,8 +536,64 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
   </section>
 
-  <section class="Review-section sections" id="reviewContent">
-    <div class="Header_text">Review</div>
+  <section class="Login_History-section sections" id="LoginHistoryContent">
+    <div class="Header_text">Login History Overview</div>
+    
+    <div class="Body-Content">
+      <div class="LoginHistory-widgets">
+        <div class="widgetofLH">
+          <h2> Total Logins </h2>
+          <p>
+            <?php echo mysqli_num_rows($loginCountsResult); ?>
+            <i class="fa-solid fa-sign-in-alt"></i>
+          </p>
+        </div>
+        
+        <div class="widgetofLH">
+          <h2> Last 5 Logged ins : <i class="fa-regular fa-clock"></i> </h2>
+          <ul style="margin-left:20px;">
+            <?php
+
+while ($row = mysqli_fetch_assoc($lastThreeLoginsResult)) {
+  echo "<li> {$row['Email']}</li>";
+            }
+            ?>
+          </ul>
+        </div>
+
+        <div class="widgetofLH">
+          <h2> Last Login </h2>
+          <p>
+            <?php echo $lastLoginTime; ?>
+            <i class="fa-regular fa-clock"></i>
+          </p>
+        </div>
+        
+      </div>
+
+
+      <div class="Header_text">Members with the Login history</div>
+      <div class="member-tiles">
+        <?php while ($row = mysqli_fetch_assoc($fetchAllMembersResult)) { ?>
+          <div class="member-tile" data-member-id="<?php echo $row['MemberID']; ?>" onclick="toggleTile(this)">
+            <h1><?php echo $row['Name']; ?></h1>
+          </div>
+        <?php } ?>
+      </div>
+
+      <table class="login-history-table" style="display: none;">
+        <thead>
+          <tr>
+            <th>Member Name</th>
+            <th>Login Date & Time</th>
+          </tr>
+        </thead>
+        <tbody class="login-history-body">
+          <!-- Login history rows will be inserted dynamically here -->
+        </tbody>
+      </table>
+
+    </div>
   </section>
 
   <!-- <section class="Settings-section sections" id="settingsContent">>
@@ -647,6 +734,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   <script src="../Controller/Admin/Events/FetchEventtoUpdate.js"></script>
   <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
   <script src="../Controller/Admin/Dashboard/Search.js"></script>
+  <script src="../Controller/Admin/LoginHistory/LoginHistory.js"></script>
   <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
   <script src="../Controller/Admin/Settings/DarkMode.js"></script>
   <script src="../Controller/Admin/Events/AddEvent.js"></script>

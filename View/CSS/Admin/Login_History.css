@@ -1,0 +1,139 @@
+.Login_History-section {
+    background-color: #f8f8f8;
+}
+
+.LoginHistory-widgets {
+    display: flex;
+    justify-content: space-around;
+    gap: 4rem;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.widgetofLH:hover {
+    background-color: #105D97;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.widgetofLH {
+    margin-bottom: 20px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+.widgetofLH h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.widgetofLH p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.Login_Data {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+
+
+}
+
+.Login_Data thead tr {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: left;
+
+}
+
+.Login_Data th,
+.Login_Data td {
+    padding: 12px 15px;
+}
+
+.Login_Data tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.Login_Data tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.Login_Data tbody tr:last-of-type {
+    border-bottom: 2px solid #11101d;
+}
+
+.Login_Data tbody tr:hover {
+    background-color: #d5d5d5;
+}
+
+
+#LoginDatasearchstring {
+    width: 70%;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    font-size: 15px;
+    float: right;
+}
+
+.member-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.member-tile {
+    cursor: pointer;
+    margin-bottom: 20px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    height: 13rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.3s ease;
+}
+
+.member-tile:hover {
+    background-color: #105D97;
+    color: white;
+}
+
+.member-tile h1 {
+    margin-bottom: 10px;
+}
+
+.member-tile p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.member-tile.expanded {
+    transition: all 0.8s ease;
+    width: calc(100% - 20px);
+    max-width: calc(100vw - 40px);
+    grid-column: span 2;
+    z-index: 1;
+    overflow-y: auto;
+}
+
+.member-tile.expanded h1 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}

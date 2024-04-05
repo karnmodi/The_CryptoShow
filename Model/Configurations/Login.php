@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         function insertLoginHistory($con, $MemberID)
         {
-            // Insert login history
             $currentDateTime = date('Y-m-d H:i:s');
             $insertQuery = "INSERT INTO loginhistory (MemberID, LoginDT) VALUES ('$MemberID', '$currentDateTime')";
             $insertResult = mysqli_query($con, $insertQuery);

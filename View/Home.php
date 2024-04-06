@@ -7,17 +7,40 @@ if (!isset($_SESSION['user_name'])) {
   exit;
 }
 
+// Database Connection
 $userName = $_SESSION['user_name'];
 require_once "../Model/Configurations/db.php";
-$FetchAllMembers = "SELECT * from member";
-$resultofFM = mysqli_query($con, $FetchAllMembers);
 
+
+// Fetching Login History for the Chart in the Dashboard Section
+$loginHistoryChartQuery = "
+    SELECT m.Name, COUNT(l.LoginHistoryID) as LoginCount
+    FROM member m
+    LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
+    GROUP BY m.MemberID
+";
+
+$loginHistoryChartResult = mysqli_query($con, $loginHistoryChartQuery);
+
+$chartData = [
+  'userNames' => [],
+  'loginCounts' => []
+];
+
+while ($row = mysqli_fetch_assoc($loginHistoryChartResult)) {
+  $chartData['userNames'][] = $row['Name'];
+  $chartData['loginCounts'][] = $row['LoginCount'];
+}
+
+
+// Fetching all the Events in a Event Section
 $FetchAllEvents = "SELECT e.EventID,e.EventName,e.EventDescription, e.EventDate, e.EventTime, e.EventLocation,e.OrganizerID, e.DeviceID, e.EventStatus, m.Name, d.DeviceName, d.Description
 FROM Events e
 JOIN Member m ON e.OrganizerID = m.MemberID
 JOIN Devices d ON e.DeviceID = d.DeviceID;";
 $resultofFE = mysqli_query($con, $FetchAllEvents);
 
+// Fetching all the Events which are created by the Selected USER
 $eventsPerUserQuery = "SELECT m.Name, COUNT(e.EventID) as EventCount
                        FROM Events e
                        JOIN Member m ON e.OrganizerID = m.MemberID
@@ -29,15 +52,40 @@ while ($row = mysqli_fetch_assoc($eventsPerUserResult)) {
   $eventsPerUserData[] = $row;
 }
 
+// Query for fetching visible events in the Published Event Section
+$fetchVisibleEventsQuery = "SELECT e.EventID, e.EventName, e.EventDescription, e.EventDate, e.EventTime, e.EventLocation, e.OrganizerID, e.DeviceID, e.EventStatus, m.Name AS OrganizerName, d.DeviceName
+FROM Events e
+JOIN Member m ON e.OrganizerID = m.MemberID
+JOIN Devices d ON e.DeviceID = d.DeviceID
+WHERE e.EventStatus = 'Visible';
+";
+$visibleEventsResult = mysqli_query($con, $fetchVisibleEventsQuery);
+
+// Query for fetching hidden events in the Published Event Section
+$fetchHiddenEventsQuery = "SELECT e.EventID, e.EventName, e.EventDescription, e.EventDate, e.EventTime, e.EventLocation, e.OrganizerID, e.DeviceID, e.EventStatus, m.Name AS OrganizerName, d.DeviceName
+FROM Events e
+JOIN Member m ON e.OrganizerID = m.MemberID
+JOIN Devices d ON e.DeviceID = d.DeviceID
+WHERE e.EventStatus = 'Hidden';
+";
+$hiddenEventsResult = mysqli_query($con, $fetchHiddenEventsQuery);
+
+// Fetching all the members in a Member Section
+$FetchAllMembers = "SELECT * from member";
+$resultofFM = mysqli_query($con, $FetchAllMembers);
+
+// Total Login Counts for the Login history Section
 $loginCountsQuery = "
-    SELECT m.Name, COUNT(l.LoginHistoryID) as LoginCount
+    SELECT COUNT(l.LoginHistoryID) as LoginCount
     FROM member m
     LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
-    GROUP BY m.MemberID
+    GROUP BY l.LoginHistoryID
 ";
 
 $loginCountsResult = mysqli_query($con, $loginCountsQuery);
 
+
+// Fetching Last Login Details from the Login History Table to the Section
 $lastLoginQuery = "SELECT LoginDT FROM loginhistory ORDER BY LoginDT DESC LIMIT 1";
 $lastLoginResult = mysqli_query($con, $lastLoginQuery);
 if ($lastLoginRow = mysqli_fetch_assoc($lastLoginResult)) {
@@ -46,6 +94,7 @@ if ($lastLoginRow = mysqli_fetch_assoc($lastLoginResult)) {
   $lastLoginTime = "No login history available";
 }
 
+// Fetching Last three Email based on the DT from the login History who did login.
 $lastThreeLoginsQuery = "
     SELECT m.Email, l.LoginDT
     FROM member m
@@ -55,15 +104,8 @@ $lastThreeLoginsQuery = "
 ";
 $lastThreeLoginsResult = mysqli_query($con, $lastThreeLoginsQuery);
 
-$chartData = [
-  'userNames' => [],
-  'loginCounts' => []
-];
 
-while ($row = mysqli_fetch_assoc($loginCountsResult)) {
-  $chartData['userNames'][] = $row['Name'];
-  $chartData['loginCounts'][] = $row['LoginCount'];
-}
+// Fetching Login History of Member individually for the Login History Section
 
 $loginHistoryByMemberQuery = "
     SELECT m.Name AS MemberName, l.LoginDT AS LoginDateTime
@@ -73,8 +115,10 @@ $loginHistoryByMemberQuery = "
 ";
 $loginHistoryByMemberResult = mysqli_query($con, $loginHistoryByMemberQuery);
 
+// Fetching All members for the Login History Member 
 $fetchAllMembersQuery = "SELECT * FROM member";
 $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
+
 ?>
 
 
@@ -87,8 +131,9 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
   <title>Admin | The CryptoShow</title>
   <link rel="stylesheet" href="CSS/Admin/Home.css">
   <link rel="stylesheet" href="CSS/Admin/Dashboard.css">
-  <link rel="stylesheet" href="CSS/Admin/Member.css">
   <link rel="stylesheet" href="CSS/Admin/Events.css">
+  <link rel="stylesheet" href="CSS/Admin/Published_Events.css">
+  <link rel="stylesheet" href="CSS/Admin/Member.css">
   <link rel="stylesheet" href="CSS/Admin/Login_History.css">
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
   <link rel="stylesheet" href="CSS/Admin/Updateform.css">
@@ -438,8 +483,74 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
   <section class="Published_Event-section sections" id="PublishedEventsContent">
     <div class="Header_text">Published Events</div>
+    <div class="Body_Content">
+      <table class="PublishedEventsTable">
+        <thead>
+          <tr>
+            <th>Event ID</th>
+            <th>Event Name</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Organizer</th>
+            <th>Device</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+         while ($row = mysqli_fetch_assoc($visibleEventsResult)) {
+          echo "<tr id='publishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" . $row['EventID'] . ", \"" . $row['EventName'] . "\", \"Visible\")'>";
+            echo "<td>" . $row['EventID'] . "</td>";
+            echo "<td>" . $row['EventName'] . "</td>";
+            echo "<td>" . $row['EventDescription'] . "</td>";
+            echo "<td>" . $row['EventDate'] . "</td>";
+            echo "<td>" . $row['EventTime'] . "</td>";
+            echo "<td>" . $row['EventLocation'] . "</td>";
+            echo "<td>" . $row['OrganizerName'] . "</td>";
+            echo "<td>" . $row['DeviceName'] . "</td>";
+            echo "</tr>";
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
+
     <div class="Header_text">Un-Published Events</div>
+    <div class="Body_Content">
+      <table class="UnpublishedEventsTable">
+        <thead>
+          <tr>
+            <th>Event ID</th>
+            <th>Event Name</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Organizer</th>
+            <th>Device</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+           while ($row = mysqli_fetch_assoc($hiddenEventsResult)) {
+            echo "<tr id='unpublishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" .$row['EventID'] . ", \"" . $row['EventName'] . "\", \"Hidden\")'>";
+            echo "<td>" . $row['EventID'] . "</td>";
+            echo "<td>" . $row['EventName'] . "</td>";
+            echo "<td>" . $row['EventDescription'] . "</td>";
+            echo "<td>" . $row['EventDate'] . "</td>";
+            echo "<td>" . $row['EventTime'] . "</td>";
+            echo "<td>" . $row['EventLocation'] . "</td>";
+            echo "<td>" . $row['OrganizerName'] . "</td>";
+            echo "<td>" . $row['DeviceName'] . "</td>";
+            echo "</tr>";
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
   </section>
+
 
   <section class="Members-section sections" id="membersContnet">
     <div class="Header_text">Members</div>
@@ -538,7 +649,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
   <section class="Login_History-section sections" id="LoginHistoryContent">
     <div class="Header_text">Login History Overview</div>
-    
+
     <div class="Body-Content">
       <div class="LoginHistory-widgets">
         <div class="widgetofLH">
@@ -548,14 +659,14 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
             <i class="fa-solid fa-sign-in-alt"></i>
           </p>
         </div>
-        
+
         <div class="widgetofLH">
           <h2> Last 5 Logged ins : <i class="fa-regular fa-clock"></i> </h2>
           <ul style="margin-left:20px;">
             <?php
 
-while ($row = mysqli_fetch_assoc($lastThreeLoginsResult)) {
-  echo "<li> {$row['Email']}</li>";
+            while ($row = mysqli_fetch_assoc($lastThreeLoginsResult)) {
+              echo "<li> {$row['Email']}</li>";
             }
             ?>
           </ul>
@@ -568,30 +679,63 @@ while ($row = mysqli_fetch_assoc($lastThreeLoginsResult)) {
             <i class="fa-regular fa-clock"></i>
           </p>
         </div>
-        
+
       </div>
 
 
       <div class="Header_text">Members with the Login history</div>
-      <div class="member-tiles">
-        <?php while ($row = mysqli_fetch_assoc($fetchAllMembersResult)) { ?>
-          <div class="member-tile" data-member-id="<?php echo $row['MemberID']; ?>" onclick="toggleTile(this)">
-            <h1><?php echo $row['Name']; ?></h1>
-          </div>
-        <?php } ?>
-      </div>
+      <div class="MembersHistory">
+        <div class="search">
+          <input type="text" id="LoginDatasearchstring" name="search" placeholder="Search.."
+            oninput="filterHistorySearch()">
+        </div>
 
-      <table class="login-history-table" style="display: none;">
-        <thead>
-          <tr>
-            <th>Member Name</th>
-            <th>Login Date & Time</th>
-          </tr>
-        </thead>
-        <tbody class="login-history-body">
-          <!-- Login history rows will be inserted dynamically here -->
-        </tbody>
-      </table>
+        <div class="member-tiles">
+          <?php
+          while ($row = mysqli_fetch_assoc($fetchAllMembersResult)) {
+            $number = 1; ?>
+            <div class="member-tile" data-member-id="<?php echo $row['MemberID']; ?>"
+              onclick="toggleTile(this, <?php echo $row['MemberID']; ?>)">
+              <h1>
+                <?php echo $row['Name']; ?>
+              </h1>
+              <div id="LHDATA">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Number</th>
+                      <th>Login Date & Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $memberId = $row['MemberID'];
+                    $loginHistoryQuery = "SELECT LoginDT FROM LoginHistory WHERE MemberID = $memberId ORDER BY LoginDT DESC LIMIT 10";
+                    $loginHistoryResult = mysqli_query($con, $loginHistoryQuery);
+
+                    if (mysqli_num_rows($loginHistoryResult) > 0) {
+                      while ($loginRow = mysqli_fetch_assoc($loginHistoryResult)) { ?>
+                        <tr>
+                          <td>
+                            <?php echo $number++; ?>
+                          </td>
+                          <td>
+                            <?php echo $loginRow['LoginDT']; ?>
+                          </td>
+                        </tr>
+                      <?php }
+                    } else { ?>
+                      <tr>
+                        <td colspan="2">No login history available</td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <?php } ?>
+        </div>
+      </div>
 
     </div>
   </section>
@@ -727,18 +871,20 @@ while ($row = mysqli_fetch_assoc($lastThreeLoginsResult)) {
   <script src="JS/Home.js"></script>
   <script src="JS/UEChart.js"></script>
   <script src="JS/ULChart.js"></script>
+  <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
+  <script src="../Controller/Admin/Dashboard/Search.js"></script>
+  <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
+  <script src="../Controller/Admin/Events/UpdateEvent.js"></script>
+  <script src="../Controller/Admin/Events/FetchEventtoUpdate.js"></script>
+  <script src="../Controller/Admin/Events/AddEvent.js"></script>
+  <script src="../Controller/Admin/PublishEvent/UpdateEventStatus.js"></script>
   <script src="../Controller/Admin/Member/SearchMember.js"></script>
   <script src="../Controller/Admin/Member/SelectRow.js"></script>
   <script src="../Controller/Admin/Member/Member_PopUp.js"></script>
-  <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
-  <script src="../Controller/Admin/Events/FetchEventtoUpdate.js"></script>
-  <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
-  <script src="../Controller/Admin/Dashboard/Search.js"></script>
   <script src="../Controller/Admin/LoginHistory/LoginHistory.js"></script>
+  <script src="../Controller/Admin/LoginHistory/LoginHistorySearch.js"></script>
   <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
   <script src="../Controller/Admin/Settings/DarkMode.js"></script>
-  <script src="../Controller/Admin/Events/AddEvent.js"></script>
-  <script src="../Controller/Admin/Events/UpdateEvent.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 

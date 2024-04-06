@@ -1,0 +1,82 @@
+.Published_Event-section {
+    background-color: #eaeafb;
+}
+
+.Published_Event-section .Body_Content {
+    margin: 0px 40px 40px 40px;
+    border-radius: 50%;
+}
+
+.Published_Event-section .Body_Content .PublishedEventsTable {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+
+.PublishedEventsTable thead tr {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: left;
+}
+
+.PublishedEventsTable th,
+.PublishedEventsTable td {
+    padding: 12px 15px;
+}
+
+.PublishedEventsTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.PublishedEventsTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.PublishedEventsTable tbody tr:last-of-type {
+    border-bottom: 2px solid #11101d;
+}
+
+.PublishedEventsTable tbody tr:hover{
+    background-color: #d5d5d5;
+}
+
+.UnpublishedEventsTable {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+
+.UnpublishedEventsTable thead tr {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: left;
+}
+
+.UnpublishedEventsTable th,
+.UnpublishedEventsTable td {
+    padding: 12px 15px;
+}
+
+.UnpublishedEventsTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.UnpublishedEventsTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.UnpublishedEventsTable tbody tr:last-of-type {
+    border-bottom: 2px solid #11101d;
+}
+
+.UnpublishedEventsTable tbody tr:hover{
+    background-color: #d5d5d5;
+}

@@ -191,7 +191,7 @@
                     <ul>
                         <li>Interface/Front End Designer</li>
                         <li>Software Architect</li>
-                        <p>tel: 07931464307</p>
+                        <p>tel: 07931464307 &nbsp;|&nbsp; Email: P2755047@my365.dmu.ac.uk</p>
                     </ul>
                 </div>
             </div>
@@ -202,7 +202,7 @@
                     <ul>
                         <li>Lead Developer</li>
                         <li>Interface/Front End Designer(assistant)</li>
-                        <p>tel: 07307726432  </p>
+                        <p>tel: 07307726432 &nbsp;|&nbsp; Email: P2754832@my365.dmu.ac.uk</p>
                     </ul>
                     <!-- Additional details for member 3 -->
                 </div>
@@ -213,7 +213,7 @@
                     <h2>Bijay Hang Limbu</h2>
                     <ul>
                         <li>Business analyst</li>
-                        <p>tel: 0747542844</p>
+                        <p>tel: 0747542844 &nbsp;|&nbsp; Email: P2728246@my365.dmu.ac.uk</p>
                     </ul>
                     <!-- Additional details for member 4 -->
                 </div>
@@ -224,7 +224,7 @@
                     <h2>Muhammad Nouman Ijaz</h2>
                     <ul>
                         <li>QA</li>
-                        <p>tel: 07928526270</p>
+                        <p>tel: 07928526270 &nbsp;|&nbsp; Email: P2764688@my365.dmu.ac.uk</p>
                     </ul>
                     <!-- Additional details for member 5 -->
                 </div>

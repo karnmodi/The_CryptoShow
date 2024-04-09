@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2024 at 03:03 PM
+-- Generation Time: Apr 10, 2024 at 01:45 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `the_cryptoshow`
 --
+CREATE DATABASE IF NOT EXISTS `the_cryptoshow` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `the_cryptoshow`;
 
 -- --------------------------------------------------------
 
@@ -31,15 +33,39 @@ CREATE TABLE `devices` (
   `DeviceID` int(11) NOT NULL,
   `DeviceName` varchar(100) DEFAULT NULL,
   `Description` text DEFAULT NULL,
-  `Status` varchar(20) DEFAULT NULL
+  `Status` varchar(20) DEFAULT NULL,
+  `MemberID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `devices`
 --
 
-INSERT INTO `devices` (`DeviceID`, `DeviceName`, `Description`, `Status`) VALUES
-(1, 'DeviceName1', 'Description1', 'Available');
+INSERT INTO `devices` (`DeviceID`, `DeviceName`, `Description`, `Status`, `MemberID`) VALUES
+(1, 'DeviceName1', 'Description1', 'Available', 1),
+(2, 'DeviceName2', 'Description1', 'Available', 1),
+(3, 'DeviceName3', 'Description1', 'Available', 2),
+(4, 'DeviceName4', 'Description1', 'Available', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `eventdevice`
+--
+
+CREATE TABLE `eventdevice` (
+  `EventID` int(11) NOT NULL,
+  `DeviceID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `eventdevice`
+--
+
+INSERT INTO `eventdevice` (`EventID`, `DeviceID`) VALUES
+(2, 3),
+(3, 3),
+(3, 4);
 
 -- --------------------------------------------------------
 
@@ -51,23 +77,23 @@ CREATE TABLE `events` (
   `EventID` int(11) NOT NULL,
   `OrganizerID` int(11) DEFAULT NULL,
   `DeviceID` int(11) DEFAULT NULL,
+  `EventName` varchar(20) DEFAULT NULL,
   `EventDate` date DEFAULT NULL,
   `EventTime` time DEFAULT NULL,
   `EventDescription` varchar(255) DEFAULT NULL,
-  `EventLocation` varchar(255) DEFAULT NULL
+  `EventLocation` varchar(255) DEFAULT NULL,
+  `EventStatus` enum('Visible','Hidden') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`EventID`, `OrganizerID`, `DeviceID`, `EventDate`, `EventTime`, `EventDescription`, `EventLocation`) VALUES
-(2, 1, 1, '2024-03-17', '20:00:00', 'Evening Gala', 'Hotel Ballroom'),
-(3, 1, 1, '2024-03-15', '18:00:00', 'Annual General Meeting', 'Conference Room A'),
-(4, 2, 1, '2024-03-16', '09:00:00', 'Tech Product Launch', 'Main Auditorium'),
-(5, 3, 1, '2024-03-29', '15:00:00', 'Bitcoin Show', 'De Montfort University'),
-(6, 13, 1, '2024-03-16', '09:00:00', 'Tech Product Launch', 'Main Auditorium'),
-(7, 13, 1, '2024-03-16', '09:00:00', 'Cryptoshow', 'DSU');
+INSERT INTO `events` (`EventID`, `OrganizerID`, `DeviceID`, `EventName`, `EventDate`, `EventTime`, `EventDescription`, `EventLocation`, `EventStatus`) VALUES
+(2, 1, 1, 'Event 1', '2024-03-17', '20:00:00', 'Evening Gala', 'Hotel Ballroom', 'Visible'),
+(3, 1, 1, 'Event 2', '2024-03-15', '18:00:00', 'Annual General Meeting', 'Conference Room A', 'Visible'),
+(4, 2, 1, 'Event 3', '2024-03-16', '09:00:00', 'Tech Product Launch', 'Main Auditorium', 'Visible'),
+(5, 3, 1, 'Event 4', '2024-03-29', '15:00:00', 'Bitcoin Show', 'De Montfort University', 'Visible');
 
 -- --------------------------------------------------------
 
@@ -138,7 +164,11 @@ INSERT INTO `loginhistory` (`LoginHistoryID`, `MemberID`, `LoginDT`) VALUES
 (53, 2, '2024-03-17 08:26:30'),
 (54, 1, '2024-03-17 08:27:05'),
 (55, 2, '2024-03-17 15:01:41'),
-(56, 14, '2024-03-17 15:01:54');
+(56, 14, '2024-03-17 15:01:54'),
+(57, 2, '2024-04-04 00:58:52'),
+(58, 1, '2024-04-04 00:59:10'),
+(59, 1, '2024-04-10 00:38:48'),
+(60, 2, '2024-04-10 00:41:21');
 
 -- --------------------------------------------------------
 
@@ -162,8 +192,7 @@ INSERT INTO `member` (`MemberID`, `Name`, `Email`, `Password`, `UserType`) VALUE
 (1, 'Karan F. Modi', 'karan@cryptoshow.com', '123456', 'admin'),
 (2, 'Karan Modi', 'karanmodi3282@gmail.com', '123456', 'member'),
 (3, 'Bhoomi Modi', 'b@gmail.com', '123456', 'admin'),
-(13, 'Karan Modi', 'k1@gmail.com', '1234567', 'member'),
-(14, 'Krish Patel', 'Krihu@gmail.com', '123456', 'admin');
+(13, 'Karan Modi', 'k1@gmail.com', '1234567', 'member');
 
 --
 -- Indexes for dumped tables
@@ -173,7 +202,15 @@ INSERT INTO `member` (`MemberID`, `Name`, `Email`, `Password`, `UserType`) VALUE
 -- Indexes for table `devices`
 --
 ALTER TABLE `devices`
-  ADD PRIMARY KEY (`DeviceID`);
+  ADD PRIMARY KEY (`DeviceID`),
+  ADD KEY `MemberID` (`MemberID`);
+
+--
+-- Indexes for table `eventdevice`
+--
+ALTER TABLE `eventdevice`
+  ADD PRIMARY KEY (`EventID`,`DeviceID`),
+  ADD KEY `DeviceID` (`DeviceID`);
 
 --
 -- Indexes for table `events`
@@ -204,7 +241,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `DeviceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `DeviceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -216,7 +253,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `loginhistory`
 --
 ALTER TABLE `loginhistory`
-  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `member`
@@ -227,6 +264,19 @@ ALTER TABLE `member`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `devices`
+--
+ALTER TABLE `devices`
+  ADD CONSTRAINT `devices_ibfk_1` FOREIGN KEY (`MemberID`) REFERENCES `member` (`MemberID`);
+
+--
+-- Constraints for table `eventdevice`
+--
+ALTER TABLE `eventdevice`
+  ADD CONSTRAINT `eventdevice_ibfk_1` FOREIGN KEY (`EventID`) REFERENCES `events` (`EventID`),
+  ADD CONSTRAINT `eventdevice_ibfk_2` FOREIGN KEY (`DeviceID`) REFERENCES `devices` (`DeviceID`);
 
 --
 -- Constraints for table `events`

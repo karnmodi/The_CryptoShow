@@ -115,7 +115,6 @@ $loginHistoryByMemberQuery = "
 ";
 $loginHistoryByMemberResult = mysqli_query($con, $loginHistoryByMemberQuery);
 
-// Fetching All members for the Login History Member 
 $fetchAllMembersQuery = "SELECT * FROM member";
 $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
@@ -487,7 +486,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
       <table class="PublishedEventsTable">
         <thead>
           <tr>
-            <th>Event ID</th>
             <th>Event Name</th>
             <th>Description</th>
             <th>Date</th>
@@ -501,7 +499,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
           <?php
          while ($row = mysqli_fetch_assoc($visibleEventsResult)) {
           echo "<tr id='publishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" . $row['EventID'] . ", \"" . $row['EventName'] . "\", \"Visible\")'>";
-            echo "<td>" . $row['EventID'] . "</td>";
             echo "<td>" . $row['EventName'] . "</td>";
             echo "<td>" . $row['EventDescription'] . "</td>";
             echo "<td>" . $row['EventDate'] . "</td>";
@@ -521,7 +518,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
       <table class="UnpublishedEventsTable">
         <thead>
           <tr>
-            <th>Event ID</th>
             <th>Event Name</th>
             <th>Description</th>
             <th>Date</th>
@@ -535,7 +531,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
           <?php
            while ($row = mysqli_fetch_assoc($hiddenEventsResult)) {
             echo "<tr id='unpublishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" .$row['EventID'] . ", \"" . $row['EventName'] . "\", \"Hidden\")'>";
-            echo "<td>" . $row['EventID'] . "</td>";
             echo "<td>" . $row['EventName'] . "</td>";
             echo "<td>" . $row['EventDescription'] . "</td>";
             echo "<td>" . $row['EventDate'] . "</td>";
@@ -550,7 +545,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
       </table>
     </div>
   </section>
-
 
   <section class="Members-section sections" id="membersContnet">
     <div class="Header_text">Members</div>
@@ -661,7 +655,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
         </div>
 
         <div class="widgetofLH">
-          <h2> Last 5 Logged ins : <i class="fa-regular fa-clock"></i> </h2>
+          <h2> Last 3 Logged ins : <i class="fa-regular fa-clock"></i> </h2>
           <ul style="margin-left:20px;">
             <?php
 

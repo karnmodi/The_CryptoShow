@@ -103,7 +103,7 @@
     animation: expandTile 0.8s ease forwards;
     width: calc(100% - 20px);
     max-width: calc(100vw - 40px);
-    grid-column: span 1;
+    grid-column: span 2;
     z-index: 1;
     color: white;
     overflow-y: auto;
@@ -119,6 +119,10 @@
 #LHDATA {
     display: none;
 }
+#LHDATA th, td{
+    font-size: 20px;
+}
+
 
 .member-tile.expanded #LHDATA {
     display: block;
@@ -140,8 +144,8 @@
 /* DARK MODE  */
 
 body.dark-mode .Login_History-section {
-    background-color: #333; /* Dark background */
-    color: #f1f1f1; /* Light text */
+    background-color: #333;
+    color: #f1f1f1;
 }
 
 body.dark-mode .LoginHistory-widgets {
@@ -151,12 +155,12 @@ body.dark-mode .LoginHistory-widgets {
 }
 
 body.dark-mode .widgetofLH:hover {
-    background-color: #2a88d8; /* Darker shade for hover */
+    background-color: #2a88d8;
 }
 
 body.dark-mode .widgetofLH {
-    background-color: #424242; /* Darker background */
-    color: #f1f1f1; /* Light text */
+    background-color: #424242;
+    color: #f1f1f1;
 }
 
 body.dark-mode .MembersHistory {
@@ -184,19 +188,19 @@ body.dark-mode .member-tiles {
 
 body.dark-mode .member-tile {
     background-color: #e0e0e0;
-    color: #333; /* Darker text color */
+    color: #333; 
     transition: background-color 0.3s ease;
     height: 13rem;
 }
 
 body.dark-mode .member-tile:hover {
-    background-color: #2a88d8; /* Darker shade for hover */
-    color: #f1f1f1; /* Light text */
+    background-color: #2a88d8;
+    color: #f1f1f1; 
 }
 
 body.dark-mode .member-tile.expanded {
-    background-color: #105D97; /* Accent color for expanded tile */
-    color: white; /* Light text */
+    background-color: #105D97;
+    color: white; 
 }
 
 body.dark-mode .member-tile.expanded h1 {

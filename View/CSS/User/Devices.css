@@ -1,0 +1,146 @@
+.Devices-section {
+    background-color: #f8f8f8;
+}
+
+.device-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-left: 10px;
+    margin-right: 10px;
+    gap: 50px;
+    padding: 20px;
+}
+
+@media (max-width: 1200px) {
+    .device-tiles {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .device-tiles {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .device-tiles {
+        grid-template-columns: 1fr;
+    }
+}
+
+.device-tile {
+    cursor: pointer;
+    background-color: #e0e0e0;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    height: 13rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.device-tile:hover {
+    background-color: #105D97;
+    color: white;
+}
+
+.device-tile h1 {
+    margin-bottom: 10px;
+}
+
+@keyframes expandTile {
+    0% {
+        width: 300px;
+        height: 13rem;
+    }
+
+    100% {
+        width: calc(100% - 20px);
+        max-width: calc(100vw - 40px);
+        height: auto;
+    }
+}
+
+.device-tile.expanded {
+    animation: expandTile 0.8s ease forwards;
+    width: calc(100% - 20px);
+    max-width: calc(100vw - 40px);
+    grid-column: span 2;
+    z-index: 1;
+    color: white;
+    overflow-y: auto;
+    height: max-content;
+    background-color: #105D97;
+    min-width: 400px;
+}
+
+.pencil-icon {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.pencil-icon:hover{
+    color:  black;
+}
+
+.update-icon {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.update-icon:hover{
+    color:  black;
+}
+
+
+.device-tile.expanded .pencil-icon {
+    display: block;
+}
+
+.device-tile.expanded h1 {
+    margin: 20px;
+    font-size: 25px;
+}
+
+.EDDTAC {
+    display: none;
+    margin: 20px;
+}
+
+.EDDTAC p {
+    font-size: 18px;
+    margin-left: 20px;
+
+}
+
+.EDDTAC th,
+td {
+    color: white;
+    font-size: 20px;
+    padding: 8px;
+    text-align: left;
+}
+
+
+.device-tile.expanded .EDDTAC {
+    display: block;
+}
+
+.EDDTAC tbody tr {
+    width: 100%;
+}

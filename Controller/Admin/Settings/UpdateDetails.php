@@ -3,13 +3,15 @@ require_once("../../../Model/Configurations/db.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['memberid']) && isset($_POST['name']) && isset($_POST['email'])) {
-        $member_id = $_POST['memberid'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
+        $MemberID = $_POST['memberid'];
+        $Name = $_POST['name'];
+        $Email= $_POST['email'];
+        $Password = $_POST['password'];
 
-        $sql = "UPDATE member SET Name=?, Email=? WHERE MemberID=?";
+
+        $sql = "UPDATE member SET Name=?, Email=?, Password=? WHERE MemberID=?";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param("sss", $name, $email, $member_id);
+        $stmt->bind_param("ssss", $Name, $Email, $Password, $MemberID);
 
         if ($stmt->execute()) {
             echo "<script>alert('Record updated successfully');</script>";

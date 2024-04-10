@@ -677,6 +677,35 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
       <button onclick="closeMemberPopup();" aria-label="close" class="x">❌</button>
     </dialog>
 
+    <dialog id="New-Member-Form">
+        <h2>Member Registration</h2>
+        <form class="form-container" action="../Controller/Admin/Member/RegisterMember.php" method="post">
+          
+
+                         <label for="MemberName">Name:</label>
+                         <input type="text" id="MemberName" name="name">
+
+               
+            
+                    <label for="MemberEmail">Email:</label>
+                    <input type="email" id="MemberEmail" name="email">
+              
+            
+                    <label for="MemberPassword">Password:</label>
+                    <input type="text" id="MemberPassword" name="password">
+             
+                    <label for="MemberUserType">User Type:</label>
+                    <select id="MemberUserType" name="usertype">
+                        <option value="member">Member</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                
+            <div class="submit">
+                <input type="submit" value="Register" id="btnRegister">
+            </div>
+        </form>
+        <button onclick="closeNewMemberForm();" aria-label="close" class="x">❌</button>
+    </dialog>
 
   </section>
 
@@ -830,9 +859,26 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
       </div>
       <div class="setting-item">
-        <h3>User Details</h3>
-        <p>Update your profile details</p>
-        <button onclick="location.href='updateDetails.php'">Update Details</button>
+    <h3>User Details</h3>
+    <p>Update your profile details</p>
+    <button id="update-details-btn">Update Details</button> 
+    <div class="Details-form" id="DetailsForm">
+      <h2>Update Deatails</h2>
+      <form method="post" action="../Controller/Admin/Settings/UpdateDetails.php">
+        <label for="MemberID">MemberID:</label>
+        <input type="text" id="MemberID" name="memberid" required>
+        <label for="Name">Name:</label>
+        <input type="text" id="Name" name="name" required>
+        <label for="Email">Email:</label>
+        <input type="text" id="Email" name="email" required>
+        <label for="Password">Password:</label>
+        <input type="text" id="Password" name="password" required>
+        <div class="buttons">
+          <button onclick="CloseDetailsForm()">Cancel</button>
+          <button id="submit-details" type="submit">Save Details</button>
+        </div>
+      </form>
+    </div>
       </div>
 
       <div class="setting-item theme-preview">
@@ -913,9 +959,10 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
   <script src="../Controller/Admin/Member/SearchMember.js"></script>
   <script src="../Controller/Admin/Member/SelectRow.js"></script>
   <script src="../Controller/Admin/Member/Member_PopUp.js"></script>
+  <script src="../Controller/Admin/Member/AddMember.js"></script>
   <script src="../Controller/Admin/LoginHistory/LoginHistory.js"></script>
   <script src="../Controller/Admin/LoginHistory/LoginHistorySearch.js"></script>
-  <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
+  <script src="../Controller/Admin/Settings/UpdateDetails.js"></script>
   <script src="../Controller/Admin/Settings/DarkMode.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>

@@ -313,7 +313,7 @@ $fetchAllDevicesResult = $stmt->get_result();
 
   <section class="Devices-section sections" id="devicesContent">
     <div class="Header_text">Devices</div>
-    <div class="Body_Content">'
+    <div class="Body_Content">
 
       <div class="MembersHistory">
         <div class="search">

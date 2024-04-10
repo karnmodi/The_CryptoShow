@@ -398,6 +398,8 @@ $fetchAllDevicesResult = $stmt->get_result();
 
   </section>
 
+  <div></div>
+
 
   <section class="Events-section sections" id="eventsContent">
 

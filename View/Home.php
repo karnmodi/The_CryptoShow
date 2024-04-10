@@ -1,4 +1,4 @@
- <?php
+<?php
 session_start();
 
 if (!isset($_SESSION['user_name'])) {
@@ -156,8 +156,8 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
       var lastActiveSection = localStorage.getItem('activeSection');
 
       if (lastActiveSection) {
-  showSection(lastActiveSection);
-} 
+        showSection(lastActiveSection);
+      }
 
       var organizerSelect = document.getElementById('organizerName');
       var deviceSelect = document.getElementById('deviceName');
@@ -498,8 +498,8 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
         </thead>
         <tbody>
           <?php
-         while ($row = mysqli_fetch_assoc($visibleEventsResult)) {
-          echo "<tr id='publishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" . $row['EventID'] . ", \"" . $row['EventName'] . "\", \"Visible\")'>";
+          while ($row = mysqli_fetch_assoc($visibleEventsResult)) {
+            echo "<tr id='publishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" . $row['EventID'] . ", \"" . $row['EventName'] . "\", \"Visible\")'>";
             echo "<td>" . $row['EventName'] . "</td>";
             echo "<td>" . $row['EventDescription'] . "</td>";
             echo "<td>" . $row['EventDate'] . "</td>";
@@ -530,8 +530,8 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
         </thead>
         <tbody>
           <?php
-           while ($row = mysqli_fetch_assoc($hiddenEventsResult)) {
-            echo "<tr id='unpublishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" .$row['EventID'] . ", \"" . $row['EventName'] . "\", \"Hidden\")'>";
+          while ($row = mysqli_fetch_assoc($hiddenEventsResult)) {
+            echo "<tr id='unpublishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" . $row['EventID'] . ", \"" . $row['EventName'] . "\", \"Hidden\")'>";
             echo "<td>" . $row['EventName'] . "</td>";
             echo "<td>" . $row['EventDescription'] . "</td>";
             echo "<td>" . $row['EventDate'] . "</td>";
@@ -549,7 +549,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
   <section class="Members-section sections" id="membersContnet">
     <div class="Header_text">Members</div>
-<button class="add-member-btn" onclick="openNewMemberForm()">+</button>
+    <button class="add-member-btn" onclick="openNewMemberForm()">+</button>
     <div class="Body_content">
       <div class="search">
         <input type="text" id="searchstring" name="search" placeholder="Search.." oninput="filterSearch()">
@@ -569,70 +569,65 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
           <?php
           while ($row = mysqli_fetch_assoc($resultofFM)) {
             if ($row["UserType"] == "member") {
-            ?>
-            <tr class="Member-Rows" data-member-id="<?php echo $row['MemberID']; ?>"
-              onclick="openMemberPopup(<?php echo $row['MemberID']; ?>)">
-              <td>
-                <?php echo $row['MemberID'] ?>
-              </td>
-              <td>
-                <?php echo $row['Name'] ?>
-              </td>
-              <td>
-                <?php echo $row['Email'] ?>
-              </td>
-              <td class="Password_data">
-                <?php echo $row['Password'] ?>
-              </td>
-              <td>
-                <?php echo $row['UserType'] ?>
-              </td>
-            </tr>
+              ?>
+              <tr class="Member-Rows" data-member-id="<?php echo $row['MemberID']; ?>"
+                onclick="openMemberPopup(<?php echo $row['MemberID']; ?>)">
+                <td>
+                  <?php echo $row['MemberID'] ?>
+                </td>
+                <td>
+                  <?php echo $row['Name'] ?>
+                </td>
+                <td>
+                  <?php echo $row['Email'] ?>
+                </td>
+                <td class="Password_data">
+                  <?php echo $row['Password'] ?>
+                </td>
+                <td>
+                  <?php echo $row['UserType'] ?>
+                </td>
+              </tr>
             <?php }
           }
           ?>
         </tbody>
       </table>
-          
-          <table class="Admins_Data">
-      <thead>
-        <tr>
-          <th>AdminID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Password</th>
-          <th>UserType</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php
-        mysqli_data_seek($resultofFM, 0); // Reset result pointer to beginning
-        while ($row = mysqli_fetch_assoc($resultofFM)) {
-          if ($row['UserType'] === 'admin') {
-            ?>
-            <tr>
-              <td>
-                <?php echo $row['MemberID'] ?>
-              </td>
-              <td>
-                <?php echo $row['Name'] ?>
-              </td>
-              <td>
-                <?php echo $row['Email'] ?>
-              </td>
-              <td class="Password_data">
-                <?php echo $row['Password'] ?>
-              </td>
-              <td>
-                <?php echo $row['UserType'] ?>
-              </td>
-            </tr>
-          <?php }
-        }
-        ?>
-      </tbody>
-    </table>
-    </div> 
+
+      <div class="Header_text">Data of the Admins, which can't be edited.</div>
+
+      <table class="Admins_Data">
+        <thead>
+          <tr>
+            <th>AdminID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          mysqli_data_seek($resultofFM, 0);
+          while ($row = mysqli_fetch_assoc($resultofFM)) {
+            if ($row['UserType'] === 'admin') {
+              ?>
+              <tr>
+                <td>
+                  <?php echo $row['MemberID'] ?>
+                </td>
+                <td>
+                  <?php echo $row['Name'] ?>
+                </td>
+                <td>
+                  <?php echo $row['Email'] ?>
+                </td>
+              </tr>
+            <?php }
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
+    </div>
 
     <dialog id="Member-Popup">
       <h2>Selected Member Details</h2>
@@ -678,33 +673,33 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
     </dialog>
 
     <dialog id="New-Member-Form">
-        <h2>Member Registration</h2>
-        <form class="form-container" action="../Controller/Admin/Member/RegisterMember.php" method="post">
-          
+      <h2>Member Registration</h2>
+      <form class="form-container" action="../Controller/Admin/Member/RegisterMember.php" method="post">
 
-                         <label for="MemberName">Name:</label>
-                         <input type="text" id="MemberName" name="name">
 
-               
-            
-                    <label for="MemberEmail">Email:</label>
-                    <input type="email" id="MemberEmail" name="email">
-              
-            
-                    <label for="MemberPassword">Password:</label>
-                    <input type="text" id="MemberPassword" name="password">
-             
-                    <label for="MemberUserType">User Type:</label>
-                    <select id="MemberUserType" name="usertype">
-                        <option value="member">Member</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                
-            <div class="submit">
-                <input type="submit" value="Register" id="btnRegister">
-            </div>
-        </form>
-        <button onclick="closeNewMemberForm();" aria-label="close" class="x">❌</button>
+        <label for="MemberName">Name:</label>
+        <input type="text" id="MemberName" name="name">
+
+
+
+        <label for="MemberEmail">Email:</label>
+        <input type="email" id="MemberEmail" name="email">
+
+
+        <label for="MemberPassword">Password:</label>
+        <input type="text" id="MemberPassword" name="password">
+
+        <label for="MemberUserType">User Type:</label>
+        <select id="MemberUserType" name="usertype">
+          <option value="member">Member</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <div class="submit">
+          <input type="submit" value="Register" id="btnRegister">
+        </div>
+      </form>
+      <button onclick="closeNewMemberForm();" aria-label="close" class="x">❌</button>
     </dialog>
 
   </section>
@@ -859,26 +854,26 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
       </div>
       <div class="setting-item">
-    <h3>User Details</h3>
-    <p>Update your profile details</p>
-    <button id="update-details-btn">Update Details</button> 
-    <div class="Details-form" id="DetailsForm">
-      <h2>Update Deatails</h2>
-      <form method="post" action="../Controller/Admin/Settings/UpdateDetails.php">
-        <label for="MemberID">MemberID:</label>
-        <input type="text" id="MemberID" name="memberid" required>
-        <label for="Name">Name:</label>
-        <input type="text" id="Name" name="name" required>
-        <label for="Email">Email:</label>
-        <input type="text" id="Email" name="email" required>
-        <label for="Password">Password:</label>
-        <input type="text" id="Password" name="password" required>
-        <div class="buttons">
-          <button onclick="CloseDetailsForm()">Cancel</button>
-          <button id="submit-details" type="submit">Save Details</button>
+        <h3>User Details</h3>
+        <p>Update your profile details</p>
+        <button id="update-details-btn">Update Details</button>
+        <div class="Details-form" id="DetailsForm">
+          <h2>Update Deatails</h2>
+          <form method="post" action="../Controller/Admin/Settings/UpdateDetails.php">
+            <label for="MemberID">MemberID:</label>
+            <input type="text" id="MemberID" name="memberid" required>
+            <label for="Name">Name:</label>
+            <input type="text" id="Name" name="name" required>
+            <label for="Email">Email:</label>
+            <input type="text" id="Email" name="email" required>
+            <label for="Password">Password:</label>
+            <input type="text" id="Password" name="password" required>
+            <div class="buttons">
+              <button onclick="CloseDetailsForm()">Cancel</button>
+              <button id="submit-details" type="submit">Save Details</button>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
       </div>
 
       <div class="setting-item theme-preview">
@@ -912,7 +907,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
   </script>
 
   <script>
-    
+
     document.addEventListener('DOMContentLoaded', function () {
       var organizerSelect = document.getElementById('organizerName');
       var deviceSelect = document.getElementById('deviceName');

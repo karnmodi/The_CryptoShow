@@ -80,3 +80,48 @@
 .UnpublishedEventsTable tbody tr:hover{
     background-color: #d5d5d5;
 }
+.Published_Event-section {
+ background-color: #2b2c37; 
+}
+
+.Published_Event-section .Body_Content { 
+margin: 0px 40px 40px 40px; 
+border-radius: 50%; 
+}
+
+.Published_Event-section .Body_Content .PublishedEventsTable { 
+border-collapse: collapse; 
+margin: 25px 0; 
+font-size: 0.9em; 
+font-family: sans-serif; 
+min-width: 400px; 
+box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); 
+width: 100%; 
+}
+
+.PublishedEventsTable thead tr { 
+background-color: #11101d; 
+color: #ffffff; 
+text-align: left; 
+}
+
+.PublishedEventsTable th, .PublishedEventsTable td { 
+padding: 12px 15px; 
+color: #ffffff; 
+}
+
+.PublishedEventsTable tbody tr { 
+border-bottom: 1px solid #4b4b4b; 
+}
+
+.PublishedEventsTable tbody tr:nth-of-type(even) { 
+background-color: #3a3a3a; 
+}
+
+.PublishedEventsTable tbody tr:last-of-type { 
+border-bottom: 2px solid #11101d; 
+}
+
+.PublishedEventsTable tbody tr:hover{ 
+background-color: #555555; 
+}

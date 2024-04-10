@@ -107,9 +107,11 @@ button:hover {
     padding: 10px;
     margin-top: 10px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    flex-direction: row;
   }
+  
   
   .preview-dashboard .preview-widget {
     background: #eee;
@@ -118,14 +120,16 @@ button:hover {
     width: 100px;
     text-align: center;
     color: #333;
+    
   }
   
-  /* Dark theme preview styles */
-  body.dark-mode .theme-preview .preview-container {
-    background: #333;
-  }
-  
-  body.dark-mode .preview-dashboard .preview-widget {
+.preview-container .preview-widget {
+    background: #eee;
+    color: #333;
+    margin: 10px;
+}
+
+.preview-dark-mode .preview-widget {
     background: #555;
     color: #fff;
   }

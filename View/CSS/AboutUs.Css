@@ -202,29 +202,23 @@ body {
 }
 
 .container {
-    background-color: lightblue;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    position: relative;
     height: 80vh;
     width: 92%;
     margin: 60px auto;
     padding-top: 10px;
     border-radius: 40px;
+    background-image: url('../../Assets/Website Images/About Us Image2.webp');
+    background-size: cover;
+    background-position: center;
 }
 
 .container span {
-    font-size: 600%;
-}
-
-.container span {
+    font-size: 200%;
     text-align: center;
 }
 
-.Get_Started {
+.container .links .Get_Started {
     appearance: none;
     background-color: transparent;
     border: 2px solid #1A1A1A;
@@ -233,7 +227,6 @@ body {
     color: black;
     cursor: pointer;
     display: inline-block;
-    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 16px;
     font-weight: 700;
     line-height: normal;
@@ -252,21 +245,23 @@ body {
     will-change: transform;
 }
 
-.Get_Started:disabled {
+.container .links .Get_Started:disabled {
     pointer-events: none;
 }
 
-.Get_Started:hover {
+.container .links .Get_Started:hover {
     color: #fff;
     background-color: #1A1A1A;
     box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
     transform: translateY(-2px);
 }
 
-.Get_Started:active {
+.container .links .Get_Started:active {
     box-shadow: none;
     transform: translateY(0);
 }
+
+
 
 #Section2 {
     display: flex;
@@ -340,7 +335,7 @@ body {
 }
 
 .text3 {
-    margin: 2% 7% 2% 7%;
+    /* margin: 2% 7% 2% 7%; */
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -358,10 +353,13 @@ body {
     background-color: lightgray;
     height: 500px;
     width: 100%;
-    margin: 7%;
+    margin-left : 7%;
     align-items: center;
     border-radius: 15px;
-    flex: 1 50%;
+    flex: 1 100%;
+    background-image: url('../../Assets/Website Images/Mission.png');
+    background-size: cover;
+    background-position: center;
 
 }
 
@@ -371,11 +369,17 @@ body {
     justify-content: space-between;
     align-content: flex-start;
     flex-direction: row;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
 
 }
 
+
 .text4 {
-    margin: 2% 7% 4% 7%;
+    /* margin: 2% 7% 4% 7%; */
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -402,10 +406,13 @@ body {
     background-color: lightgray;
     height: 500px;
     width: 100%;
-    margin: 7%;
+    margin-right: 7%;
     align-items: center;
     border-radius: 15px;
-    flex: 1 1 50%;
+    flex: 1 100%;
+    background-image: url('../../Assets/Website Images/Vision.png');
+    background-size: cover;
+    background-position: center;
 }
 
 #section5 {
@@ -531,7 +538,7 @@ a:hover {
 
  @keyframes fade-in{
     from {scale: .8; opacity: 1;}
-    to{ scale:1; opacity:0}
+    to{ scale:1; opacity:1}
  }
 
  

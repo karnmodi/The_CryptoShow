@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2024 at 01:45 AM
+-- Generation Time: Apr 04, 2024 at 01:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,30 +42,7 @@ CREATE TABLE `devices` (
 --
 
 INSERT INTO `devices` (`DeviceID`, `DeviceName`, `Description`, `Status`, `MemberID`) VALUES
-(1, 'DeviceName1', 'Description1', 'Available', 1),
-(2, 'DeviceName2', 'Description1', 'Available', 1),
-(3, 'DeviceName3', 'Description1', 'Available', 2),
-(4, 'DeviceName4', 'Description1', 'Available', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `eventdevice`
---
-
-CREATE TABLE `eventdevice` (
-  `EventID` int(11) NOT NULL,
-  `DeviceID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `eventdevice`
---
-
-INSERT INTO `eventdevice` (`EventID`, `DeviceID`) VALUES
-(2, 3),
-(3, 3),
-(3, 4);
+(1, 'DeviceName1', 'Description1', 'Available', 1);
 
 -- --------------------------------------------------------
 
@@ -166,9 +143,7 @@ INSERT INTO `loginhistory` (`LoginHistoryID`, `MemberID`, `LoginDT`) VALUES
 (55, 2, '2024-03-17 15:01:41'),
 (56, 14, '2024-03-17 15:01:54'),
 (57, 2, '2024-04-04 00:58:52'),
-(58, 1, '2024-04-04 00:59:10'),
-(59, 1, '2024-04-10 00:38:48'),
-(60, 2, '2024-04-10 00:41:21');
+(58, 1, '2024-04-04 00:59:10');
 
 -- --------------------------------------------------------
 
@@ -190,9 +165,10 @@ CREATE TABLE `member` (
 
 INSERT INTO `member` (`MemberID`, `Name`, `Email`, `Password`, `UserType`) VALUES
 (1, 'Karan F. Modi', 'karan@cryptoshow.com', '123456', 'admin'),
-(2, 'Karan Modi', 'karanmodi3282@gmail.com', '123456', 'member'),
+(2, 'Karan Modi', 'karanmodi3282@gmail.com', '123456', 'admin'),
 (3, 'Bhoomi Modi', 'b@gmail.com', '123456', 'admin'),
-(13, 'Karan Modi', 'k1@gmail.com', '1234567', 'member');
+(13, 'Karan Modi', 'k1@gmail.com', '1234567', 'member'),
+(14, 'Krish Patel', 'Krihu@gmail.com', '123456', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -204,13 +180,6 @@ INSERT INTO `member` (`MemberID`, `Name`, `Email`, `Password`, `UserType`) VALUE
 ALTER TABLE `devices`
   ADD PRIMARY KEY (`DeviceID`),
   ADD KEY `MemberID` (`MemberID`);
-
---
--- Indexes for table `eventdevice`
---
-ALTER TABLE `eventdevice`
-  ADD PRIMARY KEY (`EventID`,`DeviceID`),
-  ADD KEY `DeviceID` (`DeviceID`);
 
 --
 -- Indexes for table `events`
@@ -241,7 +210,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `DeviceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `DeviceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -253,7 +222,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `loginhistory`
 --
 ALTER TABLE `loginhistory`
-  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `member`
@@ -270,13 +239,6 @@ ALTER TABLE `member`
 --
 ALTER TABLE `devices`
   ADD CONSTRAINT `devices_ibfk_1` FOREIGN KEY (`MemberID`) REFERENCES `member` (`MemberID`);
-
---
--- Constraints for table `eventdevice`
---
-ALTER TABLE `eventdevice`
-  ADD CONSTRAINT `eventdevice_ibfk_1` FOREIGN KEY (`EventID`) REFERENCES `events` (`EventID`),
-  ADD CONSTRAINT `eventdevice_ibfk_2` FOREIGN KEY (`DeviceID`) REFERENCES `devices` (`DeviceID`);
 
 --
 -- Constraints for table `events`

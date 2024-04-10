@@ -7,17 +7,40 @@ if (!isset($_SESSION['user_name'])) {
   exit;
 }
 
+// Database Connection
 $userName = $_SESSION['user_name'];
 require_once "../Model/Configurations/db.php";
-$FetchAllMembers = "SELECT * from member";
-$resultofFM = mysqli_query($con, $FetchAllMembers);
 
+
+// Fetching Login History for the Chart in the Dashboard Section
+$loginHistoryChartQuery = "
+    SELECT m.Name, COUNT(l.LoginHistoryID) as LoginCount
+    FROM member m
+    LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
+    GROUP BY m.MemberID
+";
+
+$loginHistoryChartResult = mysqli_query($con, $loginHistoryChartQuery);
+
+$chartData = [
+  'userNames' => [],
+  'loginCounts' => []
+];
+
+while ($row = mysqli_fetch_assoc($loginHistoryChartResult)) {
+  $chartData['userNames'][] = $row['Name'];
+  $chartData['loginCounts'][] = $row['LoginCount'];
+}
+
+
+// Fetching all the Events in a Event Section
 $FetchAllEvents = "SELECT e.EventID,e.EventName,e.EventDescription, e.EventDate, e.EventTime, e.EventLocation,e.OrganizerID, e.DeviceID, e.EventStatus, m.Name, d.DeviceName, d.Description
 FROM Events e
 JOIN Member m ON e.OrganizerID = m.MemberID
 JOIN Devices d ON e.DeviceID = d.DeviceID;";
 $resultofFE = mysqli_query($con, $FetchAllEvents);
 
+// Fetching all the Events which are created by the Selected USER
 $eventsPerUserQuery = "SELECT m.Name, COUNT(e.EventID) as EventCount
                        FROM Events e
                        JOIN Member m ON e.OrganizerID = m.MemberID
@@ -29,26 +52,73 @@ while ($row = mysqli_fetch_assoc($eventsPerUserResult)) {
   $eventsPerUserData[] = $row;
 }
 
+// Query for fetching visible events in the Published Event Section
+$fetchVisibleEventsQuery = "SELECT e.EventID, e.EventName, e.EventDescription, e.EventDate, e.EventTime, e.EventLocation, e.OrganizerID, e.DeviceID, e.EventStatus, m.Name AS OrganizerName, d.DeviceName
+FROM Events e
+JOIN Member m ON e.OrganizerID = m.MemberID
+JOIN Devices d ON e.DeviceID = d.DeviceID
+WHERE e.EventStatus = 'Visible';
+";
+$visibleEventsResult = mysqli_query($con, $fetchVisibleEventsQuery);
+
+// Query for fetching hidden events in the Published Event Section
+$fetchHiddenEventsQuery = "SELECT e.EventID, e.EventName, e.EventDescription, e.EventDate, e.EventTime, e.EventLocation, e.OrganizerID, e.DeviceID, e.EventStatus, m.Name AS OrganizerName, d.DeviceName
+FROM Events e
+JOIN Member m ON e.OrganizerID = m.MemberID
+JOIN Devices d ON e.DeviceID = d.DeviceID
+WHERE e.EventStatus = 'Hidden';
+";
+$hiddenEventsResult = mysqli_query($con, $fetchHiddenEventsQuery);
+
+// Fetching all the members in a Member Section
+$FetchAllMembers = "SELECT * from member";
+$resultofFM = mysqli_query($con, $FetchAllMembers);
+
+// Total Login Counts for the Login history Section
 $loginCountsQuery = "
-    SELECT m.Name, COUNT(l.LoginHistoryID) as LoginCount
+    SELECT COUNT(l.LoginHistoryID) as LoginCount
     FROM member m
     LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
-    GROUP BY m.MemberID
+    GROUP BY l.LoginHistoryID
 ";
+
 $loginCountsResult = mysqli_query($con, $loginCountsQuery);
 
-$chartData = [
-  'userNames' => [],
-  'loginCounts' => []
-];
 
-while ($row = mysqli_fetch_assoc($loginCountsResult)) {
-  $chartData['userNames'][] = $row['Name'];
-  $chartData['loginCounts'][] = $row['LoginCount'];
+// Fetching Last Login Details from the Login History Table to the Section
+$lastLoginQuery = "SELECT LoginDT FROM loginhistory ORDER BY LoginDT DESC LIMIT 1";
+$lastLoginResult = mysqli_query($con, $lastLoginQuery);
+if ($lastLoginRow = mysqli_fetch_assoc($lastLoginResult)) {
+  $lastLoginTime = $lastLoginRow['LoginDT'];
+} else {
+  $lastLoginTime = "No login history available";
 }
-?> 
+
+// Fetching Last three Email based on the DT from the login History who did login.
+$lastThreeLoginsQuery = "
+    SELECT m.Email, l.LoginDT
+    FROM member m
+    INNER JOIN loginhistory l ON m.MemberID = l.MemberID
+    ORDER BY l.LoginDT DESC
+    LIMIT 3
+";
+$lastThreeLoginsResult = mysqli_query($con, $lastThreeLoginsQuery);
 
 
+// Fetching Login History of Member individually for the Login History Section
+
+$loginHistoryByMemberQuery = "
+    SELECT m.Name AS MemberName, l.LoginDT AS LoginDateTime
+    FROM member m
+    LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
+    ORDER BY m.Name, l.LoginDT DESC
+";
+$loginHistoryByMemberResult = mysqli_query($con, $loginHistoryByMemberQuery);
+
+$fetchAllMembersQuery = "SELECT * FROM member";
+$fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
+
+?>
 
 
 
@@ -60,8 +130,10 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   <title>Admin | The CryptoShow</title>
   <link rel="stylesheet" href="CSS/Admin/Home.css">
   <link rel="stylesheet" href="CSS/Admin/Dashboard.css">
-  <link rel="stylesheet" href="CSS/Admin/Member.css">
   <link rel="stylesheet" href="CSS/Admin/Events.css">
+  <link rel="stylesheet" href="CSS/Admin/Published_Events.css">
+  <link rel="stylesheet" href="CSS/Admin/Member.css">
+  <link rel="stylesheet" href="CSS/Admin/Login_History.css">
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
 
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -140,11 +212,11 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </li>
 
       <li>
-        <a href="javascript:void(0);" onclick="showSection('devicesContnet');">
+        <a href="javascript:void(0);" onclick="showSection('PublishedEventsContent');">
           <i class='bx bx-chat'></i>
-          <span class="Btns_Name">Devices</span>
+          <span class="Btns_Name">Published Events</span>
         </a>
-        <span class="SB_Btns">Devices</span>
+        <span class="SB_Btns">Published Events</span>
       </li>
 
 
@@ -157,11 +229,11 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </li>
 
       <li>
-        <a href="javascript:void(0);" onclick="showSection('reviewContent');">
+        <a href="javascript:void(0);" onclick="showSection('LoginHistoryContent');">
           <i class='bx bx-folder'></i>
-          <span class="Btns_Name">Review</span>
+          <span class="Btns_Name">Login History</span>
         </a>
-        <span class="SB_Btns">Review</span>
+        <span class="SB_Btns">Login History</span>
       </li>
 
       <li>
@@ -409,8 +481,70 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
   </section>
 
-  <section class="Devices-section sections" id="devicesContnet">
-    <div class="Header_text">Devices</div>
+  <section class="Published_Event-section sections" id="PublishedEventsContent">
+    <div class="Header_text">Published Events</div>
+    <div class="Body_Content">
+      <table class="PublishedEventsTable">
+        <thead>
+          <tr>
+            <th>Event Name</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Organizer</th>
+            <th>Device</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+         while ($row = mysqli_fetch_assoc($visibleEventsResult)) {
+          echo "<tr id='publishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" . $row['EventID'] . ", \"" . $row['EventName'] . "\", \"Visible\")'>";
+            echo "<td>" . $row['EventName'] . "</td>";
+            echo "<td>" . $row['EventDescription'] . "</td>";
+            echo "<td>" . $row['EventDate'] . "</td>";
+            echo "<td>" . $row['EventTime'] . "</td>";
+            echo "<td>" . $row['EventLocation'] . "</td>";
+            echo "<td>" . $row['OrganizerName'] . "</td>";
+            echo "<td>" . $row['DeviceName'] . "</td>";
+            echo "</tr>";
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="Header_text">Un-Published Events</div>
+    <div class="Body_Content">
+      <table class="UnpublishedEventsTable">
+        <thead>
+          <tr>
+            <th>Event Name</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Organizer</th>
+            <th>Device</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+           while ($row = mysqli_fetch_assoc($hiddenEventsResult)) {
+            echo "<tr id='unpublishedEventRow_" . $row['EventID'] . "' onclick='toggleEventStatus(" .$row['EventID'] . ", \"" . $row['EventName'] . "\", \"Hidden\")'>";
+            echo "<td>" . $row['EventName'] . "</td>";
+            echo "<td>" . $row['EventDescription'] . "</td>";
+            echo "<td>" . $row['EventDate'] . "</td>";
+            echo "<td>" . $row['EventTime'] . "</td>";
+            echo "<td>" . $row['EventLocation'] . "</td>";
+            echo "<td>" . $row['OrganizerName'] . "</td>";
+            echo "<td>" . $row['DeviceName'] . "</td>";
+            echo "</tr>";
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section class="Members-section sections" id="membersContnet">
@@ -542,98 +676,184 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </form>
       <button onclick="closeMemberPopup();" aria-label="close" class="x">❌</button>
     </dialog>
-    <dialog id="New-Member-Form">
-        <h2>Member Registration</h2>
-        <form class="form-container" action="../Controller/Admin/Member/RegisterMember.php" method="post">
-          
 
-                         <label for="MemberName">Name:</label>
-                         <input type="text" id="MemberName" name="name">
 
-               
-            
-                    <label for="MemberEmail">Email:</label>
-                    <input type="email" id="MemberEmail" name="email">
-              
-            
-                    <label for="MemberPassword">Password:</label>
-                    <input type="text" id="MemberPassword" name="password">
-             
-                    <label for="MemberUserType">User Type:</label>
-                    <select id="MemberUserType" name="usertype">
-                        <option value="member">Member</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                
-            <div class="submit">
-                <input type="submit" value="Register" id="btnRegister">
+  </section>
+
+  <section class="Login_History-section sections" id="LoginHistoryContent">
+    <div class="Header_text">Login History Overview</div>
+
+    <div class="Body-Content">
+      <div class="LoginHistory-widgets">
+        <div class="widgetofLH">
+          <h2> Total Logins </h2>
+          <p>
+            <?php echo mysqli_num_rows($loginCountsResult); ?>
+            <i class="fa-solid fa-sign-in-alt"></i>
+          </p>
+        </div>
+
+        <div class="widgetofLH">
+          <h2> Last 3 Logged ins : <i class="fa-regular fa-clock"></i> </h2>
+          <ul style="margin-left:20px;">
+            <?php
+
+            while ($row = mysqli_fetch_assoc($lastThreeLoginsResult)) {
+              echo "<li> {$row['Email']}</li>";
+            }
+            ?>
+          </ul>
+        </div>
+
+        <div class="widgetofLH">
+          <h2> Last Login </h2>
+          <p>
+            <?php echo $lastLoginTime; ?>
+            <i class="fa-regular fa-clock"></i>
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="Header_text">Members with the Login history</div>
+      <div class="MembersHistory">
+        <div class="search">
+          <input type="text" id="LoginDatasearchstring" name="search" placeholder="Search.."
+            oninput="filterHistorySearch()">
+        </div>
+
+        <div class="member-tiles">
+          <?php
+          while ($row = mysqli_fetch_assoc($fetchAllMembersResult)) {
+            $number = 1; ?>
+            <div class="member-tile" data-member-id="<?php echo $row['MemberID']; ?>"
+              onclick="toggleTile(this, <?php echo $row['MemberID']; ?>)">
+              <h1>
+                <?php echo $row['Name']; ?>
+              </h1>
+              <div id="LHDATA">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Number</th>
+                      <th>Login Date & Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $memberId = $row['MemberID'];
+                    $loginHistoryQuery = "SELECT LoginDT FROM LoginHistory WHERE MemberID = $memberId ORDER BY LoginDT DESC LIMIT 10";
+                    $loginHistoryResult = mysqli_query($con, $loginHistoryQuery);
+
+                    if (mysqli_num_rows($loginHistoryResult) > 0) {
+                      while ($loginRow = mysqli_fetch_assoc($loginHistoryResult)) { ?>
+                        <tr>
+                          <td>
+                            <?php echo $number++; ?>
+                          </td>
+                          <td>
+                            <?php echo $loginRow['LoginDT']; ?>
+                          </td>
+                        </tr>
+                      <?php }
+                    } else { ?>
+                      <tr>
+                        <td colspan="2">No login history available</td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
+          <?php } ?>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- <section class="Settings-section sections" id="settingsContent">>
+    <div class="Header_text">Settings</div>
+
+    <div class="Body_content">
+      <div class="setting-option">
+        <a href="../Model\Configurations\Logout.php"><button id="logout"> Logout <i class='bx bx-log-out'
+              id="log_out"></i> </button></a>
+
+      </div>
+
+      <div class="setting-option">
+        <label for="change-user-details">Change User Details:</label>
+        <button id="change-user-details">Change</button>
+
+      </div>
+
+      <dialog id="Update-User-Details">
+        <h2> Update Details</h2>
+        <form method="post" action="../Controller/Admin/Settings/UpdateUserDetails.php">
+          <label for="member_id">Member ID:</label>
+          <input type="text" id="member_id" name="member_id" required><br><br>
+          <label for="Name"> Update Name:</label>
+          <input type="text" id="Name" name="Name" required> <br><br>
+          <label for="Password"> Update Password:</label>
+          <input type="text" id="Password" name="Password" required><br><br>
+          <div class="buttons">
+            <button id="cancel-update">Cancel</button>
+            <button id="Submit" type="submit">Save Changes</button>
+          </div>
         </form>
-        <button onclick="closeNewMemberForm();" aria-label="close" class="x">❌</button>
-    </dialog>
+      </dialog>
 
-  </section>
+      <div class="setting-option">
+        <label for="turn-off-website">Turn off Website:</label>
+        <button id="turn-off-website">Turn Off</button>
 
-  <section class="Review-section sections" id="reviewContent">
-    <div class="Header_text">Review</div>
-  </section>
+      </div>
 
+      <div class="setting-option">
+        <label for="DarkMode">Dark/Light Mode:</label>
+        <button id="Mode" onclick="myFunction()">Dark Mode</button>
+      </div>
+    </div>
+
+
+
+  </section> -->
 
   <section class="Settings-section sections" id="settingsContent">
     <div class="Header_text">Settings</div>
     <div class="Body-Content settings-content">
-    <div class="setting-option">
+      <div class="setting-option">
         <a href="../Model\Configurations\Logout.php"><button id="logout"> Logout <i class='bx bx-log-out'
               id="log_out"></i> </button></a>
 
       </div>
       <div class="setting-item">
-    <h3>User Details</h3>
-    <p>Update your profile details</p>
-    <button id="update-details-btn">Update Details</button> 
-    <div class="Details-form" id="DetailsForm">
-      <h2>Update Deatails</h2>
-      <form method="post" action="../Controller/Admin/Settings/UpdateDetails.php">
-        <label for="Member-ID">MemberID:</label>
-        <input type="text" id="Member-ID" name="memberid" required>
-        <label for="Name">Name:</label>
-        <input type="text" id="Name" name="name" required>
-        <label for="Email">Email:</label>
-        <input type="text" id="Email" name="email" required>
-        <div class="buttons">
-          <button onclick="CloseDetailsForm()">Cancel</button>
-          <button id="submit-details" type="submit">Save Details</button>
-        </div>
-      </form>
-    </div>
-</div>
-
- 
-      <div class="setting-item">
-        <h3>Password Change</h3>
-        <p>Change your login password</p>
-        <button id="update-password-btn">Change Password</button>
-        <div class="password-form" id="PasswordForm">
-        <h2>Update Details</h2>
-        <form method="post" action="../Controller/Admin/Settings/UpdatePassword.php">
-          <label for="member_id">Member ID:</label>
-          <input type="text" id="member_id" name="member" required><br><br>
-          <label for="Password">Update Password:</label>
-          <input type="text" id="Password" name="password" required><br><br>
-          <div class="buttons">
-          <button onclick="closeForm()">Close</button>
-            <button id="submit_password" type="submit">Save Changes</button>
-          </div>
-        </form>
-
-    </div>
+        <h3>User Details</h3>
+        <p>Update your profile details</p>
+        <button onclick="location.href='updateDetails.php'">Update Details</button>
       </div>
-        
+
+      <div class="setting-item theme-preview">
+        <h3>Live Theme Preview</h3>
+        <p>Preview how themes will look:</p>
+        <div id="themePreview" class="preview-container">
+          <div class="Pcontainer">
+            <div class="preview-dashboard">
+              <div class="preview-widget" id="previewWidget1">Widget 1</div>
+              <div class="preview-widget" id="previewWidget2">Widget 2</div>
+            </div>
+          </div>
+        </div>
+        <button id="themePreviewToggle">Toggle Preview Theme</button>
+      </div>
+
 
       <div class="setting-item">
         <h3>Theme Selection</h3>
         <p>Switch between Light and Dark mode</p>
-        <button id="Mode" onclick="myFunction()">Toggle Theme</button>
+        <button id="Mode">Toggle Theme</button>
       </div>
     </div>
   </section>
@@ -664,25 +884,39 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
         });
       });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('Mode').addEventListener('click', function myFunction() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+      });
+
+      document.getElementById('themePreviewToggle').addEventListener('click', function togglePreviewTheme() {
+        var previewContainer = document.getElementById('themePreview');
+        previewContainer.classList.toggle("preview-dark-mode");
+      });
+    });
+
   </script>
 
   <script src="JS/Slidebar.js"></script>
   <script src="JS/Home.js"></script>
   <script src="JS/UEChart.js"></script>
   <script src="JS/ULChart.js"></script>
+  <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
+  <script src="../Controller/Admin/Dashboard/Search.js"></script>
+  <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
+  <script src="../Controller/Admin/Events/UpdateEvent.js"></script>
+  <script src="../Controller/Admin/Events/FetchEventtoUpdate.js"></script>
+  <script src="../Controller/Admin/Events/AddEvent.js"></script>
+  <script src="../Controller/Admin/PublishEvent/UpdateEventStatus.js"></script>
   <script src="../Controller/Admin/Member/SearchMember.js"></script>
   <script src="../Controller/Admin/Member/SelectRow.js"></script>
   <script src="../Controller/Admin/Member/Member_PopUp.js"></script>
-  <script src="../Controller/Admin/Member/AddMember.js"></script>
-  <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
-  <script src="../Controller/Admin/Events/FetchEventtoUpdate.js"></script>
-  <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
-  <script src="../Controller/Admin/Dashboard/Search.js"></script>
-  <script src="../Controller/Admin/Settings/UpdateDetails.js"></script>
-  <script src="../Controller/Admin/Settings/UpdateUserPassword.js"></script>
+  <script src="../Controller/Admin/LoginHistory/LoginHistory.js"></script>
+  <script src="../Controller/Admin/LoginHistory/LoginHistorySearch.js"></script>
+  <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
   <script src="../Controller/Admin/Settings/DarkMode.js"></script>
-  <script src="../Controller/Admin/Events/AddEvent.js"></script>
-  <script src="../Controller/Admin/Events/UpdateEvent.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 

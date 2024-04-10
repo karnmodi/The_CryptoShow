@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/AboutUs.css">
+    <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="CSS/NavBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>The CryptoShow</title>
@@ -24,70 +25,80 @@
 
         </div>
     </nav>
-
-    <!-- LOGIN/SignUp POPUP -->
     <div id="popupContainer" class="popup">
         <div class="popup-content">
 
             <div id="LoginForm">
-
-                <div class="Tab_Header">
-                    <button class="tab" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
-                    <button class="tab active" id="LoginTab" onclick="openPopup('login')">Login</button>
-                </div>
-
-                <div class="input-container">
-                    <i class="fa-solid fa-user"></i>
-                    <input id="Username_Input" type="text" placeholder="Your Username or Email">
-                </div>
-                <div class="input-container">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="Password_Input" placeholder="Your Password">
-                </div>
-
-                <div class="Re_Pass">
-                    <div class="RememberMe">
-                        <input type="checkbox" id="RememberMe" name="RememberMe">
-                        <label for="RememberMe">Remember Me</label>
+                <form action="../Model/Configurations/Login.php" method="post">
+                    <div class="Tab_Header">
+                        <button class="tab" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
+                        <button class="tab active" id="LoginTab" onclick="openPopup('login')">Login</button>
                     </div>
-                    <a href="" id="ForgotPassword">Forgot your Password?</a>
-                </div>
-                <button class="btn_Login">Log In</button>
-                <span>Don't have account?<button onclick="openPopup('SignUp')" style=" border:none; background-color: white; cursor: pointer;"> SignUp Now</button></span>
 
-                
+                    <div class="input-container">
+                        <i class="fa-solid fa-user"></i>
+                        <input id="Username_Input" type="text" name="Email" placeholder="Your Username or Email" required>
+                    </div>
+                    
+                    <div class="input-container">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="Login_Password_Input" name="Password"
+                            placeholder="Your Password" required>
+                    </div>
+
+                    <div class="Re_Pass">
+                        <div class="RememberMe">
+                            <input type="checkbox" id="RememberMe" name="RememberMe">
+                            <label for="RememberMe">Remember Me</label>
+                        </div>
+                        <a href="" id="ForgotPassword">Forgot your Password?</a>
+                    </div>
+
+                    <input type="submit" class="btn" id="btn_Login" value="Login"  class="BTN_Login"/>
+
+                    <span>Don't have account?<button onclick="openPopup('SignUp')"
+                            style=" border:none; background-color: white; cursor: pointer;"> SignUp Now</button></span>
+
+                </form>
             </div>
+
             <div id="SignUpForm">
-                <div class="Tab_Header">
-                    <button class="tab active" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
-                    <button class="tab" id="LoginTab" onclick="openPopup('login')">Login</button>
-                </div>
+                <form action="../Model/Configurations/Register.php" method="post">
+                    <div class="Tab_Header">
+                        <button class="tab active" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
+                        <button class="tab" id="LoginTab" onclick="openPopup('login')">Login</button>
+                    </div>
 
-                <div class="input-container">
-                    <i class="fa-solid fa-user"></i>
-                    <input id="Name_Input" type="text" placeholder="First & Last Name" required>
-                </div>
-                <div class="input-container">
-                    <i class="fa-regular fa-envelope"></i>
-                    <input id="Email_Input" type="text" placeholder="Email" required>
-                    <span class="error-message" id="Email_Error" style="display:none; color: red;">Please enter a valid
-                        email address.</span>
-                </div>
-                <div class="input-container">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="Password_Input" placeholder="Your Password" required>
-                    <span class="error-message" id="Password_Error" style="display:none; color: red;">Password must be
-                        at least 6 characters long.</span>
-                </div>
+                    <div class="input-container">
+                        <i class="fa-solid fa-user"></i>
+                        <input id="Name" type="text" name="Name" placeholder="First & Last Name" required>
+                    </div>
+                    <div class="input-container">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input id="Email_Input" type="text" name="Email" placeholder="Email" required>
+                        <span class="error-message" id="Email_Error" style="display:none; color: red;">Please enter a
+                            valid
+                            email address.</span>
+                    </div>
+                    <div class="input-container">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="SignUp_Password_Input" name="Password" placeholder="Your Password"
+                            required>
+                        <span class="error-message" id="Password_Error" style="display:none; color: red;">Please enter a
+                            valid password.</span>
 
-                <div class="TCApply">
-                    <input type="checkbox" id="TCApply" name="TCApply">
-                    <label for="TCApply">
-                        I agree to CryptoShow's Terms of Service and Privacy Policy.</label>
-                </div>
+                    </div>
 
-                <button class="btn_SignUp">Sign Up</button>
+                    <div class="TCApply">
+                        <input type="checkbox" id="TCApply" name="TCApply" >
+                        <label for="TCApply">
+                            I agree to CryptoShow's Terms of Service and Privacy Policy.</label>
+                    </div>
 
+                    <input type="submit" class="btn" id="btn_Register" value="Register" class="BTN_SignUp"/>
+
+
+                </form>
             </div>
         </div>
     </div>
@@ -143,14 +154,13 @@
             </p>
         </div>
         <div class="picture">
-            <img src="/The_CryptoShow/Assets/Website Images/Mission pic.png" alt="Mission picture" width="500" height="500">
+            
         </div>
     </Section>
 
     <Section id="Section4" class="section" >
 
         <div class="Picture2">
-            <img src="/The_CryptoShow/Assets/Website Images/VisionPic.png" alt="Vision picture">
         </div>
 
         <div class="text4" >
@@ -181,7 +191,7 @@
                     <ul>
                         <li>Interface/Front End Designer</li>
                         <li>Software Architect</li>
-                        <p>tel: 07931464307</p>
+                        <p>tel: 07931464307 &nbsp;|&nbsp; Email: P2755047@my365.dmu.ac.uk</p>
                     </ul>
                 </div>
             </div>
@@ -192,7 +202,7 @@
                     <ul>
                         <li>Lead Developer</li>
                         <li>Interface/Front End Designer(assistant)</li>
-                        <p>tel: 07307726432  </p>
+                        <p>tel: 07307726432 &nbsp;|&nbsp; Email: P2754832@my365.dmu.ac.uk</p>
                     </ul>
                     <!-- Additional details for member 3 -->
                 </div>
@@ -203,7 +213,7 @@
                     <h2>Bijay Hang Limbu</h2>
                     <ul>
                         <li>Business analyst</li>
-                        <p>tel: 0747542844</p>
+                        <p>tel: 0747542844 &nbsp;|&nbsp; Email: P2728246@my365.dmu.ac.uk</p>
                     </ul>
                     <!-- Additional details for member 4 -->
                 </div>
@@ -214,7 +224,7 @@
                     <h2>Muhammad Nouman Ijaz</h2>
                     <ul>
                         <li>QA</li>
-                        <p>tel: 07928526270</p>
+                        <p>tel: 07928526270 &nbsp;|&nbsp; Email: P2764688@my365.dmu.ac.uk</p>
                     </ul>
                     <!-- Additional details for member 5 -->
                 </div>
@@ -237,8 +247,11 @@
         </div>
     </footer>
 
-    <script src="/JS/Start.js"></script>
-    <script src="/JS/AboutUs.js"></script>
+    <script src="JS/Start.js"></script>
+    <script src="JS/index.js"></script>
+    <script src="JS/AboutUs.js"></script>
+    <script src="JS/SignUp.js"></script>
+    <script src="JS/Login.js"></script>
 </body>
 
 </html>

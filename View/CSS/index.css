@@ -284,6 +284,13 @@ nav a.Register {
 
 .container span {
     text-align: center;
+    color: black;
+    text-shadow:
+        3px 3px 0 #fff, 
+        -1px -1px 0 #fff,
+        1px -1px 0 #fff,
+        -1px 1px 0 #fff,
+        1px 1px 0 #fff;
 }
 
 #Section2 {

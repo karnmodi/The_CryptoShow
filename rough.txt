@@ -1,0 +1,34 @@
+
+                <div id="LHDATA">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Number</th>
+                      <th>Login Date & Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $memberId = $row['MemberID'];
+                    $loginHistoryQuery = "SELECT LoginDT FROM LoginHistory WHERE MemberID = $memberId ORDER BY LoginDT DESC LIMIT 10";
+                    $loginHistoryResult = mysqli_query($con, $loginHistoryQuery);
+
+                    if (mysqli_num_rows($loginHistoryResult) > 0) {
+                      while ($loginRow = mysqli_fetch_assoc($loginHistoryResult)) { ?>
+                        <tr>
+                          <td>
+                            <?php echo $number++; ?>
+                          </td>
+                          <td>
+                            <?php echo $loginRow['LoginDT']; ?>
+                          </td>
+                        </tr>
+                      <?php }
+                    } else { ?>
+                      <tr>
+                        <td colspan="2">No login history available</td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>

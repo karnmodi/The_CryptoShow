@@ -1,4 +1,4 @@
-<?php
+ <?php
 session_start();
 
 if (!isset($_SESSION['user_name'])) {
@@ -46,7 +46,9 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   $chartData['userNames'][] = $row['Name'];
   $chartData['loginCounts'][] = $row['LoginCount'];
 }
-?>
+?> 
+
+
 
 
 
@@ -61,7 +63,6 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   <link rel="stylesheet" href="CSS/Admin/Member.css">
   <link rel="stylesheet" href="CSS/Admin/Events.css">
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
-  <link rel="stylesheet" href="CSS/Admin/Updateform.css">
 
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -70,6 +71,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script>
+
     <?php if (isset($_SESSION['message']) && !empty($_SESSION['message'])): ?>
       window.onload = function () {
         alert("<?php echo $_SESSION['message']; ?>");
@@ -82,8 +84,8 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       var lastActiveSection = localStorage.getItem('activeSection');
 
       if (lastActiveSection) {
-        showSection(lastActiveSection);
-      }
+  showSection(lastActiveSection);
+} 
 
       var organizerSelect = document.getElementById('organizerName');
       var deviceSelect = document.getElementById('deviceName');
@@ -104,6 +106,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
 
   </script>
+
 </head>
 
 <body>
@@ -412,7 +415,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
   <section class="Members-section sections" id="membersContnet">
     <div class="Header_text">Members</div>
-
+<button class="add-member-btn" onclick="openNewMemberForm()">+</button>
     <div class="Body_content">
       <div class="search">
         <input type="text" id="searchstring" name="search" placeholder="Search.." oninput="filterSearch()">
@@ -431,6 +434,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
         <tbody>
           <?php
           while ($row = mysqli_fetch_assoc($resultofFM)) {
+            if ($row["UserType"] == "member") {
             ?>
             <tr class="Member-Rows" data-member-id="<?php echo $row['MemberID']; ?>"
               onclick="openMemberPopup(<?php echo $row['MemberID']; ?>)">
@@ -450,14 +454,51 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
                 <?php echo $row['UserType'] ?>
               </td>
             </tr>
-            <?php
+            <?php }
           }
           ?>
         </tbody>
-
       </table>
-
-    </div>
+          
+          <table class="Admins_Data">
+      <thead>
+        <tr>
+          <th>AdminID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>UserType</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        mysqli_data_seek($resultofFM, 0); // Reset result pointer to beginning
+        while ($row = mysqli_fetch_assoc($resultofFM)) {
+          if ($row['UserType'] === 'admin') {
+            ?>
+            <tr>
+              <td>
+                <?php echo $row['MemberID'] ?>
+              </td>
+              <td>
+                <?php echo $row['Name'] ?>
+              </td>
+              <td>
+                <?php echo $row['Email'] ?>
+              </td>
+              <td class="Password_data">
+                <?php echo $row['Password'] ?>
+              </td>
+              <td>
+                <?php echo $row['UserType'] ?>
+              </td>
+            </tr>
+          <?php }
+        }
+        ?>
+      </tbody>
+    </table>
+    </div> 
 
     <dialog id="Member-Popup">
       <h2>Selected Member Details</h2>
@@ -501,7 +542,35 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
       </form>
       <button onclick="closeMemberPopup();" aria-label="close" class="x">❌</button>
     </dialog>
+    <dialog id="New-Member-Form">
+        <h2>Member Registration</h2>
+        <form class="form-container" action="../Controller/Admin/Member/RegisterMember.php" method="post">
+          
 
+                         <label for="MemberName">Name:</label>
+                         <input type="text" id="MemberName" name="name">
+
+               
+            
+                    <label for="MemberEmail">Email:</label>
+                    <input type="email" id="MemberEmail" name="email">
+              
+            
+                    <label for="MemberPassword">Password:</label>
+                    <input type="text" id="MemberPassword" name="password">
+             
+                    <label for="MemberUserType">User Type:</label>
+                    <select id="MemberUserType" name="usertype">
+                        <option value="member">Member</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                
+            <div class="submit">
+                <input type="submit" value="Register" id="btnRegister">
+            </div>
+        </form>
+        <button onclick="closeNewMemberForm();" aria-label="close" class="x">❌</button>
+    </dialog>
 
   </section>
 
@@ -509,53 +578,6 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
     <div class="Header_text">Review</div>
   </section>
 
-  <!-- <section class="Settings-section sections" id="settingsContent">>
-    <div class="Header_text">Settings</div>
-
-    <div class="Body_content">
-      <div class="setting-option">
-        <a href="../Model\Configurations\Logout.php"><button id="logout"> Logout <i class='bx bx-log-out'
-              id="log_out"></i> </button></a>
-
-      </div>
-
-      <div class="setting-option">
-        <label for="change-user-details">Change User Details:</label>
-        <button id="change-user-details">Change</button>
-
-      </div>
-
-      <dialog id="Update-User-Details">
-        <h2> Update Details</h2>
-        <form method="post" action="../Controller/Admin/Settings/UpdateUserDetails.php">
-          <label for="member_id">Member ID:</label>
-          <input type="text" id="member_id" name="member_id" required><br><br>
-          <label for="Name"> Update Name:</label>
-          <input type="text" id="Name" name="Name" required> <br><br>
-          <label for="Password"> Update Password:</label>
-          <input type="text" id="Password" name="Password" required><br><br>
-          <div class="buttons">
-            <button id="cancel-update">Cancel</button>
-            <button id="Submit" type="submit">Save Changes</button>
-          </div>
-        </form>
-      </dialog>
-
-      <div class="setting-option">
-        <label for="turn-off-website">Turn off Website:</label>
-        <button id="turn-off-website">Turn Off</button>
-
-      </div>
-
-      <div class="setting-option">
-        <label for="DarkMode">Dark/Light Mode:</label>
-        <button id="Mode" onclick="myFunction()">Dark Mode</button>
-      </div>
-    </div>
-
-
-
-  </section> -->
 
   <section class="Settings-section sections" id="settingsContent">
     <div class="Header_text">Settings</div>
@@ -566,26 +588,53 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
 
       </div>
       <div class="setting-item">
-        <h3>User Details</h3>
-        <p>Update your profile details</p>
-        <button onclick="location.href='updateDetails.php'">Update Details</button>
-      </div>
+    <h3>User Details</h3>
+    <p>Update your profile details</p>
+    <button id="update-details-btn">Update Details</button> 
+    <div class="Details-form" id="DetailsForm">
+      <h2>Update Deatails</h2>
+      <form method="post" action="../Controller/Admin/Settings/UpdateDetails.php">
+        <label for="Member-ID">MemberID:</label>
+        <input type="text" id="Member-ID" name="memberid" required>
+        <label for="Name">Name:</label>
+        <input type="text" id="Name" name="name" required>
+        <label for="Email">Email:</label>
+        <input type="text" id="Email" name="email" required>
+        <div class="buttons">
+          <button onclick="CloseDetailsForm()">Cancel</button>
+          <button id="submit-details" type="submit">Save Details</button>
+        </div>
+      </form>
+    </div>
+</div>
 
+ 
       <div class="setting-item">
         <h3>Password Change</h3>
         <p>Change your login password</p>
-        <button onclick="location.href='changePassword.php'">Change Password</button>
-         </div>
+        <button id="update-password-btn">Change Password</button>
+        <div class="password-form" id="PasswordForm">
+        <h2>Update Details</h2>
+        <form method="post" action="../Controller/Admin/Settings/UpdatePassword.php">
+          <label for="member_id">Member ID:</label>
+          <input type="text" id="member_id" name="member" required><br><br>
+          <label for="Password">Update Password:</label>
+          <input type="text" id="Password" name="password" required><br><br>
+          <div class="buttons">
+          <button onclick="closeForm()">Close</button>
+            <button id="submit_password" type="submit">Save Changes</button>
+          </div>
+        </form>
 
-   
-
+    </div>
+      </div>
+        
 
       <div class="setting-item">
         <h3>Theme Selection</h3>
         <p>Switch between Light and Dark mode</p>
         <button id="Mode" onclick="myFunction()">Toggle Theme</button>
       </div>
-
     </div>
   </section>
 
@@ -597,6 +646,7 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   </script>
 
   <script>
+    
     document.addEventListener('DOMContentLoaded', function () {
       var organizerSelect = document.getElementById('organizerName');
       var deviceSelect = document.getElementById('deviceName');
@@ -616,7 +666,6 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
     });
   </script>
 
-
   <script src="JS/Slidebar.js"></script>
   <script src="JS/Home.js"></script>
   <script src="JS/UEChart.js"></script>
@@ -624,11 +673,13 @@ while ($row = mysqli_fetch_assoc($loginCountsResult)) {
   <script src="../Controller/Admin/Member/SearchMember.js"></script>
   <script src="../Controller/Admin/Member/SelectRow.js"></script>
   <script src="../Controller/Admin/Member/Member_PopUp.js"></script>
+  <script src="../Controller/Admin/Member/AddMember.js"></script>
   <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
   <script src="../Controller/Admin/Events/FetchEventtoUpdate.js"></script>
   <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
   <script src="../Controller/Admin/Dashboard/Search.js"></script>
-  <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
+  <script src="../Controller/Admin/Settings/UpdateDetails.js"></script>
+  <script src="../Controller/Admin/Settings/UpdateUserPassword.js"></script>
   <script src="../Controller/Admin/Settings/DarkMode.js"></script>
   <script src="../Controller/Admin/Events/AddEvent.js"></script>
   <script src="../Controller/Admin/Events/UpdateEvent.js"></script>

@@ -1,3 +1,6 @@
+
+  
+  
   document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.tile').forEach(function(element) {
       element.addEventListener('click', function() {
@@ -39,3 +42,5 @@
       }
     }
   }
+ 
+

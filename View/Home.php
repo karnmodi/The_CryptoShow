@@ -1,18 +1,29 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_name'])) {
-
+if (!isset($_SESSION['user_name']) || !isset($_SESSION['member_id'])) {
   header('Location: ../index.php');
   exit;
 }
 
-// Database Connection
-$userName = $_SESSION['user_name'];
 require_once "../Model/Configurations/db.php";
 
+$loggedInMemberID = $_SESSION['member_id'];
+$userName = $_SESSION['user_name'];
 
-// Fetching Login History for the Chart in the Dashboard Section
+$loggedInUserQuery = "SELECT Name, Email, Password FROM Member WHERE MemberID = ?";
+$stmt = $con->prepare($loggedInUserQuery);
+$stmt->bind_param("i", $loggedInMemberID);
+$stmt->execute();
+$loggedInUserResult = $stmt->get_result();
+
+if ($row = $loggedInUserResult->fetch_assoc()) {
+    $name = htmlspecialchars($row['Name']);
+    $email = htmlspecialchars($row['Email']);
+    $password = htmlspecialchars($row['Password']);
+}
+
+
 $loginHistoryChartQuery = "
     SELECT m.Name, COUNT(l.LoginHistoryID) as LoginCount
     FROM member m
@@ -34,10 +45,9 @@ while ($row = mysqli_fetch_assoc($loginHistoryChartResult)) {
 
 
 // Fetching all the Events in a Event Section
-$FetchAllEvents = "SELECT e.EventID,e.EventName,e.EventDescription, e.EventDate, e.EventTime, e.EventLocation,e.OrganizerID, e.DeviceID, e.EventStatus, m.Name, d.DeviceName, d.Description
+$FetchAllEvents = "SELECT e.EventID,e.EventName,e.EventDescription, e.EventDate, e.EventTime, e.EventLocation,e.OrganizerID, e.EventStatus, m.Name
 FROM Events e
-JOIN Member m ON e.OrganizerID = m.MemberID
-JOIN Devices d ON e.DeviceID = d.DeviceID;";
+JOIN Member m ON e.OrganizerID = m.MemberID";
 $resultofFE = mysqli_query($con, $FetchAllEvents);
 
 // Fetching all the Events which are created by the Selected USER
@@ -53,19 +63,17 @@ while ($row = mysqli_fetch_assoc($eventsPerUserResult)) {
 }
 
 // Query for fetching visible events in the Published Event Section
-$fetchVisibleEventsQuery = "SELECT e.EventID, e.EventName, e.EventDescription, e.EventDate, e.EventTime, e.EventLocation, e.OrganizerID, e.DeviceID, e.EventStatus, m.Name AS OrganizerName, d.DeviceName
+$fetchVisibleEventsQuery = "SELECT e.EventID, e.EventName, e.EventDescription, e.EventDate, e.EventTime, e.EventLocation, e.OrganizerID, e.EventStatus, m.Name AS OrganizerName
 FROM Events e
 JOIN Member m ON e.OrganizerID = m.MemberID
-JOIN Devices d ON e.DeviceID = d.DeviceID
 WHERE e.EventStatus = 'Visible';
 ";
 $visibleEventsResult = mysqli_query($con, $fetchVisibleEventsQuery);
 
 // Query for fetching hidden events in the Published Event Section
-$fetchHiddenEventsQuery = "SELECT e.EventID, e.EventName, e.EventDescription, e.EventDate, e.EventTime, e.EventLocation, e.OrganizerID, e.DeviceID, e.EventStatus, m.Name AS OrganizerName, d.DeviceName
+$fetchHiddenEventsQuery = "SELECT e.EventID, e.EventName, e.EventDescription, e.EventDate, e.EventTime, e.EventLocation, e.OrganizerID, e.EventStatus, m.Name AS OrganizerName
 FROM Events e
 JOIN Member m ON e.OrganizerID = m.MemberID
-JOIN Devices d ON e.DeviceID = d.DeviceID
 WHERE e.EventStatus = 'Hidden';
 ";
 $hiddenEventsResult = mysqli_query($con, $fetchHiddenEventsQuery);
@@ -367,8 +375,8 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
               data-event-name="<?php echo $row['EventName'] ?>"
               data-event-description="<?php echo $row['EventDescription'] ?>"
               data-event-location="<?php echo $row['EventLocation'] ?>" data-event-date="<?php echo $row['EventDate'] ?>"
-              data-event-time="<?php echo $row['EventTime'] ?>" data-organizer-id="<?php echo $row['OrganizerID'] ?>"
-              data-device-id="<?php echo $row['DeviceID'] ?>" data-event-status="<?php echo $row['EventStatus'] ?>">
+              data-event-time="<?php echo $row['EventTime'] ?>" data-organizer-id="<?php echo $memberId ?>"
+               data-event-status="<?php echo $row['EventStatus'] ?>">
 
 
               <div class="tile-header">
@@ -386,9 +394,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
                   <span class="Location"><i class="fa-solid fa-location-dot"></i> &nbsp
                     <?php echo $row['EventLocation']; ?>
                   </span>
-                  <span class="Device"><i class="fa-solid fa-Device-dot"></i> &nbsp
-                    <?php echo $row['DeviceName']; ?>
-                  </span>
+
                   <span class="Organizer"><b><i class="fa-regular fa-id-card"></i> &nbsp </b>
                     <?php echo $row['Name']; ?>
                   </span>
@@ -430,28 +436,21 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
           <input type="text" id="eventLocation" name="eventLocation" placeholder="Location" required>
 
           <label for="organizerName">Organizer Name:</label>
-          <select id="organizerName" name="organizerName" required>
-            <option value="">Select an Organizer</option>
+          <input type="text" id="organizerName" name="organizerName" value="<?php echo $userName; ?>" readonly style="cursor: not-allowed;">
+
+          <label for="deviceName">Device Name:</label>
+          <select id="deviceName" name="deviceName[]" multiple size="3">
             <?php
-            $organizersQuery = "SELECT memberID, name FROM member";
-            $organizersResult = mysqli_query($con, $organizersQuery);
-            while ($organizer = mysqli_fetch_assoc($organizersResult)) {
-              echo "<option value='{$organizer['memberID']}'>{$organizer['name']}</option>";
+            $devicesQuery = "SELECT d.DeviceID, d.DeviceName, m.Name
+                     FROM devices d
+                     INNER JOIN member m ON d.MemberID = m.MemberID";
+            $devicesResult = mysqli_query($con, $devicesQuery);
+            while ($device = mysqli_fetch_assoc($devicesResult)) {
+              echo "<option value='{$device['DeviceID']}' data-member-id='{$device['MemberID']}'>{$device['DeviceName']} - {$device['Name']}</option>";
             }
             ?>
           </select>
 
-          <label for="deviceName">Device Name:</label>
-          <select id="deviceName" name="deviceName" required>
-            <option value="">Select a Device</option>
-            <?php
-            $devicesQuery = "SELECT DeviceID, DeviceName, MemberID FROM devices";
-            $devicesResult = mysqli_query($con, $devicesQuery);
-            while ($device = mysqli_fetch_assoc($devicesResult)) {
-              echo "<option value='{$device['DeviceID']}' data-member-id='{$device['MemberID']}'>{$device['DeviceName']}</option>";
-            }
-            ?>
-          </select>
 
           <label for="eventTime">Time:</label>
           <input type="time" id="eventTime" name="eventTime" required>
@@ -493,7 +492,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
             <th>Time</th>
             <th>Location</th>
             <th>Organizer</th>
-            <th>Device</th>
           </tr>
         </thead>
         <tbody>
@@ -506,7 +504,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
             echo "<td>" . $row['EventTime'] . "</td>";
             echo "<td>" . $row['EventLocation'] . "</td>";
             echo "<td>" . $row['OrganizerName'] . "</td>";
-            echo "<td>" . $row['DeviceName'] . "</td>";
             echo "</tr>";
           }
           ?>
@@ -525,7 +522,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
             <th>Time</th>
             <th>Location</th>
             <th>Organizer</th>
-            <th>Device</th>
           </tr>
         </thead>
         <tbody>
@@ -538,7 +534,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
             echo "<td>" . $row['EventTime'] . "</td>";
             echo "<td>" . $row['EventLocation'] . "</td>";
             echo "<td>" . $row['OrganizerName'] . "</td>";
-            echo "<td>" . $row['DeviceName'] . "</td>";
             echo "</tr>";
           }
           ?>
@@ -549,7 +544,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
   <section class="Members-section sections" id="membersContnet">
     <div class="Header_text">Members</div>
-    <button class="add-member-btn" onclick="openNewMemberForm()">+</button>
+    <i class="fa-solid fa-plus add-member-btn" onclick="openNewMemberForm()"></i>
     <div class="Body_content">
       <div class="search">
         <input type="text" id="searchstring" name="search" placeholder="Search.." oninput="filterSearch()">
@@ -674,7 +669,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
     <dialog id="New-Member-Form">
       <h2>Member Registration</h2>
-      <form class="form-container" action="../Controller/Admin/Member/RegisterMember.php" method="post">
+      <form class="AddUser-container" action="../Controller/Admin/Member/RegisterMember.php" method="post">
 
 
         <label for="MemberName">Name:</label>
@@ -807,20 +802,25 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
       </div>
       <div class="setting-item">
-        <h3>User Details</h3>
+        <h3>Profile Details</h3>
         <p>Update your profile details</p>
+        <p>
+          Your Name : <?php echo $userName ?><br>
+          Your Email : <?php echo $email ?><br>
+          Your Password : <?php echo $password ?><br>
+        </p>
         <button id="update-details-btn">Update Details</button>
         <div class="Details-form" id="DetailsForm">
           <h2>Update Deatails</h2>
           <form method="post" action="../Controller/Admin/Settings/UpdateDetails.php">
             <label for="MemberID">MemberID:</label>
-            <input type="text" id="MemberID" name="memberid" required>
+            <input type="text" id="MemberID" name="memberid" value="<?php echo $loggedInMemberID; ?>" readonly required>
             <label for="Name">Name:</label>
-            <input type="text" id="Name" name="name" required>
+            <input type="text" id="Name" name="name" value="<?php echo $name; ?>" required>
             <label for="Email">Email:</label>
-            <input type="text" id="Email" name="email" required>
+            <input type="text" id="Email" name="email" value="<?php echo $email; ?>" required>
             <label for="Password">Password:</label>
-            <input type="text" id="Password" name="password" required>
+            <input type="text" id="Password" name="password" value="<?php echo $password; ?>" required>
             <div class="buttons">
               <button onclick="CloseDetailsForm()">Cancel</button>
               <button id="submit-details" type="submit">Save Details</button>
@@ -860,24 +860,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
   </script>
 
   <script>
-
-    document.addEventListener('DOMContentLoaded', function () {
-      var organizerSelect = document.getElementById('organizerName');
-      var deviceSelect = document.getElementById('deviceName');
-      var initialDevicesOptions = Array.from(deviceSelect.options);
-
-      organizerSelect.addEventListener('change', function () {
-        const selectedOrganizerId = this.value;
-        while (deviceSelect.options.length > 1) deviceSelect.remove(1);
-
-
-        initialDevicesOptions.forEach(function (option) {
-          if (option.dataset.memberId === selectedOrganizerId) {
-            deviceSelect.add(option.cloneNode(true));
-          }
-        });
-      });
-    });
 
     document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('Mode').addEventListener('click', function myFunction() {

@@ -1,5 +1,5 @@
-.Members-section{
-    background-color: #eaeafb;
+.Members-section {
+    background-color: #f8f8f8;
 }
 
 .Members-section .Body_content {
@@ -45,7 +45,7 @@
     border-bottom: 2px solid #11101d;
 }
 
-.Members_Data tbody tr:hover{
+.Members_Data tbody tr:hover {
     background-color: #d5d5d5;
 }
 
@@ -83,7 +83,7 @@
 }
 
 .Admins_Data tbody tr:hover {
-    background-color: #d5d5d5; 
+    background-color: #d5d5d5;
 }
 
 #searchstring {
@@ -146,7 +146,7 @@ h2 {
     padding-bottom: 1rem;
 }
 
-#Member-Popup{
+#Member-Popup {
     width: 37%;
 }
 
@@ -156,7 +156,7 @@ h2 {
     gap: 20px;
 }
 
-.form-row{
+.form-row {
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -179,6 +179,7 @@ h2 {
     border-radius: 3px;
     text-align: left;
 }
+
 .form-group select {
     padding: 5px;
     font-size: 20px;
@@ -193,11 +194,13 @@ h2 {
     cursor: not-allowed;
     text-align: left;
 }
+
 .form-group #selected-member-Email {
     width: 300px;
     cursor: not-allowed;
     text-align: left;
 }
+
 .form-group #selected-member-Password {
     max-width: 100px;
     text-align: left;
@@ -208,7 +211,7 @@ h2 {
     text-align: center;
 }
 
-.submit input{
+.submit input {
     font-size: 20px;
     cursor: pointer;
     background-color: rgb(0, 128, 255);
@@ -216,7 +219,7 @@ h2 {
     padding: 25% 100%;
     color: white;
     border-radius: 20px;
-    width:max-content;
+    width: max-content;
     margin-top: 5%;
     margin-left: 10%;
 
@@ -226,84 +229,114 @@ h2 {
 body.dark-mode .Members-section {
     background-color: #11101d;
     color: #f1f1f1;
-  }
-  
-  body.dark-mode .Members_Data thead tr {
+}
+
+body.dark-mode .Members_Data thead tr {
     background-color: #424242;
     color: #ffffff;
-  }
-  
-  body.dark-mode .Members_Data tbody tr:nth-of-type(even) {
+}
+
+body.dark-mode .Members_Data tbody tr:nth-of-type(even) {
     background-color: #333;
-  }
-  
-  body.dark-mode .Members_Data tbody tr:hover {
+}
+
+body.dark-mode .Members_Data tbody tr:hover {
     background-color: #555;
-  }
-  
-  body.dark-mode .Admins_Data thead tr {
+}
+
+body.dark-mode .Admins_Data thead tr {
     background-color: #424242;
     color: #ffffff;
-  }
-  
-  body.dark-mode .Admins_Data tbody tr:nth-of-type(even) {
+}
+
+body.dark-mode .Admins_Data tbody tr:nth-of-type(even) {
     background-color: #333;
-  }
-  
-  body.dark-mode .Admins_Data tbody tr:hover {
+}
+
+body.dark-mode .Admins_Data tbody tr:hover {
     background-color: #080808;
-  }
-  
-  body.dark-mode dialog {
+}
+
+body.dark-mode dialog {
     background: #333;
-  }
-  
-  body.dark-mode .x {
+}
+
+body.dark-mode .x {
     filter: grayscale(0);
-  }
-  
-  body.dark-mode h2 {
+}
+
+body.dark-mode h2 {
     color: #f1f1f1;
-  }
-  
-  body.dark-mode .form-group label {
+}
+
+body.dark-mode .form-group label {
     color: #f1f1f1;
-  }
-  
-  body.dark-mode .form-group input,
-  body.dark-mode .form-group select {
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
     background-color: #424242;
     color: #f1f1f1;
     border-color: #333;
-  }
-  
-  body.dark-mode .form-group #selected-member-Email {
-    background-color: transparent;
-    color: #f1f1f1;
-  }
-  
-  body.dark-mode .submit input {
-    background-color: #007bff;
-  }
-  
-  #New-Member-Form {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 3rem;
-    background: white;
-    width: 30%;
-    border-radius: 20px;
-    border: 0;
-   
 }
 
-#New-Member-Form h2 {
-    font-weight: 600;
-    font-size: 2rem;
-    padding-bottom: 1rem;
+body.dark-mode .form-group #selected-member-Email {
+    background-color: transparent;
+    color: #f1f1f1;
 }
+
+body.dark-mode .submit input {
+    background-color: #007bff;
+}
+
+
+
+#New-Member-Form {
+    width: 30%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+  }
+  
+  #New-Member-Form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  #New-Member-Form input[type="text"],
+  #New-Member-Form input[type="email"],
+  #New-Member-Form input[type="password"],
+  #New-Member-Form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  #New-Member-Form .submit {
+    margin-top: 20px;
+  }
+  
+  #New-Member-Form button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #New-Member-Form .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
 
 .form-container {
     display: flex;
@@ -350,17 +383,15 @@ body.dark-mode .Members-section {
 
 .add-member-btn {
     position: fixed;
-    width: 40px;
+    /* width: 40px; */
     top: 10px;
-    right: 10px;
-    padding: 10px;
+    right: 20px;
+    padding: 15px;
     background-color: rgb(0, 128, 255);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 20px;
 
 }
-
-
-

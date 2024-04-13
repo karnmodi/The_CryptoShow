@@ -209,6 +209,7 @@ body.dark-mode .setting-item .password-form {
   display: none;
   border: 1px solid #ccc;
   padding: 20px;
+  width: 350px;
 }
 
 .Details-form h2 {

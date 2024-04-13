@@ -2,7 +2,6 @@ function toggleEventStatus(eventId, eventName, currentStatus) {
     var confirmationMessage = "";
     var newStatus = "";
 
-    // Determine the new status and confirmation message based on the current status
     if (currentStatus === 'Visible') {
         confirmationMessage = "Are you sure you want to hide the event '" + eventName + "'?";
         newStatus = "Hidden";
@@ -11,7 +10,6 @@ function toggleEventStatus(eventId, eventName, currentStatus) {
         newStatus = "Visible";
     }
 
-    // Ask for confirmation
     if (confirm(confirmationMessage)) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {

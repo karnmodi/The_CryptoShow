@@ -15,9 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssssi", $selected_member_name, $selected_member_email, $selected_member_password, $selected_member_user_type, $selected_member_id);
 
         if ($stmt->execute()) {
-            echo "<script>alert('Record updated successfully');</script>";
+            $_SESSION['message'] = 'Member Updated Successfully';
+            header('Location: ../../../View/Home.php#membersContnet');
         } else {
-            echo "<script>alert('Error updating record: " . $stmt->error . "');</script>";
+            $_SESSION['message'] = 'Member Updation Failed';
+            header('Location: ../../../View/Home.php##membersContnet');
         }
 
         $stmt->close();

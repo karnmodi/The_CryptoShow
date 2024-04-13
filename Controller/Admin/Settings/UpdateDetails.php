@@ -14,9 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssss", $Name, $Email, $Password, $MemberID);
 
         if ($stmt->execute()) {
-            echo "<script>alert('Record updated successfully');</script>";
+            $_SESSION['message'] = 'Profile Updated Successfully';
         } else {
-            echo "<script>alert('Error updating record: " . $stmt->error . "');</script>";
+            $_SESSION['message'] = 'Profile Updation Unsuccessful';
         }
 
         $stmt->close();

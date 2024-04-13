@@ -1,6 +1,3 @@
-
-  
-  
   document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.tile').forEach(function(element) {
       element.addEventListener('click', function() {
@@ -11,7 +8,6 @@
         const eventDate = this.dataset.eventDate;
         const eventTime = this.dataset.eventTime;
         const organizerId = this.dataset.organizerId; 
-      const deviceId = this.dataset.deviceId; 
         const eventStatus = this.dataset.eventStatus;
         
         document.getElementById('eventId').value = eventId;
@@ -22,9 +18,6 @@
         document.getElementById('eventTime').value = eventTime;
         document.getElementById('eventStatus').value = eventStatus;
 
-        selectDropdownValueById('organizerName', organizerId);
-        selectDropdownValueById('deviceName', deviceId);
-
 
         document.getElementById('updateEventbtn').style.display = 'inline';
         document.getElementById('deleteEventbtn').style.display = 'inline';
@@ -33,14 +26,4 @@
     });
   });
 
-  function selectDropdownValueById(dropdownId, value) {
-    let selectElement = document.getElementById(dropdownId);
-    for (let option of selectElement.options) {
-      if (option.value === value) {
-        selectElement.value = value;
-        break;
-      }
-    }
-  }
- 
 

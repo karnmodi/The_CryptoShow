@@ -11,7 +11,7 @@ require_once "../Model/Configurations/db.php";
 $loggedInMemberID = $_SESSION['member_id'];
 
 // Query to find the username based on the member ID
-$usernameQuery = "SELECT Name FROM Member WHERE MemberID = ?";
+$usernameQuery = "SELECT Name,Email, Password FROM Member WHERE MemberID = ?";
 $stmt = $con->prepare($usernameQuery);
 $stmt->bind_param("i", $loggedInMemberID);
 $stmt->execute();
@@ -19,7 +19,7 @@ $usernameResult = $stmt->get_result();
 
 $username = "";
 if ($row = $usernameResult->fetch_assoc()) {
-    $username = $row['Name'];
+  $username = $row['Name'];
 }
 
 
@@ -43,18 +43,7 @@ while ($row = $loginHistoryChartResult->fetch_assoc()) {
   $chartData['loginCounts'][] = $row['LoginCount'];
 }
 
-// Example of modifying the Fetch All Events query
-$FetchAllEvents = "
-    SELECT e.EventID, e.EventName, e.EventDescription, e.EventDate, e.EventTime, e.EventLocation, e.OrganizerID, e.DeviceID, e.EventStatus, m.Name, d.DeviceName, d.Description
-    FROM Events e
-    JOIN Member m ON e.OrganizerID = m.MemberID
-    JOIN Devices d ON e.DeviceID = d.DeviceID
-    WHERE e.OrganizerID = ?
-";
-$stmt = $con->prepare($FetchAllEvents);
-$stmt->bind_param("i", $loggedInMemberID);
-$stmt->execute();
-$resultofFE = $stmt->get_result();
+
 
 
 // ------------------------------------------- 
@@ -101,6 +90,7 @@ $stmt->bind_param("i", $loggedInMemberID);
 $stmt->execute();
 $fetchDeviceDetailsResult = $stmt->get_result();
 
+
 $fetchDeviceEventsQuery = "
 SELECT 
     e.EventID, 
@@ -121,10 +111,16 @@ JOIN
     EventDevice ed ON e.EventID = ed.EventID
 JOIN 
     Devices d ON ed.DeviceID = d.DeviceID
+WHERE
+    d.MemberID = ?
 GROUP BY 
     e.EventID
 ";
-$resultofFE = mysqli_query($con, $fetchDeviceEventsQuery);
+$stmt = $con->prepare($fetchDeviceEventsQuery);
+$stmt->bind_param("i", $loggedInMemberID);
+$stmt->execute();
+$deviceParticipationResult = 
+$resultofFE = $stmt->get_result();
 $numResults = mysqli_num_rows($resultofFE);
 
 
@@ -156,7 +152,7 @@ $deviceParticipationResult = $stmt->get_result();
 
 <head>
   <meta charset="UTF-8">
-  <title>User : <?php echo$username?> | The CryptoShow</title>
+  <title>User : <?php echo $username ?> | The CryptoShow</title>
   <link rel="stylesheet" href="CSS/Admin/Home.css">
   <link rel="stylesheet" href="CSS/User/Events.css">
   <link rel="stylesheet" href="CSS/Admin/Dashboard.css">
@@ -325,9 +321,9 @@ $deviceParticipationResult = $stmt->get_result();
 
 
       <div class="Header">
-      <div class="widget-Devices" style="float:left;">
+        <div class="widget-Devices" style="float:left;">
           <h2> Total Devices </h2>
-          <p style="Font-size : 25px; font-weight:bold;" >
+          <p style="Font-size : 25px; font-weight:bold;">
             <?php echo $totalDevicesCount; ?>
             <i class="fa-solid fa-people-group"></i>
           </p>
@@ -336,7 +332,8 @@ $deviceParticipationResult = $stmt->get_result();
           <i class="fa-solid fa-plus"></i>
         </div>
         <div class="search">
-          <input type="text" id="SearchDevices" name="search" placeholder="Search by Device Name.." oninput="filterDeviceSearch()">
+          <input type="text" id="SearchDevices" name="search" placeholder="Search by Device Name.."
+            oninput="filterDeviceSearch()">
         </div>
       </div>
 
@@ -429,6 +426,7 @@ $deviceParticipationResult = $stmt->get_result();
                       value="<?php echo htmlspecialchars($deviceRow['Description']); ?>">
                     <label for="Event_Registered_at">Existing Events to Register:</label>
                     <select id="Event_Registered_at" name="Event_Registered_at[]" multiple size="3">
+                    <!-- <option value="">None of them.</option> -->
                       <?php
                       $fetchAllEventsQuery = "SELECT EventID, EventName, EventDate, EventTime FROM Events";
                       $fetchAllEventsResult = mysqli_query($con, $fetchAllEventsQuery);
@@ -504,7 +502,6 @@ $deviceParticipationResult = $stmt->get_result();
 
   </section>
 
-
   <section class="Events-section sections" id="eventsContent">
 
     <div class="Header_text">Events</div>
@@ -515,7 +512,8 @@ $deviceParticipationResult = $stmt->get_result();
       <div class="LHS-content">
 
         <div class="search">
-          <input type="text" id="searchstringForEvents" name="search" placeholder="Search by Event Related anything.." oninput="filterEvents()">
+          <input type="text" id="searchstringForEvents" name="search" placeholder="Search by Event Related anything.."
+            oninput="filterEvents()">
         </div>
 
         <div class="tile-container">
@@ -550,7 +548,8 @@ $deviceParticipationResult = $stmt->get_result();
               <div class="tile-body">
                 <strong><?php echo $row['EventName'] ?> <span class="Event-Desc"
                     style="font-weight:normal; float : right;">Desc :
-                    <?php echo $row['EventDescription'] ?></span></strong>
+                    <?php echo $row['EventDescription'] ?></span>
+                </strong>
 
                 <div class="tile-footer">
                   <span class="Location"><i class="fa-solid fa-location-dot"></i> &nbsp

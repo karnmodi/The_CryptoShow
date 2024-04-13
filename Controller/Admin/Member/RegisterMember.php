@@ -17,16 +17,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     if ($stmt->execute()) {
        
-        echo "<script>alert('Member registered successfully');</script>";
+        $_SESSION['message'] = 'Member Added Successfully.';
+        header('Location: ../../../View/Home.php#membersContnet');
     } else {
        
-        echo "<script>alert('Error: " . $stmt->error . "');</script>";
+        $_SESSION['message']  = "Error:"  . "$stmt->error";
     }
 
     $stmt->close();
     $con->close();
 } else {
 
-    echo "<script>alert('Invalid request');</script>";
+    $_SESSION['message']  = "Invalid Request";
 }
 ?>

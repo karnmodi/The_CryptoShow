@@ -1,27 +1,27 @@
 .Devices-section {
-    background-color: #f8f8f8;
+    background-color: #eaeafb;
 }
 
 .Header {
     display: flex;
     align-items: center;
     float: right;
-  }
-  
-  .add-icon {
+}
+
+.add-icon {
     margin-right: 120px;
     margin-left: 20px;
     margin-bottom: 25px;
-    z-index: 1; 
+    z-index: 1;
     background-color: #11101d;
     padding: 15px 25px;
     border-radius: 20%;
     border: 2px solid black;
     color: white;
     cursor: pointer;
-  }
-  
-  #SearchDevices {
+}
+
+#SearchDevices {
     width: 130%;
     padding: 15px;
     margin-bottom: 25px;
@@ -29,8 +29,8 @@
     border-radius: 10px;
     font-size: 15px;
     float: right;
-  }
-  
+}
+
 
 .device-tiles {
     display: grid;
@@ -122,11 +122,11 @@
 
 }
 
-.pencil-icon:hover{
-    color:  black;
+.pencil-icon:hover {
+    color: black;
 }
 
-.DeleteDevice-icon{
+.DeleteDevice-icon {
     display: none;
     position: absolute;
     top: 20px;
@@ -137,8 +137,8 @@
 
 }
 
-.DeleteDevice-icon:hover{
-    color:  red;
+.DeleteDevice-icon:hover {
+    color: red;
 }
 
 .edit-icon {
@@ -152,8 +152,8 @@
 
 }
 
-.edit-icon:hover{
-    color:  greenyellow;
+.edit-icon:hover {
+    color: greenyellow;
 }
 
 .closeform-icon {
@@ -166,8 +166,8 @@
     font-size: 20px;
 }
 
-.closeform-icon:hover{
-    color:  black;
+.closeform-icon:hover {
+    color: black;
 }
 
 .update-icon {
@@ -180,8 +180,8 @@
     font-size: 30px;
 }
 
-.update-icon:hover{
-    color:  black;
+.update-icon:hover {
+    color: black;
 }
 
 
@@ -226,7 +226,7 @@ td {
     width: 100%;
 }
 
-.EditDevice_form-container{
+.EditDevice_form-container {
     width: 500px;
 }
 
@@ -239,7 +239,7 @@ td {
     font-weight: normal;
     margin-bottom: 5px;
     color: white;
-    width: max-content; 
+    width: max-content;
 }
 
 .EditDevice_form-container input[type=text],
@@ -249,7 +249,7 @@ td {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    width: calc(100% - 22px); 
+    width: calc(100% - 22px);
 }
 
 .EditDevice_form-container button {
@@ -263,10 +263,10 @@ td {
     transition: background-color 0.3s ease;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: calc(100% - 22px); 
+    width: calc(100% - 22px);
 }
 
-.EditDevice_form-container button:hover{
+.EditDevice_form-container button:hover {
     background-color: #105D97;
     border: 2px solid white;
     color: white;
@@ -283,66 +283,66 @@ td {
     height: 100%;
     overflow: auto;
     backdrop-filter: blur(5px);
-    background-color: rgba(0, 0, 0, 0.4); /* Black background with transparency */
-    padding-top: 60px; 
-  }
-  
-  .form-content {
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black background with transparency */
+    padding-top: 60px;
+}
+
+.form-content {
     background-color: #fefefe;
-    margin: 5% auto; 
+    margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 40%; 
+    width: 40%;
     display: flex;
     flex-direction: column;
     border-radius: 30px;
-  }
-  
-  .form-content label {
+}
+
+.form-content label {
     margin-bottom: 10px;
     font-size: 18px;
     color: #333;
     width: fit-content;
-  }
-  
-  .form-content input[type="text"],
-  .form-content select {
+}
+
+.form-content input[type="text"],
+.form-content select {
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-  }
-  
-  .form-content select {
+}
+
+.form-content select {
     width: 100%;
-  }
-  
-  .NewDevice_form-container button[type="submit"],
-  .closeaddform-icon {
+}
+
+.NewDevice_form-container button[type="submit"],
+.closeaddform-icon {
     padding: 15px 30px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 18px;
-  }
-  
-  .NewDevice_form-container button[type="submit"] {
+}
+
+.NewDevice_form-container button[type="submit"] {
     background-color: #11101d;
     color: white;
-  }
-  
-  .NewDevice_form-container button[type="submit"]:hover {
+}
+
+.NewDevice_form-container button[type="submit"]:hover {
     background-color: #3268fe;
     color: black;
-  }
+}
 
-  .closeaddform-icon:hover{
+.closeaddform-icon:hover {
     color: red;
-  }
+}
 
-  .closeaddform-icon{
+.closeaddform-icon {
     font-size: 35px;
     float: right;
-  }
-  
+}

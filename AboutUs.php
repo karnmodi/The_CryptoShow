@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/AboutUs.css">
-    <link rel="stylesheet" href="CSS/index.css">
-    <link rel="stylesheet" href="CSS/NavBar.css">
+    <link rel="stylesheet" href="view/CSS/AboutUs.css">
+    <link rel="stylesheet" href="view/CSS/index.css">
+    <link rel="stylesheet" href="view/CSS/NavBar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>The CryptoShow</title>
 </head>
@@ -14,8 +14,8 @@
 <body>
     <nav>
         <div class="The-CryptoShow-LOGO">
-            <a href="../index.php">
-                <img src="../Assets/Website Images/Logo.png" alt="The-CryptoShow-LOGO"> 
+            <a href="index.php">
+                <img src="Assets/Website Images/Logo.png" alt="The-CryptoShow-LOGO"> 
             </a>
         </div>
 
@@ -29,7 +29,7 @@
         <div class="popup-content">
 
             <div id="LoginForm">
-                <form action="../Model/Configurations/Login.php" method="post">
+                <form action="Model/Configurations/Login.php" method="post">
                     <div class="Tab_Header">
                         <button class="tab" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
                         <button class="tab active" id="LoginTab" onclick="openPopup('login')">Login</button>
@@ -63,7 +63,7 @@
             </div>
 
             <div id="SignUpForm">
-                <form action="../Model/Configurations/Register.php" method="post">
+                <form action="Model/Configurations/Register.php" method="post">
                     <div class="Tab_Header">
                         <button class="tab active" id="SignupTab" onclick="openPopup('SignUp')">SignUp</button>
                         <button class="tab" id="LoginTab" onclick="openPopup('login')">Login</button>
@@ -106,7 +106,8 @@
     <div class="container">
         <span class="fade-in">We're changing the whole game.</span>
         <div class="links">
-            <button class="Get_Started" role="button">Get Started</button>
+        <a class="Get_Started" role="button" href="#Section2">Get Started</a>
+
         </div>
     </div>
 
@@ -175,9 +176,10 @@
             <div class="member">
                 <img src="/The_CryptoShow/Assets/Website Images/Developers/karnModi.png" alt="Member 1">
                 <div class="details">
-                    <h2>Karan Modi</h2>
+                    <h2>Karan Modi | <a href="https://karanmodi.com/" target="_blank">Portfolio</a></h2>
                     <ul>
                         <li>Team leader</li>
+                        <li>Frontend Designer</li>
                         <li>Database Administrator (DBA)</li>
                         <li>Backend Handler</li>
                         <p>tel: 07867064191 &nbsp;|&nbsp; Email: P2761604@my365.dmu.ac.uk</p>
@@ -204,7 +206,6 @@
                         <li>Interface/Front End Designer(assistant)</li>
                         <p>tel: 07307726432 &nbsp;|&nbsp; Email: P2754832@my365.dmu.ac.uk</p>
                     </ul>
-                    <!-- Additional details for member 3 -->
                 </div>
             </div>
             <div class="member">
@@ -215,7 +216,6 @@
                         <li>Business analyst</li>
                         <p>tel: 0747542844 &nbsp;|&nbsp; Email: P2728246@my365.dmu.ac.uk</p>
                     </ul>
-                    <!-- Additional details for member 4 -->
                 </div>
             </div>
             <div class="member">
@@ -226,7 +226,6 @@
                         <li>QA</li>
                         <p>tel: 07928526270 &nbsp;|&nbsp; Email: P2764688@my365.dmu.ac.uk</p>
                     </ul>
-                    <!-- Additional details for member 5 -->
                 </div>
             </div>
         </div>
@@ -247,11 +246,11 @@
         </div>
     </footer>
 
-    <script src="JS/Start.js"></script>
-    <script src="JS/index.js"></script>
-    <script src="JS/AboutUs.js"></script>
-    <script src="JS/SignUp.js"></script>
-    <script src="JS/Login.js"></script>
+    <script src="view/JS/Start.js"></script>
+    <script src="view/JS/index.js"></script>
+    <script src="view/JS/AboutUs.js"></script>
+    <script src="view/JS/SignUp.js"></script>
+    <script src="view/JS/Login.js"></script>
 </body>
 
 </html>

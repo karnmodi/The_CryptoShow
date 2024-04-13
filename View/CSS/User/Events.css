@@ -1,0 +1,80 @@
+.RHS-ContentUser {
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease;
+    height: max-content;
+}
+
+.RHS-ContentUser span {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#EventName {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase; 
+    animation: colorChange 5s infinite alternate; 
+}
+
+#EventDescription {
+    font-size: 16px;
+    color: #555;
+}
+
+#EventLocation {
+    font-size: 18px;
+    font-style: italic;
+    color: #777;
+}
+
+#EventDate,
+#EventTime {
+    font-size: 18px;
+    color: #888;
+}
+
+#EventDevices{
+
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase; 
+    animation: colorChange 5s infinite alternate; 
+    font-style: italic;
+
+}
+#EventVisibility {
+    font-size: 18px;
+    font-style: italic;
+    color: #888;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes colorChange {
+    0% {
+        color: #333;
+    }
+    50% {
+        color: #ff6347; 
+    }
+    100% {
+        color: #333;
+    }
+}

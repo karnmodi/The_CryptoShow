@@ -1,17 +1,27 @@
 <?php
 session_start();
 
-// Redirect if not logged in
 if (!isset($_SESSION['user_name']) || !isset($_SESSION['member_id'])) {
   header('Location: ../index.php');
   exit;
 }
 
-// Database connection
 require_once "../Model/Configurations/db.php";
 
-// Assuming member ID is stored in the session when the user logs in
 $loggedInMemberID = $_SESSION['member_id'];
+
+// Query to find the username based on the member ID
+$usernameQuery = "SELECT Name FROM Member WHERE MemberID = ?";
+$stmt = $con->prepare($usernameQuery);
+$stmt->bind_param("i", $loggedInMemberID);
+$stmt->execute();
+$usernameResult = $stmt->get_result();
+
+$username = "";
+if ($row = $usernameResult->fetch_assoc()) {
+    $username = $row['Name'];
+}
+
 
 // Query to fetch login history chart data for logged-in member
 $loginHistoryChartQuery = "
@@ -46,45 +56,6 @@ $stmt->bind_param("i", $loggedInMemberID);
 $stmt->execute();
 $resultofFE = $stmt->get_result();
 
-// Fetching all the members in a Member Section
-$FetchAllMembers = "SELECT * from member";
-$resultofFM = mysqli_query($con, $FetchAllMembers);
-
-$loginCountsQuery = "
-    SELECT COUNT(l.LoginHistoryID) as LoginCount
-    FROM member m
-    LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
-    GROUP BY l.LoginHistoryID
-";
-
-$loginCountsResult = mysqli_query($con, $loginCountsQuery);
-
-
-
-// Fetching Last three Email based on the DT from the login History who did login.
-$lastThreeLoginsQuery = "
-    SELECT m.Email, l.LoginDT
-    FROM member m
-    INNER JOIN loginhistory l ON m.MemberID = l.MemberID
-    ORDER BY l.LoginDT DESC
-    LIMIT 3
-";
-$lastThreeLoginsResult = mysqli_query($con, $lastThreeLoginsQuery);
-
-
-// Fetching Login History of Member individually for the Login History Section
-
-$loginHistoryByMemberQuery = "
-    SELECT m.Name AS MemberName, l.LoginDT AS LoginDateTime
-    FROM member m
-    LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
-    ORDER BY m.Name, l.LoginDT DESC
-";
-$loginHistoryByMemberResult = mysqli_query($con, $loginHistoryByMemberQuery);
-
-$fetchAllMembersQuery = "SELECT * FROM member";
-$fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
-
 
 // ------------------------------------------- 
 
@@ -106,7 +77,7 @@ $totalEventsRow = $totalEventsResult->fetch_assoc();
 $totalEventsCount = $totalEventsRow['totalEvents'];
 
 $fetchAllDevicesWithEventsQuery = "
-    SELECT d.DeviceID, d.DeviceName, e.EventName, e.EventDate, e.EventTime
+    SELECT d.DeviceID, d.DeviceName, d.Description, e.EventName, e.EventDate, e.EventTime
     FROM Devices d
     LEFT JOIN EventDevice ed ON d.DeviceID = ed.DeviceID
     LEFT JOIN Events e ON ed.EventID = e.EventID
@@ -117,8 +88,65 @@ $stmt = $con->prepare($fetchAllDevicesWithEventsQuery);
 $stmt->bind_param("i", $loggedInMemberID);
 $stmt->execute();
 $fetchAllDevicesResult = $stmt->get_result();
-?>
 
+$fetchDeviceDetailsQuery = "
+    SELECT d.DeviceID, d.DeviceName, d.Description, de.EventID, e.EventName, e.EventDate, e.EventTime
+    FROM Devices d
+    LEFT JOIN eventdevice de ON d.DeviceID = de.DeviceID
+    LEFT JOIN Events e ON de.EventID = e.EventID
+    WHERE d.MemberID = ?
+";
+$stmt = $con->prepare($fetchDeviceDetailsQuery);
+$stmt->bind_param("i", $loggedInMemberID);
+$stmt->execute();
+$fetchDeviceDetailsResult = $stmt->get_result();
+
+$fetchDeviceEventsQuery = "
+SELECT 
+    e.EventID, 
+    e.EventName, 
+    e.EventDescription, 
+    e.EventDate, 
+    e.EventTime, 
+    e.EventLocation, 
+    e.OrganizerID, 
+    e.EventStatus, 
+    m.Name AS OrganizerName, 
+    CONCAT_WS(', ', GROUP_CONCAT(d.DeviceName SEPARATOR ', ')) AS DeviceNames
+FROM 
+    Events e
+JOIN 
+    Member m ON e.OrganizerID = m.MemberID
+JOIN 
+    EventDevice ed ON e.EventID = ed.EventID
+JOIN 
+    Devices d ON ed.DeviceID = d.DeviceID
+GROUP BY 
+    e.EventID
+";
+$resultofFE = mysqli_query($con, $fetchDeviceEventsQuery);
+$numResults = mysqli_num_rows($resultofFE);
+
+
+$deviceParticipationQuery = "
+    SELECT 
+        d.DeviceName, 
+        COUNT(ed.EventID) AS EventCount
+    FROM 
+        Devices d
+    LEFT JOIN 
+        EventDevice ed ON d.DeviceID = ed.DeviceID
+    WHERE 
+        d.MemberID = ?
+    GROUP BY 
+        d.DeviceID
+";
+$stmt = $con->prepare($deviceParticipationQuery);
+$stmt->bind_param("i", $loggedInMemberID);
+$stmt->execute();
+$deviceParticipationResult = $stmt->get_result();
+
+?>
 
 
 
@@ -128,13 +156,11 @@ $fetchAllDevicesResult = $stmt->get_result();
 
 <head>
   <meta charset="UTF-8">
-  <title>Admin | The CryptoShow</title>
+  <title>User : <?php echo$username?> | The CryptoShow</title>
   <link rel="stylesheet" href="CSS/Admin/Home.css">
+  <link rel="stylesheet" href="CSS/User/Events.css">
   <link rel="stylesheet" href="CSS/Admin/Dashboard.css">
   <link rel="stylesheet" href="CSS/Admin/Events.css">
-  <link rel="stylesheet" href="CSS/Admin/Published_Events.css">
-  <link rel="stylesheet" href="CSS/Admin/Member.css">
-  <link rel="stylesheet" href="CSS/Admin/Login_History.css">
   <link rel="stylesheet" href="CSS/Admin/Settings.css">
   <link rel="stylesheet" href="CSS/Admin/Updateform.css">
   <link rel="stylesheet" href="CSS/User/Devices.css">
@@ -152,31 +178,6 @@ $fetchAllDevicesResult = $stmt->get_result();
         <?php unset($_SESSION['message']); ?>
       };
     <?php endif; ?>
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-      var lastActiveSection = localStorage.getItem('activeSection');
-
-      if (lastActiveSection) {
-        showSection(lastActiveSection);
-      }
-
-      var organizerSelect = document.getElementById('organizerName');
-      var deviceSelect = document.getElementById('deviceName');
-      var initialDevicesOptions = Array.from(deviceSelect.options);
-
-      organizerSelect.addEventListener('change', function () {
-        const selectedOrganizerId = this.value;
-        while (deviceSelect.options.length > 1) deviceSelect.remove(1);
-
-        initialDevicesOptions.forEach(function (option) {
-          if (option.dataset.memberId === selectedOrganizerId) {
-            deviceSelect.add(option.cloneNode(true));
-          }
-        });
-      });
-
-    });
 
 
   </script>
@@ -233,7 +234,7 @@ $fetchAllDevicesResult = $stmt->get_result();
           <img src="../Assets/Website Images/Github Logo PNG.png" alt="profileImg">
           <div class="name_job">
             <div class="name">
-              <?php echo $userName; ?>
+              <?php echo $username; ?>
             </div>
             <div class="position">Student</div>
           </div>
@@ -259,9 +260,9 @@ $fetchAllDevicesResult = $stmt->get_result();
 
 
         <div class="event-widget">
-          <h2> Total Events Schedules</h2>
+          <h2> Total Participated Events</h2>
           <p>
-            <?php echo $totalEventsCount; ?>
+            <?php echo $numResults; ?>
             <i class="fa-regular fa-calendar-days"></i>
           </p>
 
@@ -271,17 +272,23 @@ $fetchAllDevicesResult = $stmt->get_result();
       <div class="Latest-Container">
 
         <div class="Latest-Member-Widget">
-          <h2>Latest Member</h2>
+          <h2>Last 5 Logins</h2>
           <ul>
             <?php
-            $latestMembersQuery = "SELECT * FROM member ORDER BY MemberID";
-            $latestMembersResult = mysqli_query($con, $latestMembersQuery);
-            while ($row = mysqli_fetch_assoc($latestMembersResult)) {
-              echo "<li> {$row['Name']}</li>";
+            $lastFiveLoginsQuery = " SELECT m.Email, l.LoginDT FROM member m INNER JOIN loginhistory l ON m.MemberID = l.MemberID WHERE m.MemberID = ? ORDER BY l.LoginDT DESC LIMIT 5 ";
+
+            $stmt = $con->prepare($lastFiveLoginsQuery);
+            $stmt->bind_param("i", $loggedInMemberID);
+            $stmt->execute();
+            $lastFiveLoginsResult = $stmt->get_result();
+
+            while ($row = $lastFiveLoginsResult->fetch_assoc()) {
+              echo "<li>{$row['LoginDT']}</li>";
             }
             ?>
           </ul>
         </div>
+
 
 
         <div class="Upcoming-Events-widget">
@@ -290,17 +297,18 @@ $fetchAllDevicesResult = $stmt->get_result();
             <?php
             $currentDate = date('Y-m-d');
 
-            $latestEventsQuery = "SELECT * FROM events WHERE EventDate >= '$currentDate' ORDER BY EventDate ASC LIMIT 4";
-            $latestEventsResult = mysqli_query($con, $latestEventsQuery);
-            while ($row = mysqli_fetch_assoc($latestEventsResult)) {
-              echo "<li> {$row['EventName']}</li>";
+            $fetchUpcomingEventsQuery = " SELECT  e.EventName FROM  Events e INNER JOIN  EventDevice ed ON e.EventID = ed.EventID WHERE  e.EventDate >= '$currentDate' GROUP BY  e.EventID ORDER BY  e.EventDate ASC LIMIT 4 ";
+
+            $result = mysqli_query($con, $fetchUpcomingEventsQuery);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+              echo "<li>{$row['EventName']}</li>";
             }
             ?>
           </ul>
         </div>
-
-
       </div>
+
       <div class="Chart">
         <div class="canvas-container">
           <canvas id="eventsChart"></canvas>
@@ -315,14 +323,60 @@ $fetchAllDevicesResult = $stmt->get_result();
     <div class="Header_text">Devices</div>
     <div class="Body_Content">
 
-      <div class="MembersHistory">
+
+      <div class="Header">
+      <div class="widget-Devices" style="float:left;">
+          <h2> Total Devices </h2>
+          <p style="Font-size : 25px; font-weight:bold;" >
+            <?php echo $totalDevicesCount; ?>
+            <i class="fa-solid fa-people-group"></i>
+          </p>
+        </div>
+        <div class="add-icon" onclick="toggleNewDeviceForm()">
+          <i class="fa-solid fa-plus"></i>
+        </div>
         <div class="search">
-          <input type="text" id="LoginDatasearchstring" name="search" placeholder="Search.."
-            oninput="filterHistorySearch()">
+          <input type="text" id="SearchDevices" name="search" placeholder="Search by Device Name.." oninput="filterDeviceSearch()">
         </div>
       </div>
 
+      <div class="NewDevice_form-container" id="NewDeviceForm">
+        <i class="fa fa-window-close x" onclick="closeNewDeviceForm()" title="Close Form"></i>
 
+        <form method="POST" action="../Controller\User\Device\AddDevice.php" class="form-content">
+          <label for="newDeviceName">Device Name:</label>
+          <input type="text" id="newDeviceName" name="newDeviceName" required>
+
+          <label for="newDeviceDescription">Device Description:</label>
+          <input type="text" id="newDeviceDescription" name="newDeviceDescription">
+
+          <label for="newDeviceEvents">Existing Events to Register:</label>
+          <select id="newDeviceEvents" name="newDeviceEvents[]" multiple size="3">
+            <?php
+            $fetchAllEventsQuery = "SELECT EventID, EventName, EventDate, EventTime FROM Events";
+            $fetchAllEventsResult = mysqli_query($con, $fetchAllEventsQuery);
+            if ($fetchAllEventsResult) {
+              while ($eventRow = mysqli_fetch_assoc($fetchAllEventsResult)) {
+                ?>
+                <option value="<?php echo htmlspecialchars($eventRow['EventID']); ?>">
+                  <?php echo htmlspecialchars($eventRow['EventName'] . ' - ' . $eventRow['EventDate'] . ' , ' . $eventRow['EventTime']); ?>
+                </option>
+                <?php
+              }
+            } else {
+              echo "<option value=''>Error fetching events</option>";
+            }
+            ?>
+          </select>
+
+          <button type="submit">Create Device</button>
+        </form>
+      </div>
+
+      <br><br>
+      <br><br>
+
+      <div class="Header_text">Your Devices</div>
       <div class="device-tiles">
         <?php
         $currentDeviceID = null;
@@ -338,15 +392,66 @@ $fetchAllDevicesResult = $stmt->get_result();
               <h1>
                 <?php echo htmlspecialchars($deviceRow['DeviceName']); ?>
               </h1>
+              <h5>
+                <?php echo htmlspecialchars($deviceRow['Description']); ?>
+              </h5>
 
-              <div id="EDDATA_<?php echo htmlspecialchars($deviceRow['DeviceID']);?>" class="EDDTAC">
-                <i class="fas fa-pencil-alt pencil-icon"
-                onclick="event.stopPropagation(); fetchAllEvents('<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>');"></i>
-                <i class="fa-solid fa-square-check update-icon"
-                onclick="event.stopPropagation(); fetchAllRegEvents('<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>');"
-                id="iconUpdateDevice_<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>" style="display:none;"></i>
+              <div id="EDDATA_<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>" class="EDDTAC">
+                <i class="fa-solid fa-eye pencil-icon" title="View All Events"
+                  onclick="event.stopPropagation(); fetchAllEvents('<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>');"></i>
+
+                <i class="fa-solid fa-square-check update-icon" onclick="reloadPage()"
+                  id="iconUpdateDevice_<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>" style="display:none;"
+                  title="Reload the Page"></i>
+
+                <i class="fa fa-trash DeleteDevice-icon" aria-hidden="true"
+                  id="DeleteDevice<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>"
+                  onclick="deleteDevice(<?php echo htmlspecialchars($currentDeviceID); ?>)"></i>
+
+                <i class="fas fa-pencil-alt edit-icon" style="display: block;" title="Edit this Device"
+                  onclick="toggleEditDeviceForm('<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>')"
+                  id="EDITForm_ICON_<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>"></i>
+
+                <div class="EditDevice_form-container"
+                  id="EditDeviceForm<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>" style="display: none;">
+
+                  <i class="fa fa-window-close closeform-icon" style="display: block;" title="Close Edits"
+                    onclick="closeEditDeviceForm('<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>')"
+                    id="CloseForm_ICON_<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>"></i>
+
+                  <form method="POST" action="../Controller\User\Device\UpdateDevice.php">
+                    <input type="hidden" name="deviceId" value="<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>">
+                    <label for="deviceName">Device Name:</label>
+                    <input type="text" id="deviceName" name="deviceName" required
+                      value="<?php echo htmlspecialchars($deviceRow['DeviceName']); ?>">
+                    <label for="deviceDescriptionEdit">Device Description:</label>
+                    <input type="text" id="deviceDescriptionEdit" name="deviceDescriptionEdit"
+                      value="<?php echo htmlspecialchars($deviceRow['Description']); ?>">
+                    <label for="Event_Registered_at">Existing Events to Register:</label>
+                    <select id="Event_Registered_at" name="Event_Registered_at[]" multiple size="3">
+                      <?php
+                      $fetchAllEventsQuery = "SELECT EventID, EventName, EventDate, EventTime FROM Events";
+                      $fetchAllEventsResult = mysqli_query($con, $fetchAllEventsQuery);
+                      if ($fetchAllEventsResult) {
+                        while ($eventRow = mysqli_fetch_assoc($fetchAllEventsResult)) {
+                          ?>
+                          <option value="<?php echo htmlspecialchars($eventRow['EventID']); ?>">
+                            <?php echo htmlspecialchars($eventRow['EventName'] . ' - ' . $eventRow['EventDate'] . ' , ' . $eventRow['EventTime']); ?>
+                          </option>
+                          <?php
+                        }
+                      } else {
+                        echo "<option value=''>Error fetching events</option>";
+                      }
+                      ?>
+                    </select>
+                    <button type="submit">Submit</button>
+                  </form>
+
+                </div>
+
+
                 <p>This device is registered at these events Below</p>
-
                 <table>
                   <thead>
                     <tr>
@@ -387,6 +492,7 @@ $fetchAllDevicesResult = $stmt->get_result();
                   <?php
         }
         ?>
+
           </div>
 
         </div>
@@ -409,7 +515,7 @@ $fetchAllDevicesResult = $stmt->get_result();
       <div class="LHS-content">
 
         <div class="search">
-          <input type="text" id="searchstringForEvents" name="search" placeholder="Search.." oninput="filterEvents()">
+          <input type="text" id="searchstringForEvents" name="search" placeholder="Search by Event Related anything.." oninput="filterEvents()">
         </div>
 
         <div class="tile-container">
@@ -427,177 +533,85 @@ $fetchAllDevicesResult = $stmt->get_result();
             'fa-solid fa-database',
           ];
 
-          while ($row = mysqli_fetch_assoc($resultofFE)) {
-            $randomIcon = $icons[array_rand($icons)];
-            ?>
 
+
+          while ($row = mysqli_fetch_assoc($resultofFE)):
+            $randomIcon = $icons[array_rand($icons)]; ?>
 
             <div class="tile" data-event-id="<?php echo $row['EventID'] ?>"
               data-event-name="<?php echo $row['EventName'] ?>"
               data-event-description="<?php echo $row['EventDescription'] ?>"
               data-event-location="<?php echo $row['EventLocation'] ?>" data-event-date="<?php echo $row['EventDate'] ?>"
               data-event-time="<?php echo $row['EventTime'] ?>" data-organizer-id="<?php echo $row['OrganizerID'] ?>"
-              data-device-id="<?php echo $row['DeviceID'] ?>" data-event-status="<?php echo $row['EventStatus'] ?>">
-
-
+              data-event-status="<?php echo $row['EventStatus'] ?>">
               <div class="tile-header">
                 <i class="<?php echo $randomIcon; ?>"></i>
               </div>
-
               <div class="tile-body">
-                <strong>
-                  <?php echo $row['EventName'] ?>
-                </strong>
-                <span class="Event-Desc">
-                  <?php echo $row['EventDescription'] ?>
-                </span>
+                <strong><?php echo $row['EventName'] ?> <span class="Event-Desc"
+                    style="font-weight:normal; float : right;">Desc :
+                    <?php echo $row['EventDescription'] ?></span></strong>
+
                 <div class="tile-footer">
                   <span class="Location"><i class="fa-solid fa-location-dot"></i> &nbsp
                     <?php echo $row['EventLocation']; ?>
                   </span>
-                  <span class="Device"><i class="fa-solid fa-Device-dot"></i> &nbsp
-                    <?php echo $row['DeviceName']; ?>
-                  </span>
+
                   <span class="Organizer"><b><i class="fa-regular fa-id-card"></i> &nbsp </b>
-                    <?php echo $row['Name']; ?>
+                    <?php echo $row['OrganizerName']; ?>
                   </span>
+
+                  <div>
+                    <span>
+                      <?php echo $row['EventTime'] ?> <br>
+                    </span>
+                    <span>
+                      <?php echo $row['EventDate'] ?> <br>
+                    </span>
+                  </div>
+
                 </div>
+
                 <div class="tile-footer">
-                  <span><b>Time:</b>
-                    <?php echo $row['EventTime'] ?> <br>
-                  </span>
-                  <span><b>Date:</b>
-                    <?php echo $row['EventDate'] ?> <br>
-                  </span>
-                  <span class="Organizer"><b>Status:</b>
+                  <div style="float :left;">
+                    Your Registred Devices :<br>
+                    <span class="ALLREGEDDEVICES"><i class="fa-solid fa-Device-dot"></i> &nbsp
+                      <b><?php echo $row['DeviceNames']; ?></b>
+                    </span>
+                  </div>
+
+                  <span class="EventStatus <?php echo $row['EventStatus'] === 'Visible' ? 'visible' : 'not-visible'; ?>"
+                    style="float: right;">
+                    <b>Status:</b>
                     <?php echo $row['EventStatus'] ?> <br>
                   </span>
+
                 </div>
               </div>
-
             </div>
-
-          <?php } ?>
+          <?php endwhile; ?>
 
         </div>
 
       </div>
 
-
-      <div class="RHS-Content">
-        <form id="eventForm" action="../Controller/Admin/Events/AddEvent.php" method="post">
-          <input type="hidden" id="eventId" name="event_id">
-          <input type="hidden" id="formAction" name="action" value="add">
-
-          <label for="eventName">Event Name:</label>
-          <input type="text" id="eventName" name="eventName" placeholder="Event Name" required>
-
-          <label for="eventDescription">Event Description:</label>
-          <input type="text" id="eventDescription" name="eventDescription" placeholder="Event DEscription" required>
-
-          <label for="eventLocation">Location:</label>
-          <input type="text" id="eventLocation" name="eventLocation" placeholder="Location" required>
-
-          <label for="organizerName">Organizer Name:</label>
-          <select id="organizerName" name="organizerName" required>
-            <option value="">Select an Organizer</option>
-            <?php
-            $organizersQuery = "SELECT memberID, name FROM member";
-            $organizersResult = mysqli_query($con, $organizersQuery);
-            while ($organizer = mysqli_fetch_assoc($organizersResult)) {
-              echo "<option value='{$organizer['memberID']}'>{$organizer['name']}</option>";
-            }
-            ?>
-          </select>
-
-          <label for="deviceName">Device Name:</label>
-          <select id="deviceName" name="deviceName" required>
-            <option value="">Select a Device</option>
-            <?php
-            $devicesQuery = "SELECT DeviceID, DeviceName, MemberID FROM devices";
-            $devicesResult = mysqli_query($con, $devicesQuery);
-            while ($device = mysqli_fetch_assoc($devicesResult)) {
-              echo "<option value='{$device['DeviceID']}' data-member-id='{$device['MemberID']}'>{$device['DeviceName']}</option>";
-            }
-            ?>
-          </select>
-
-          <label for="eventTime">Time:</label>
-          <input type="time" id="eventTime" name="eventTime" required>
-
-          <label for="eventDate">Date:</label>
-          <input type="date" id="eventDate" name="eventDate" required>
-
-          <label for="eventStatus">Status:</label>
-          <select id="eventStatus" name="eventStatus">
-            <option value="Visible">Visible</option>
-            <option value="Hidden">Hidden</option>
-          </select>
-
-          <div id="formButtons">
-
-            <button type="button" id="updateEventbtn" style="display: none;">Update Event</button>
-            <button type="button" id="deleteEventbtn" style="display: none;">Delete Event</button>
-
-            <button type="submit" name="action" value="add" id="addEvent">Add Event</button>
-          </div>
-
-
-        </form>
+      <div class="RHS-ContentUser full-width">
+        <span id="EventName"></span>
+        <Span id="EventDescription"></Span>
+        <br>
+        <span id="EventLocation"></span>
+        <span id="EventDate"></span>
+        <span id="EventTime"></span>
+        <br>
+        <span id="EventVisibility"></span>
+        <br>
+        <span id="EventDevices"></span>
       </div>
+
 
     </div>
 
   </section>
-
-
-  <!-- <section class="Settings-section sections" id="settingsContent">>
-    <div class="Header_text">Settings</div>
-
-    <div class="Body_content">
-      <div class="setting-option">
-        <a href="../Model\Configurations\Logout.php"><button id="logout"> Logout <i class='bx bx-log-out'
-              id="log_out"></i> </button></a>
-
-      </div>
-
-      <div class="setting-option">
-        <label for="change-user-details">Change User Details:</label>
-        <button id="change-user-details">Change</button>
-
-      </div>
-
-      <dialog id="Update-User-Details">
-        <h2> Update Details</h2>
-        <form method="post" action="../Controller/Admin/Settings/UpdateUserDetails.php">
-          <label for="member_id">Member ID:</label>
-          <input type="text" id="member_id" name="member_id" required><br><br>
-          <label for="Name"> Update Name:</label>
-          <input type="text" id="Name" name="Name" required> <br><br>
-          <label for="Password"> Update Password:</label>
-          <input type="text" id="Password" name="Password" required><br><br>
-          <div class="buttons">
-            <button id="cancel-update">Cancel</button>
-            <button id="Submit" type="submit">Save Changes</button>
-          </div>
-        </form>
-      </dialog>
-
-      <div class="setting-option">
-        <label for="turn-off-website">Turn off Website:</label>
-        <button id="turn-off-website">Turn Off</button>
-
-      </div>
-
-      <div class="setting-option">
-        <label for="DarkMode">Dark/Light Mode:</label>
-        <button id="Mode" onclick="myFunction()">Dark Mode</button>
-      </div>
-    </div>
-
-
-
-  </section> -->
 
   <section class="Settings-section sections" id="settingsContent">
     <div class="Header_text">Settings</div>
@@ -645,23 +659,53 @@ $fetchAllDevicesResult = $stmt->get_result();
   </script>
 
   <script>
+
     document.addEventListener('DOMContentLoaded', function () {
-      var organizerSelect = document.getElementById('organizerName');
-      var deviceSelect = document.getElementById('deviceName');
-      var initialDevicesOptions = Array.from(deviceSelect.options);
+      // Arrays to store device names and event counts
+      var deviceNames = [];
+      var eventCounts = [];
 
-      organizerSelect.addEventListener('change', function () {
-        const selectedOrganizerId = this.value;
-        while (deviceSelect.options.length > 1) deviceSelect.remove(1);
+      // Loop through PHP result and push device names and event counts to arrays
+      <?php
+      while ($row = mysqli_fetch_assoc($deviceParticipationResult)) {
+        echo "deviceNames.push('{$row['DeviceName']}');";
+        echo "eventCounts.push({$row['EventCount']});";
+      }
+      ?>
 
-
-        initialDevicesOptions.forEach(function (option) {
-          if (option.dataset.memberId === selectedOrganizerId) {
-            deviceSelect.add(option.cloneNode(true));
+      // Create pie chart
+      var ctx = document.getElementById('eventsChart').getContext('2d');
+      var eventsChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: deviceNames,
+          datasets: [{
+            label: 'Device Participation in Events',
+            data: eventCounts,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)', // Red
+              'rgba(54, 162, 235, 0.5)', // Blue
+              'rgba(255, 206, 86, 0.5)', // Yellow
+              'rgba(75, 192, 192, 0.5)', // Green
+              'rgba(153, 102, 255, 0.5)', // Purple
+              'rgba(255, 159, 64, 0.5)' // Orange
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Device Participation in Events'
           }
-        });
+        }
       });
     });
+
+
+
 
     document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('Mode').addEventListener('click', function myFunction() {
@@ -675,6 +719,7 @@ $fetchAllDevicesResult = $stmt->get_result();
       });
     });
 
+
   </script>
 
 
@@ -682,18 +727,14 @@ $fetchAllDevicesResult = $stmt->get_result();
   <script src="JS/Home.js"></script>
   <script src="JS/UEChart.js"></script>
   <script src="JS/ULChart.js"></script>
+  <script src="../Controller\User\Events\FetchEventsDataRHS.js"></script>
+  <script src="../Controller\User\Device\Search.js"></script>
   <script src="../Controller/Admin/Dashboard/Dashboard.js"></script>
   <script src="../Controller/Admin/Dashboard/Search.js"></script>
   <script src="../Controller/Admin/Events/Filter_Events_Search.js"></script>
   <script src="../Controller/Admin/Events/UpdateEvent.js"></script>
   <script src="../Controller/Admin/Events/FetchEventtoUpdate.js"></script>
   <script src="../Controller/Admin/Events/AddEvent.js"></script>
-  <script src="../Controller/Admin/PublishEvent/UpdateEventStatus.js"></script>
-  <script src="../Controller/Admin/Member/SearchMember.js"></script>
-  <script src="../Controller/Admin/Member/SelectRow.js"></script>
-  <script src="../Controller/Admin/Member/Member_PopUp.js"></script>
-  <script src="../Controller/Admin/LoginHistory/LoginHistory.js"></script>
-  <script src="../Controller/Admin/LoginHistory/LoginHistorySearch.js"></script>
   <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
   <script src="../Controller/Admin/Settings/DarkMode.js"></script>
 

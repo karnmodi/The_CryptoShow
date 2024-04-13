@@ -127,7 +127,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
 
 <head>
   <meta charset="UTF-8">
-  <title>Admin | The CryptoShow</title>
+  <title>Admin : <?php echo $userName; ?> | The CryptoShow</title>
   <link rel="stylesheet" href="CSS/Admin/Home.css">
   <link rel="stylesheet" href="CSS/Admin/Dashboard.css">
   <link rel="stylesheet" href="CSS/Admin/Events.css">
@@ -797,53 +797,6 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
     </div>
   </section>
 
-  <!-- <section class="Settings-section sections" id="settingsContent">>
-    <div class="Header_text">Settings</div>
-
-    <div class="Body_content">
-      <div class="setting-option">
-        <a href="../Model\Configurations\Logout.php"><button id="logout"> Logout <i class='bx bx-log-out'
-              id="log_out"></i> </button></a>
-
-      </div>
-
-      <div class="setting-option">
-        <label for="change-user-details">Change User Details:</label>
-        <button id="change-user-details">Change</button>
-
-      </div>
-
-      <dialog id="Update-User-Details">
-        <h2> Update Details</h2>
-        <form method="post" action="../Controller/Admin/Settings/UpdateUserDetails.php">
-          <label for="member_id">Member ID:</label>
-          <input type="text" id="member_id" name="member_id" required><br><br>
-          <label for="Name"> Update Name:</label>
-          <input type="text" id="Name" name="Name" required> <br><br>
-          <label for="Password"> Update Password:</label>
-          <input type="text" id="Password" name="Password" required><br><br>
-          <div class="buttons">
-            <button id="cancel-update">Cancel</button>
-            <button id="Submit" type="submit">Save Changes</button>
-          </div>
-        </form>
-      </dialog>
-
-      <div class="setting-option">
-        <label for="turn-off-website">Turn off Website:</label>
-        <button id="turn-off-website">Turn Off</button>
-
-      </div>
-
-      <div class="setting-option">
-        <label for="DarkMode">Dark/Light Mode:</label>
-        <button id="Mode" onclick="myFunction()">Dark Mode</button>
-      </div>
-    </div>
-
-
-
-  </section> -->
 
   <section class="Settings-section sections" id="settingsContent">
     <div class="Header_text">Settings</div>

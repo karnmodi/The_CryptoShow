@@ -2,6 +2,36 @@
     background-color: #f8f8f8;
 }
 
+.Header {
+    display: flex;
+    align-items: center;
+    float: right;
+  }
+  
+  .add-icon {
+    margin-right: 120px;
+    margin-left: 20px;
+    margin-bottom: 25px;
+    z-index: 1; 
+    background-color: #11101d;
+    padding: 15px 25px;
+    border-radius: 20%;
+    border: 2px solid black;
+    color: white;
+    cursor: pointer;
+  }
+  
+  #SearchDevices {
+    width: 130%;
+    padding: 15px;
+    margin-bottom: 25px;
+    margin-right: 30px;
+    border-radius: 10px;
+    font-size: 15px;
+    float: right;
+  }
+  
+
 .device-tiles {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -9,6 +39,7 @@
     margin-right: 10px;
     gap: 50px;
     padding: 20px;
+    align-items: center;
 }
 
 @media (max-width: 1200px) {
@@ -87,9 +118,55 @@
     right: 20px;
     color: white;
     cursor: pointer;
+    font-size: 20px;
+
 }
 
 .pencil-icon:hover{
+    color:  black;
+}
+
+.DeleteDevice-icon{
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+
+}
+
+.DeleteDevice-icon:hover{
+    color:  red;
+}
+
+.edit-icon {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 80px;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+
+}
+
+.edit-icon:hover{
+    color:  greenyellow;
+}
+
+.closeform-icon {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 80px;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.closeform-icon:hover{
     color:  black;
 }
 
@@ -109,6 +186,10 @@
 
 
 .device-tile.expanded .pencil-icon {
+    display: block;
+}
+
+.device-tile.expanded .edit-icon {
     display: block;
 }
 
@@ -144,3 +225,124 @@ td {
 .EDDTAC tbody tr {
     width: 100%;
 }
+
+.EditDevice_form-container{
+    width: 500px;
+}
+
+.EditDevice_form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.EditDevice_form-container label {
+    font-weight: normal;
+    margin-bottom: 5px;
+    color: white;
+    width: max-content; 
+}
+
+.EditDevice_form-container input[type=text],
+.EditDevice_form-container select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: calc(100% - 22px); 
+}
+
+.EditDevice_form-container button {
+    background-color: #ffffff;
+    color: #105D97;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 22px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: calc(100% - 22px); 
+}
+
+.EditDevice_form-container button:hover{
+    background-color: #105D97;
+    border: 2px solid white;
+    color: white;
+}
+
+
+.NewDevice_form-container {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.4); /* Black background with transparency */
+    padding-top: 60px; 
+  }
+  
+  .form-content {
+    background-color: #fefefe;
+    margin: 5% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; 
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+  }
+  
+  .form-content label {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+    width: fit-content;
+  }
+  
+  .form-content input[type="text"],
+  .form-content select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .form-content select {
+    width: 100%;
+  }
+  
+  .NewDevice_form-container button[type="submit"],
+  .closeaddform-icon {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .NewDevice_form-container button[type="submit"] {
+    background-color: #11101d;
+    color: white;
+  }
+  
+  .NewDevice_form-container button[type="submit"]:hover {
+    background-color: #3268fe;
+    color: black;
+  }
+
+  .closeaddform-icon:hover{
+    color: red;
+  }
+
+  .closeaddform-icon{
+    font-size: 35px;
+    float: right;
+  }
+  

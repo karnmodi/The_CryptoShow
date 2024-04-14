@@ -241,11 +241,7 @@ try {
 
     <section id="basic-overview" class="index-cards-container">
         <h2>Basic Overview</h2>
-        <p>The primary aim of the application is to meticulously design and systematically implement a comprehensive
-            full-stack web application that is dedicated to the management and orchestration of an event. The particular
-            scenario that this application is tailored for is a specialized exhibition showcasing Cryptographic Devices,
-            where various stakeholders can interact, display, and engage with the latest advancements in cryptographic
-            technology. </p>
+        <!-- Content for basic overview will be added here -->
     </section>
 
     <script src="View/JS/index.js"></script>

@@ -1,3 +1,61 @@
+<?php
+
+require_once "Model/Configurations/db.php";
+
+$visibleEvents = [];
+$upcomingEvents = [];
+$pastEvents = [];
+
+try {
+
+    $currentDate = date('Y-m-d');
+
+    // Query for upcoming events
+    $upcomingEventsQuery = "
+        SELECT EventID, OrganizerID, DeviceID, EventName, EventDate, EventTime, EventDescription, EventLocation, EventStatus
+        FROM events
+        WHERE EventStatus = ? AND EventDate >= ?;
+    ";
+
+    $stmt = $con->prepare($upcomingEventsQuery);
+    $visibleStatus = 'Visible';
+    $stmt->bind_param("ss", $visibleStatus, $currentDate);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        array_push($upcomingEvents, $row);
+    }
+
+    $stmt->close();
+
+    // Query for past events
+    $pastEventsQuery = "
+        SELECT EventID, OrganizerID, DeviceID, EventName, EventDate, EventTime, EventDescription, EventLocation, EventStatus
+        FROM events
+        WHERE EventStatus = ? AND EventDate < ?;
+    ";
+
+    $stmt = $con->prepare($pastEventsQuery);
+    $stmt->bind_param("ss", $visibleStatus, $currentDate);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        array_push($pastEvents, $row);
+    }
+
+    $stmt->close();
+
+} catch (Exception $e) {
+    error_log($e->getMessage());
+}
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +65,7 @@
     <title>Login | The CryptoShow</title>
     <link rel="stylesheet" href="View/CSS/NavBar.css">
     <link rel="stylesheet" href="View/CSS/index.css">
+    <link rel="stylesheet" href="View/CSS/Demo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -111,22 +170,134 @@
 
     <section id="upcoming-events" class="index-cards-container">
         <h2>Upcoming Events</h2>
-        <!-- Cards for upcoming events will be added here -->
+        <div class="Events-card-container">
+            <?php foreach ($upcomingEvents as $event): ?>
+                <div class="Events-card-box">
+                    <div class="Events-card-index">
+                        <a href="#" class="Events-card-Component"
+                            onclick="showEventData(<?php echo htmlspecialchars($event['EventID']); ?>)">
+                            <div class="Events-card-bg"></div>
+
+                            <div class="Events-card-Name">
+                                <?php echo htmlspecialchars($event['EventName']); ?> <br>
+                                <?php echo htmlspecialchars($event['EventDescription']); ?>
+                            </div>
+
+                            <div class="Events-card-date-box">
+                                Date:
+                                <span class="Events-card-date">
+                                    <?php echo htmlspecialchars($event['EventDate']); ?>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            <?php endforeach; ?>
+        </div>
     </section>
 
     <section id="past-events" class="index-cards-container">
         <h2>Past Events</h2>
-        <!-- Cards for past events will be added here -->
+        <div class="Events-card-container">
+            <?php foreach ($pastEvents as $event): ?>
+                <div class="Events-card-box">
+                    <div class="Events-card-index">
+                        <a href="#" class="Events-card-Component"
+                            onclick="showEventData(<?php echo htmlspecialchars($event['EventID']); ?>)">
+                            <div class="Events-card-bg"></div>
+
+                            <div class="Events-card-Name">
+                                <?php echo htmlspecialchars($event['EventName']); ?> <br>
+                                <?php echo htmlspecialchars($event['EventDescription']); ?>
+                            </div>
+
+                            <div class="Events-card-date-box">
+                                Date:
+                                <span class="Events-card-date">
+                                    <?php echo htmlspecialchars($event['EventDate']); ?>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            <?php endforeach; ?>
+        </div>
     </section>
+
+
+    <div class="event-popup" id="eventPopup">
+        <div class="Event-Data">
+            <span id="EventName"></span><br>
+            <span id="EventDescription"></span><br>
+            <span id="EventLocation"></span><br>
+            <span id="EventDate"></span><br>
+            <span id="EventTime"></span><br>
+            <span id="EventDevices"></span>
+        </div>
+    </div>
+
 
     <section id="basic-overview" class="index-cards-container">
         <h2>Basic Overview</h2>
-        <!-- Content for basic overview will be added here -->
+        <p>The primary aim of the application is to meticulously design and systematically implement a comprehensive
+            full-stack web application that is dedicated to the management and orchestration of an event. The particular
+            scenario that this application is tailored for is a specialized exhibition showcasing Cryptographic Devices,
+            where various stakeholders can interact, display, and engage with the latest advancements in cryptographic
+            technology. </p>
     </section>
 
     <script src="View/JS/index.js"></script>
     <script src="View/JS/SignUp.js"></script>
     <script src="View/JS/Login.js"></script>
+
+    <script>
+        function showEventData(eventID) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var eventData = JSON.parse(xhr.responseText);
+                        displayEventData(eventData);
+                    } else {
+                        console.error('Failed to fetch event data.');
+                    }
+                }
+            };
+
+            xhr.open('GET', 'Controller/Fetch_Upcoming_Events.php?eventID=' + eventID, true);
+            xhr.send();
+        }
+
+        function displayEventData(eventData) {
+            document.getElementById("EventName").innerHTML = "Event Name: " + eventData.EventName;
+            document.getElementById("EventDescription").innerHTML = "Description: " + eventData.EventDescription;
+            document.getElementById("EventLocation").innerHTML = "Location: " + eventData.EventLocation;
+            document.getElementById("EventDate").innerHTML = "Date: " + eventData.EventDate;
+            document.getElementById("EventTime").innerHTML = "Time: " + eventData.EventTime;
+
+            if (eventData.DeviceNames !== "") {
+                var devices = eventData.DeviceNames.split(",");
+                var deviceList = "";
+                devices.forEach(function (deviceID) {
+                    deviceList += deviceID + "<br>";
+                });
+                document.getElementById("EventDevices").innerHTML = "Devices: <br>" + deviceList;
+            } else {
+                document.getElementById("EventDevices").innerHTML = "Devices: <br> No devices have been registered yet.";
+            }
+
+            document.getElementById("eventPopup").style.display = "block";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == document.getElementById("eventPopup")) {
+                document.getElementById("eventPopup").style.display = "none";
+            }
+        }
+
+    </script>
 
 </body>
 

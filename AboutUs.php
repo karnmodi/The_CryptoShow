@@ -104,7 +104,7 @@
     </div>
 
     <div class="AboutUscontainer">
-        <span class="fade-in">We're changing the whole game.</span>
+        <span style="font-size: 200%; text-align: center;">We're changing the whole game.</span>
         <div class="links">
             <a class="Get_Started" role="button" href="#Section2">Get Started</a>
 

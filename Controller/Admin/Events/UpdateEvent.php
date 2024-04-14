@@ -24,11 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $eventStatus = mysqli_real_escape_string($con, $_POST['eventStatus']);
         $eventId = mysqli_real_escape_string($con, $_POST['event_id']);
 
-        if (empty($deviceID) || $deviceID == 'none') {
-            $_SESSION['message'] = 'Please select a device.';
-            header('Location: ../../../View/Home.php?section=events');
-            exit;
-        }
+
 
         $updateQuery = "UPDATE Events SET EventName = '$eventName', EventDescription = '$eventDescription', EventLocation = '$eventLocation', OrganizerID = '$loggedInMemberID', EventTime = '$eventTime', EventDate = '$eventDate', EventStatus = '$eventStatus' WHERE EventID = '$eventId'";
         if (mysqli_query($con, $updateQuery)) {

@@ -1,10 +1,10 @@
-/* Styling for Index Cards */
 .index-cards-container {
     margin: 20px auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
 }
 
 .index-cards-container h2 {
@@ -38,4 +38,6 @@
     transform: translateY(-5px);
     transition: all 0.3s ease;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    
 }
+

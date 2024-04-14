@@ -45,7 +45,6 @@ while ($row = $loginHistoryChartResult->fetch_assoc()) {
 
 
 
-
 // ------------------------------------------- 
 
 // Total Devices count 

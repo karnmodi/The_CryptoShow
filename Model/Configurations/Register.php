@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $result = mysqli_query($con, $sql);
                 if ($result) {
                     $response['success'] = true;
-                    $response['message'] = "Registered Successfully";
+                    $response['message'] = "Registered Successfully!! Now Login with your Credentials.";
                 } else {
                     $response['success'] = false;
                     $response['message'] = "Error: " . mysqli_error($con);

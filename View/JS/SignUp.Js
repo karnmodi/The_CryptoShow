@@ -101,7 +101,7 @@ document.getElementById('btn_Register').addEventListener('click', function(event
     .then(response => response.json()) 
     .then(data => {
         if (data.success) {
-            window.open("View/Home.php#Dashboard", "_self");
+            window.open("index.php", "_self");
             alert(data.message); 
         } else {
             alert(data.message); 

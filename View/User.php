@@ -9,17 +9,18 @@ if (!isset($_SESSION['user_name']) || !isset($_SESSION['member_id'])) {
 require_once "../Model/Configurations/db.php";
 
 $loggedInMemberID = $_SESSION['member_id'];
+$userName = $_SESSION['user_name'];
 
-// Query to find the username based on the member ID
-$usernameQuery = "SELECT Name,Email, Password FROM Member WHERE MemberID = ?";
-$stmt = $con->prepare($usernameQuery);
+$loggedInUserQuery = "SELECT Name, Email, Password FROM Member WHERE MemberID = ?";
+$stmt = $con->prepare($loggedInUserQuery);
 $stmt->bind_param("i", $loggedInMemberID);
 $stmt->execute();
-$usernameResult = $stmt->get_result();
+$loggedInUserResult = $stmt->get_result();
 
-$username = "";
-if ($row = $usernameResult->fetch_assoc()) {
-  $username = $row['Name'];
+if ($row = $loggedInUserResult->fetch_assoc()) {
+    $name = htmlspecialchars($row['Name']);
+    $email = htmlspecialchars($row['Email']);
+    $password = htmlspecialchars($row['Password']);
 }
 
 
@@ -151,7 +152,7 @@ $deviceParticipationResult = $stmt->get_result();
 
 <head>
   <meta charset="UTF-8">
-  <title>User : <?php echo $username ?> | The CryptoShow</title>
+  <title>User : <?php echo $userName ?> | The CryptoShow</title>
   <link rel="stylesheet" href="CSS/Admin/Home.css">
   <link rel="stylesheet" href="CSS/User/Events.css">
   <link rel="stylesheet" href="CSS/Admin/Dashboard.css">
@@ -620,9 +621,31 @@ $deviceParticipationResult = $stmt->get_result();
 
       </div>
       <div class="setting-item">
-        <h3>User Details</h3>
+        <h3>Profile Details</h3>
         <p>Update your profile details</p>
-        <button onclick="location.href='updateDetails.php'">Update Details</button>
+        <p>
+          Your Name : <?php echo $userName ?><br>
+          Your Email : <?php echo $email ?><br>
+          Your Password : <?php echo $password ?><br>
+        </p>
+        <button id="update-details-btn">Update Details</button>
+        <div class="Details-form" id="DetailsForm">
+          <h2>Update Deatails</h2>
+          <form method="post" action="../Controller/Admin/Settings/UpdateDetails.php">
+            <label for="MemberID">MemberID:</label>
+            <input type="text" id="MemberID" name="memberid" value="<?php echo $loggedInMemberID; ?>" readonly required>
+            <label for="Name">Name:</label>
+            <input type="text" id="Name" name="name" value="<?php echo $name; ?>" required>
+            <label for="Email">Email:</label>
+            <input type="text" id="Email" name="email" value="<?php echo $email; ?>" required>
+            <label for="Password">Password:</label>
+            <input type="text" id="Password" name="password" value="<?php echo $password; ?>" required>
+            <div class="buttons">
+              <button onclick="CloseDetailsForm()">Cancel</button>
+              <button id="submit-details" type="submit">Save Details</button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <div class="setting-item theme-preview">
@@ -733,7 +756,7 @@ $deviceParticipationResult = $stmt->get_result();
   <script src="../Controller/Admin/Events/UpdateEvent.js"></script>
   <script src="../Controller/Admin/Events/FetchEventtoUpdate.js"></script>
   <script src="../Controller/Admin/Events/AddEvent.js"></script>
-  <script src="../Controller/Admin/Settings/UpdateUserDetails.js"></script>
+  <script src="../Controller/Admin/Settings/UpdateDetails.js"></script>
   <script src="../Controller/Admin/Settings/DarkMode.js"></script>
 
 

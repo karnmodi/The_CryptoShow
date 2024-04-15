@@ -14,9 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssss", $Name, $Email, $Password, $MemberID);
 
         if ($stmt->execute()) {
-            $_SESSION['message'] = 'Profile Updated Successfully';
+            header("location: ../../../View\Home.php#settingsContent");
         } else {
             $_SESSION['message'] = 'Profile Updation Unsuccessful';
+            header("location: ../../../View\Home.php#settingsContent");
         }
 
         $stmt->close();

@@ -18,9 +18,9 @@ $stmt->execute();
 $loggedInUserResult = $stmt->get_result();
 
 if ($row = $loggedInUserResult->fetch_assoc()) {
-    $name = htmlspecialchars($row['Name']);
-    $email = htmlspecialchars($row['Email']);
-    $password = htmlspecialchars($row['Password']);
+  $name = htmlspecialchars($row['Name']);
+  $email = htmlspecialchars($row['Email']);
+  $password = htmlspecialchars($row['Password']);
 }
 
 
@@ -85,8 +85,8 @@ $resultofFM = mysqli_query($con, $FetchAllMembers);
 // Total Login Counts for the Login history Section
 $loginCountsQuery = "
     SELECT COUNT(l.LoginHistoryID) as LoginCount
-    FROM member m
-    LEFT JOIN loginhistory l ON m.MemberID = l.MemberID
+    FROM loginhistory l
+    LEFT JOIN Member m ON l.MemberID = m.MemberID
     GROUP BY l.LoginHistoryID
 ";
 
@@ -376,7 +376,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
               data-event-description="<?php echo $row['EventDescription'] ?>"
               data-event-location="<?php echo $row['EventLocation'] ?>" data-event-date="<?php echo $row['EventDate'] ?>"
               data-event-time="<?php echo $row['EventTime'] ?>" data-organizer-id="<?php echo $memberId ?>"
-               data-event-status="<?php echo $row['EventStatus'] ?>">
+              data-event-status="<?php echo $row['EventStatus'] ?>">
 
 
               <div class="tile-header">
@@ -436,7 +436,8 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
           <input type="text" id="eventLocation" name="eventLocation" placeholder="Location" required>
 
           <label for="organizerName">Organizer Name:</label>
-          <input type="text" id="organizerName" name="organizerName" value="<?php echo $userName; ?>" readonly style="cursor: not-allowed;">
+          <input type="text" id="organizerName" name="organizerName" value="<?php echo $userName; ?>" readonly
+            style="cursor: not-allowed;">
 
           <label for="deviceName">Device Name:</label>
           <select id="deviceName" name="deviceName[]" multiple size="3">
@@ -853,13 +854,10 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
   </section>
 
 
-  <script>let eventsPerUserData = <?php echo json_encode($eventsPerUserData); ?>;
-  </script>
   <script>
-    const chartData = <?php echo json_encode($chartData); ?>;
-  </script>
 
-  <script>
+    let eventsPerUserData = <?php echo json_encode($eventsPerUserData); ?>;
+    const chartData = <?php echo json_encode($chartData); ?>;
 
     document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('Mode').addEventListener('click', function myFunction() {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2024 at 01:32 AM
+-- Generation Time: Apr 16, 2024 at 12:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,15 +37,6 @@ CREATE TABLE `devices` (
   `MemberID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `devices`
---
-
-INSERT INTO `devices` (`DeviceID`, `DeviceName`, `Description`, `Status`, `MemberID`) VALUES
-(1, 'DeviceName1', 'Description1', NULL, 2),
-(2, 'DeviceName2', 'Description2', NULL, 2),
-(3, 'DeviceName3', 'Description3', NULL, 13);
-
 -- --------------------------------------------------------
 
 --
@@ -56,16 +47,6 @@ CREATE TABLE `eventdevice` (
   `EventID` int(11) NOT NULL,
   `DeviceID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `eventdevice`
---
-
-INSERT INTO `eventdevice` (`EventID`, `DeviceID`) VALUES
-(1, 1),
-(1, 3),
-(2, 3),
-(3, 3);
 
 -- --------------------------------------------------------
 
@@ -85,15 +66,6 @@ CREATE TABLE `events` (
   `EventStatus` enum('Visible','Hidden') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `events`
---
-
-INSERT INTO `events` (`EventID`, `OrganizerID`, `DeviceID`, `EventName`, `EventDate`, `EventTime`, `EventDescription`, `EventLocation`, `EventStatus`) VALUES
-(1, 1, NULL, 'Event1', '2024-04-20', '23:54:00', '1234', 'DMU SU', 'Visible'),
-(2, 1, NULL, 'Event2', '2024-04-12', '12:56:00', 'Description2', 'Library', 'Visible'),
-(3, 1, NULL, 'Event3', '2024-04-18', '13:07:00', '1234', 'Leicester', 'Hidden');
-
 -- --------------------------------------------------------
 
 --
@@ -105,85 +77,6 @@ CREATE TABLE `loginhistory` (
   `MemberID` int(11) NOT NULL,
   `LoginDT` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `loginhistory`
---
-
-INSERT INTO `loginhistory` (`LoginHistoryID`, `MemberID`, `LoginDT`) VALUES
-(1, 2, '2024-03-13 00:34:02'),
-(2, 2, '2024-03-13 01:23:24'),
-(3, 3, '2024-03-13 01:24:18'),
-(4, 3, '2024-03-13 01:32:41'),
-(5, 3, '2024-03-13 01:34:31'),
-(6, 3, '2024-03-13 01:34:49'),
-(7, 3, '2024-03-13 07:32:37'),
-(8, 2, '2024-03-13 21:40:03'),
-(11, 2, '2024-03-14 00:38:07'),
-(13, 3, '2024-03-14 01:51:56'),
-(14, 2, '2024-03-14 02:14:52'),
-(15, 13, '2024-03-14 15:18:25'),
-(16, 2, '2024-03-15 10:32:35'),
-(17, 2, '2024-03-15 12:31:29'),
-(18, 2, '2024-03-15 13:50:45'),
-(19, 2, '2024-03-15 13:51:31'),
-(20, 2, '2024-03-15 16:03:34'),
-(21, 13, '2024-03-15 18:15:44'),
-(22, 13, '2024-03-15 18:20:16'),
-(23, 13, '2024-03-15 18:21:25'),
-(24, 2, '2024-03-15 18:21:44'),
-(25, 2, '2024-03-15 18:25:44'),
-(26, 2, '2024-03-15 18:26:05'),
-(27, 2, '2024-03-15 18:29:56'),
-(28, 2, '2024-03-15 18:30:34'),
-(29, 2, '2024-03-15 18:31:25'),
-(30, 2, '2024-03-15 18:32:57'),
-(31, 2, '2024-03-15 18:34:36'),
-(32, 2, '2024-03-15 18:35:13'),
-(33, 2, '2024-03-15 18:35:14'),
-(34, 2, '2024-03-15 18:35:14'),
-(35, 2, '2024-03-15 18:35:14'),
-(36, 2, '2024-03-15 18:35:33'),
-(37, 1, '2024-03-15 18:35:57'),
-(38, 2, '2024-03-15 18:39:21'),
-(39, 1, '2024-03-15 18:41:49'),
-(40, 2, '2024-03-15 18:42:24'),
-(41, 2, '2024-03-15 18:42:25'),
-(42, 2, '2024-03-15 18:42:25'),
-(43, 2, '2024-03-15 18:42:25'),
-(44, 2, '2024-03-15 18:42:42'),
-(45, 2, '2024-03-15 18:42:54'),
-(46, 14, '2024-03-15 18:50:37'),
-(47, 1, '2024-03-15 18:51:08'),
-(48, 14, '2024-03-15 18:55:25'),
-(49, 1, '2024-03-15 18:56:32'),
-(50, 14, '2024-03-15 18:58:48'),
-(51, 2, '2024-03-16 12:09:56'),
-(52, 1, '2024-03-16 12:11:00'),
-(53, 2, '2024-03-17 08:26:30'),
-(54, 1, '2024-03-17 08:27:05'),
-(55, 2, '2024-03-17 15:01:41'),
-(56, 14, '2024-03-17 15:01:54'),
-(57, 2, '2024-04-04 00:58:52'),
-(58, 1, '2024-04-04 00:59:10'),
-(59, 1, '2024-04-10 00:38:48'),
-(60, 2, '2024-04-10 00:41:21'),
-(61, 2, '2024-04-10 17:41:28'),
-(62, 1, '2024-04-10 17:44:32'),
-(63, 1, '2024-04-13 10:49:57'),
-(64, 2, '2024-04-13 10:50:28'),
-(65, 2, '2024-04-13 17:04:54'),
-(66, 1, '2024-04-13 17:32:12'),
-(67, 2, '2024-04-13 17:32:37'),
-(68, 1, '2024-04-13 18:19:08'),
-(69, 2, '2024-04-13 18:42:46'),
-(70, 2, '2024-04-13 18:52:32'),
-(71, 1, '2024-04-13 20:12:05'),
-(72, 2, '2024-04-13 21:19:53'),
-(73, 13, '2024-04-13 21:26:05'),
-(74, 1, '2024-04-13 22:53:36'),
-(75, 2, '2024-04-13 22:55:03'),
-(76, 13, '2024-04-13 22:57:28');
 
 -- --------------------------------------------------------
 
@@ -198,16 +91,6 @@ CREATE TABLE `member` (
   `Password` varchar(20) DEFAULT NULL,
   `UserType` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `member`
---
-
-INSERT INTO `member` (`MemberID`, `Name`, `Email`, `Password`, `UserType`) VALUES
-(1, 'Karan F. Modi', 'karan@cryptoshow.com', '1234567', 'admin'),
-(2, 'Karan Modi', 'karanmodi3282@gmail.com', '123456', 'member'),
-(3, 'Bhoomi Modi', 'b@gmail.com', '123456', 'admin'),
-(13, 'Karan Modi', 'k1@gmail.com', '1234567', 'member');
 
 --
 -- Indexes for dumped tables
@@ -256,25 +139,25 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `DeviceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `DeviceID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `EventID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `loginhistory`
 --
 ALTER TABLE `loginhistory`
-  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `LoginHistoryID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `MemberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `MemberID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

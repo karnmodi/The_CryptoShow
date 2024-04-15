@@ -197,35 +197,6 @@ try {
         </div>
     </section>
 
-    <section id="recent-events" class="index-cards-container">
-        <h2>Recent Events</h2>
-        <div class="Events-card-container">
-            <?php foreach ($upcomingEvents as $event): ?>
-                <div class="Events-card-box">
-                    <div class="Events-card-index">
-                        <a href="#" class="Events-card-Component"
-                            onclick="showEventData(<?php echo htmlspecialchars($event['EventID']); ?>)">
-                            <div class="Events-card-bg"></div>
-
-                            <div class="Events-card-Name">
-                                <?php echo htmlspecialchars($event['EventName']); ?> <br>
-                                <?php echo htmlspecialchars($event['EventDescription']); ?>
-                            </div>
-
-                            <div class="Events-card-date-box">
-                                Date:
-                                <span class="Events-card-date">
-                                    <?php echo htmlspecialchars($event['EventDate']); ?>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
-
     <section id="past-events" class="index-cards-container">
         <h2>Past Events</h2>
         <div class="Events-card-container">
@@ -269,8 +240,36 @@ try {
 
 
     <section id="basic-overview" class="index-cards-container">
-        <h2>Basic Overview</h2>
-        <!-- Content for basic overview will be added here -->
+        <h1>Basic Overview</h1>
+        <p>
+        <h3>The Cryptoshow</h3>
+
+        <blockquote style="font-size: 18px">
+            The CryptoShow is not just another event management platform; it's a groundbreaking experience in the
+            digital realm. Founded by a dynamic team of five developers - Karan, Farhad, Peter, Bijay, and Nouman, The
+            CryptoShow is the epitome of innovation and collaboration.
+        </blockquote>
+
+        <blockquote style="font-size: 18px">
+        Our journey began with a shared vision to revolutionize the way events are managed and experienced. With a
+        fusion of creativity, technical expertise, and a passion for excellence, we embarked on a mission to create
+        a platform that transcends conventional boundaries.
+        </blockquote>
+
+        <blockquote style="font-size: 18px">
+        At The CryptoShow, we believe in empowering users to engage, connect, and flourish in the ever-evolving
+        digital event landscape. Our platform seamlessly integrates cutting-edge technology with user-centric design
+        to provide an unparalleled experience for both organizers and attendees. <br>
+
+        Driven by our vision to be at the forefront of technological innovation, we are committed to pushing the
+        boundaries of what's possible. Our goal is not just to manage events efficiently but to set new standards in
+        the industry and inspire a future where technology and security converge seamlessly. <br>
+
+        Join us on this journey as we redefine the way events are perceived and experienced. Together, let's create
+        transformative experiences that leave a lasting impact on the world of events and beyond. Welcome to The
+        CryptoShow - where every event is an opportunity for innovation and growth.
+        </blockquote>
+        </p>
     </section>
 
     <script src="View/JS/index.js"></script>

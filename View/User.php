@@ -338,9 +338,9 @@ $deviceParticipationResult = $stmt->get_result();
       </div>
 
       <div class="NewDevice_form-container" id="NewDeviceForm">
-        <i class="fa fa-window-close x" onclick="closeNewDeviceForm()" title="Close Form"></i>
-
+        
         <form method="POST" action="../Controller\User\Device\AddDevice.php" class="form-content">
+          <i class="fa fa-window-close x" onclick="closeNewDeviceForm()" title="Close Form"></i>
           <label for="newDeviceName">Device Name:</label>
           <input type="text" id="newDeviceName" name="newDeviceName" required>
 
@@ -409,6 +409,7 @@ $deviceParticipationResult = $stmt->get_result();
                   onclick="toggleEditDeviceForm('<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>')"
                   id="EDITForm_ICON_<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>"></i>
 
+                  
                 <div class="EditDevice_form-container"
                   id="EditDeviceForm<?php echo htmlspecialchars($deviceRow['DeviceID']); ?>" style="display: none;">
 

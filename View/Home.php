@@ -750,7 +750,7 @@ $fetchAllMembersResult = mysqli_query($con, $fetchAllMembersQuery);
             <div class="member-tile" data-member-id="<?php echo $row['MemberID']; ?>"
               onclick="toggleTile(this, <?php echo $row['MemberID']; ?>)">
               <h1>
-                <?php echo $row['Name']; ?>
+                <?php echo $row['Name']; ?> <h4> (<?php echo $row['Email']; ?>) </h4>
               </h1>
               <div id="LHDATA">
                 <table>
